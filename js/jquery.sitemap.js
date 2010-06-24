@@ -21,9 +21,14 @@ SKOOKUM.NodeMapProto = {
 		this.oy += y;
 	},
 	build: function(data, level) {
+		if (data.length < 1) return;
 		level = level || 0;
+		var ox = 100;
+		var oy = 100;
 		for(var i in data) {
-			
+			$.log("Building " + data[i].title + " at level " + level + " with " + data[i].children.length + " children.");
+			this.add_node(data[i].title, ox + i * 100, oy + level * 100);
+			this.build(data[i].children, level + 1);
 		}
 	},
 	_init: function () {	// I see some of the widgets using _create now... change necessary?
