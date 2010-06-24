@@ -9,10 +9,14 @@ Rect properties: 0, _, attrs, id, next, node, paper, prev, transformations, type
 var SITEMAP = SITEMAP || {};
 
 var test = [{
-	title: "First node"
+	  title: "Root node"
 	, children: [
-		{ title: "Second node", children: [] }
-		, { title: "Third node", children: [] }
+		  { title: "First level 1", children: [] }
+		, { title: "First level 2", children: [
+			  { title: "2nd Level A", children: [] }
+			, { title: "2nd Level B", children: [] }
+			, { title: "2nd Level C", children: [] }
+		] }
 	]
 }];
 
