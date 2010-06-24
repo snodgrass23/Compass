@@ -20,6 +20,12 @@ SKOOKUM.NodeMapProto = {
 		this.ox += x;
 		this.oy += y;
 	},
+	build: function(data, level) {
+		level = level || 0;
+		for(var i in data) {
+			
+		}
+	},
 	_init: function () {	// I see some of the widgets using _create now... change necessary?
 		var that = this;
 		
@@ -37,7 +43,7 @@ SKOOKUM.NodeMapProto = {
 		});
 	
 		$(this.element).mousedown(function (event) {
-			if ($(event.target).parent().attr("id") === that.element.attr("id")) {
+			if ($(event.target).closest("div").data("node-map") === that) {		// Required since Chrome & FF treat parent() differently for SVG elements
 				that.dragging = { on:true, x:event.pageX, y:event.pageY };
 				jQuery.log("Dragging from x, y: " + that.dragging.x + ", " + that.dragging.y);
 			}
@@ -75,7 +81,7 @@ SKOOKUM.NodeEditorProto = {
 		target.left -= this.element.innerWidth() * .5;
 		target.top -= (this.element.innerHeight() + node.height * .5);
 		target.top -= 5;
-		this.element.show();
+		this.element.stop().fadeTo(250, 1.0);
 		this.element.css('top', target.top);
 		this.element.css('left', target.left);
 		var input = this.element.find("input").first();
@@ -84,7 +90,7 @@ SKOOKUM.NodeEditorProto = {
 		input.select();
 	},
 	hide: function() {
-		this.element.fadeOut(400);
+		this.element.stop().fadeOut(400);
 	},
 	_init: function() {
 		var that = this;
@@ -98,7 +104,7 @@ SKOOKUM.NodeEditorProto = {
 			that.hide();
 		});
 		this.element.find("input").blur(function(event) {
-			//that.hide();
+			that.hide();
 		});
 		this.element.find("form").submit(function() {
 			return false;
