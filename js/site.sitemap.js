@@ -27,4 +27,5 @@ window.onload = function () {
 	SITEMAP.map.nodeMap('build', test);
 	//SITEMAP.map.nodeMap('add_node', 'Home is where the heart is', 100, 100);
 	//SITEMAP.map.nodeMap('add_node', 'Another node', 200, 200);
+
 }

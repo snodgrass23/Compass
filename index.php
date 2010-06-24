@@ -11,10 +11,15 @@
     </head>
 
     <body>
-
-		<div id="map">
+		<div id="navigation">		
+			<ul>
+				<li>File</li>
+				<li>Edit</li>
+				<li>View</li>
+			</ul>
+			<input results='10' type='search' placeholder="Help" /> 
 		</div>
-		
+		<div id="map"></div>
 		<div class="overlay">
 			<div id='node-editor'>
 				<form>
@@ -22,7 +27,6 @@
 				</form>
 			</div>
 		</div>
-		
 		<script src="js/raphael.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
