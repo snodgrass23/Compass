@@ -1658,7 +1658,7 @@ Raphael = (function () {
                 c.removeChild(c.firstChild);
             }
             this.bottom = this.top = null;
-            (this.desc = $("desc"))[appendChild](doc.createTextNode("Created with Rapha\xebl"));
+            (this.desc = $("desc"))[appendChild](doc.createTextNode("Made by Skookum Labs - Created with jQuery and Rapha\u00ebl"));
             c[appendChild](this.desc);
             c[appendChild](this.defs = $("defs"));
         };

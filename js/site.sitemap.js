@@ -22,4 +22,7 @@ window.onload = function () {
 	
 	SITEMAP.map.nodeMap('add_node', 'Home is where the heart is', 100, 100);
 	SITEMAP.map.nodeMap('add_node', 'Another node', 200, 200);
+
+	SITEMAP.map.nodeMap('add_node', 'Rock n\' Roll', 300, 300);
+
 }

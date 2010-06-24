@@ -1,3 +1,5 @@
+@import url("reset.css");
+
 article, aside, dialog, figure, footer, header,
 hgroup, menu, nav, section { display: block; }
 
@@ -7,15 +9,43 @@ html, body {
 
 body {
 	font-family: Verdana, Arial, sans-serif;
+
+	background: url(images/bg.gif) repeat;
+
 }
+
+
+#navigation {
+	background-color:    silver;
+	overflow:    hidden;
+}
+
+#navigation ul {
+	overflow:    hidden;
+	float:    left;
+	margin-left:    200px;
+}
+
+#navigation ul li {
+	float:    left;
+	margin-right:    20px;
+	margin-left:    20px;
+}
+
+
+/* The drawing canvas and included elements */
 
 #map {
 	border: solid 1px #000;
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	right: 10px;
+	top: 25px;
+	left: 100px;
+	right: 100px;
 	bottom: 10px;
+	
+	
+	background-color: rgba(51,51,51,.6);
+
 }
 
 #node-editor {
@@ -23,7 +53,7 @@ body {
 	top: 0;
 	left: 0;
 	border: solid 1px #999;
-	background: #cdf;
+	background: rgba(204,221,255,.8);
 	padding: 5px 5px 5px 5px;
 	width: 140px;
 	display: none;
