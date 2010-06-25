@@ -70,6 +70,7 @@ SKOOKUM.NodeMapProto = {
 			if ($(event.target).closest("div").data("node-map") === that) {		// Required since Chrome & FF treat parent() differently for SVG elements
 				that.dragging = { on:true, x:event.pageX, y:event.pageY };
 				jQuery.log("Dragging from x, y: " + that.dragging.x + ", " + that.dragging.y);
+				document.onselectstart = function(){ return false; }	// Hack to display the proper cursor in Chrome
 			}
 		});
 		
@@ -87,58 +88,11 @@ SKOOKUM.NodeMapProto = {
 		$(this.element).mouseup(function (event) {
 			that.dragging.on = false;
 			jQuery.log("No more dragging.");
+			document.onselectstart = function(){ return true; }		// Cursor hack part II
 		});
 	}
 }
 jQuery.widget("ui.nodeMap", SKOOKUM.NodeMapProto);
-
-
-SKOOKUM.NodeEditorProto = {
-	options: {
-		class_name: "node-editor",
-	},
-	edit_node: function(node) {
-		this.node = node;
-		target = $("#map").offset();
-		target.top += node.y;				// TODO: Collapse these into one statement
-		target.left += node.x;
-		target.left -= this.element.innerWidth() * .5;
-		target.top -= (this.element.innerHeight() + node.height * .5);
-		target.top -= 5;
-		this.element.stop().fadeTo(250, 1.0);
-		this.element.css('top', target.top);
-		this.element.css('left', target.left);
-		var input = this.element.find("input").first();
-		input.val(node.title);
-		input.focus();
-		input.select();
-		node.activate();
-	},
-	hide: function() {
-		this.element.stop().fadeOut(400);
-		this.node.deactivate();
-	},
-	_init: function() {
-		var that = this;
-		this.element.hide();
-		this.node = null;
-		$(document).bind('edit-node', function(event, node) {
-			that.edit_node(node);
-		});
-		this.element.find("input").change(function(event) {
-			that.node.set('title', $(this).val());
-			that.hide();
-		});
-		this.element.find("input").blur(function(event) {
-			that.hide();
-		});
-		this.element.find("form").submit(function() {
-			return false;
-		});
-	}
-}
-jQuery.widget("ui.nodeEditor", SKOOKUM.NodeEditorProto);
-
 
 
 SKOOKUM.NodeProto = function(raph, title, x, y) {
@@ -156,7 +110,7 @@ SKOOKUM.NodeProto = function(raph, title, x, y) {
 	this.render = function() {
 		var h_padding = 20,
 			v_padding = 10,
-			roundedness = 10,
+			roundedness = 3,
 			bbox = null;
 		this.clear();
 		this.text = this.raph.text(this.x, this.y, this.title),
@@ -165,7 +119,7 @@ SKOOKUM.NodeProto = function(raph, title, x, y) {
 		this.height = bbox.height + (v_padding * 2),
 		this.rect = this.raph.rect(this.x - this.width * .5, this.y - this.height * .5, this.width, this.height, roundedness),
 	
-		this.rect.attr({ fill:'#ccc', stroke:'#bbb', 'stroke-width':2, cursor:'pointer' });
+		this.rect.attr({ fill:'#c7d3e0', stroke:'none', 'stroke-width':2, cursor:'pointer' });
 		this.text.attr({ fill:'#555', cursor:'pointer' });
 		this.text.toFront();
 		
@@ -185,11 +139,11 @@ SKOOKUM.NodeProto = function(raph, title, x, y) {
 		$(document).trigger('edit-node', [that]);	// A little cludgy
 	};
 	this.activate = function() {
-		that.rect.attr({ fill:'#ddd' });
-		that.text.attr({ fill:'#777' });
+		that.rect.attr({ fill:'#cfdae6' });
+		that.text.attr({ fill:'#555' });
 	}
 	this.deactivate = function() {
-		that.rect.attr({ fill:'#ccc' });
+		that.rect.attr({ fill:'#c7d3e0' });
 		that.text.attr({ fill:'#555' });
 	}
 	this.set = function(prop, val) {

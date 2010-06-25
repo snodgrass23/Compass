@@ -6,9 +6,23 @@ html, body {
 }
 
 body {
-	font-family: Verdana, Arial, sans-serif;
 	/*background: url(images/bg.gif) repeat;*/
 	background: #ddd;
+}
+
+h1, h2 {
+	font-family: 'Josefin Sans Std Light', arial, serif;
+}
+
+h1 {
+	font-size: 30px;
+	padding: 20px 0 10px 30px;
+	color: #222;
+}
+
+h1 em {
+	color: #777;
+	font-size: 22px;
 }
 
 
@@ -35,26 +49,31 @@ body {
 #map {
 	border: solid 1px #bbb;
 	position: absolute;
-	top: 30px;
+	top: 60px;
 	left: 30px;
 	right: 30px;
 	bottom: 30px;
 	background-color: #fff;
-
+	-moz-box-shadow: 2px 2px 7px #666;
+	-webkit-box-shadow: 2px 2px 7px #666;
+	box-shadow: 2px 2px 7px #666;
+	cursor: move;
 }
 
 #node-editor {
 	position: absolute;
 	top: 0;
 	left: 0;
-	border: solid 1px #999;
-	background: rgba(204,221,255,.8);
-	padding: 5px 5px 5px 5px;
-	width: 140px;
+	background: transparent url('../images/node_editor.png') top left no-repeat;
+	width: 208px;
+	height: 90px;
 	display: none;
 }
 
 #node-editor input {
-	width: 133px;
+	width: 175px;
+	position: absolute;
+	top: 13px;
+	left: 13px;
 	font-size: 12px;
 }
