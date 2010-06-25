@@ -95,6 +95,8 @@ SKOOKUM.NodeMapProto = {
 jQuery.widget("ui.nodeMap", SKOOKUM.NodeMapProto);
 
 
+
+
 SKOOKUM.NodeProto = function(raph, title, x, y) {
 	var that = this;
 	
@@ -127,9 +129,6 @@ SKOOKUM.NodeProto = function(raph, title, x, y) {
 		this.text.click(this.onClick);
 	};
 	this.move = function(x, y) {
-		//this.x += x;
-		//this.y += y;
-		//this.render();
 		this.x += x;
 		this.y += y;
 		this.rect.translate(x, y);
