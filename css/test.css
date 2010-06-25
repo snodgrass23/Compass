@@ -8,7 +8,7 @@ html, body {
 body {
 	font-family: Verdana, Arial, sans-serif;
 	/*background: url(images/bg.gif) repeat;*/
-
+	background: #ddd;
 }
 
 
@@ -33,13 +33,13 @@ body {
 /* The drawing canvas and included elements */
 
 #map {
-	border: solid 1px #ddd;
+	border: solid 1px #bbb;
 	position: absolute;
 	top: 30px;
-	left: 50px;
-	right: 50px;
-	bottom: 10px;
-	background-color: #eee;
+	left: 30px;
+	right: 30px;
+	bottom: 30px;
+	background-color: #fff;
 
 }
 

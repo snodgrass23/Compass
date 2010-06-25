@@ -20,6 +20,25 @@ SKOOKUM.NodeMapProto = {
 		this.ox += x;
 		this.oy += y;
 	},
+	/*build: function(data) {		// Develop a queue for breadth first processing
+		var queue = [];
+		var pointer = 0;
+		for(var i in data) {
+			queue.push(data[i]);
+			data[i].parent = null;
+		}
+		while(pointer < queue.length) {
+			for(var j in queue[pointer].children) {
+				queue.push(queue[pointer].children[j]);
+				queue[pointer].children[j].parent = queue[pointer];	// Also build links back to parents
+			}
+			pointer++;
+		}
+		for(var k in queue) {			// Check the order of processing, TODO: remove
+			jQuery.log(queue[k].title);
+		}
+		
+	},*/
 	build: function(data, level) {
 		if (data.length < 1) return;
 		level = level || 0;
@@ -58,7 +77,7 @@ SKOOKUM.NodeMapProto = {
 			if(that.dragging.on) {
 				var dX = event.pageX - that.dragging.x;
 				var dY = event.pageY - that.dragging.y;
-				jQuery.log("Dragging over x, y: " + event.pageX + ", " + event.pageY + " with dX, dY: " + dX + ", " + dY);
+				//jQuery.log("Dragging over x, y: " + event.pageX + ", " + event.pageY + " with dX, dY: " + dX + ", " + dY);
 				that.offset(dX, dY);
 				that.dragging.x = event.pageX;
 				that.dragging.y = event.pageY;
@@ -93,9 +112,11 @@ SKOOKUM.NodeEditorProto = {
 		input.val(node.title);
 		input.focus();
 		input.select();
+		node.activate();
 	},
 	hide: function() {
 		this.element.stop().fadeOut(400);
+		this.node.deactivate();
 	},
 	_init: function() {
 		var that = this;
@@ -148,18 +169,29 @@ SKOOKUM.NodeProto = function(raph, title, x, y) {
 		this.text.attr({ fill:'#555', cursor:'pointer' });
 		this.text.toFront();
 		
-		this.rect.click(this.activate);		// Is there any good reason to use $(this.rect.node).click() instead?
-		this.text.click(this.activate);
+		this.rect.click(this.onClick);		// Is there any good reason to use $(this.rect.node).click() instead?
+		this.text.click(this.onClick);
 	};
 	this.move = function(x, y) {
+		//this.x += x;
+		//this.y += y;
+		//this.render();
 		this.x += x;
 		this.y += y;
-		this.render();
+		this.rect.translate(x, y);
+		this.text.translate(x, y);
 	}
-	this.activate = function(event) {
-		that.rect.attr({ fill:'#ddd' });
+	this.onClick = function(event) {
 		$(document).trigger('edit-node', [that]);	// A little cludgy
 	};
+	this.activate = function() {
+		that.rect.attr({ fill:'#ddd' });
+		that.text.attr({ fill:'#777' });
+	}
+	this.deactivate = function() {
+		that.rect.attr({ fill:'#ccc' });
+		that.text.attr({ fill:'#555' });
+	}
 	this.set = function(prop, val) {
 		that[prop] = val;
 		if(prop === 'title') {

@@ -8,7 +8,7 @@ Rect properties: 0, _, attrs, id, next, node, paper, prev, transformations, type
 
 var SITEMAP = SITEMAP || {};
 
-var test = [{
+var test = [ {
 	  title: "Root node"
 	, children: [
 		  { title: "First level 1", children: [] }
@@ -29,7 +29,5 @@ window.onload = function () {
 	SITEMAP.editor.nodeEditor();
 	
 	SITEMAP.map.nodeMap('build', test);
-	//SITEMAP.map.nodeMap('add_node', 'Home is where the heart is', 100, 100);
-	//SITEMAP.map.nodeMap('add_node', 'Another node', 200, 200);
 
 }
