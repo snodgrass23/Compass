@@ -7,9 +7,7 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css" />
-        <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Nobile' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.2.custom.css" />
 		<link href='http://fonts.googleapis.com/css?family=Josefin+Sans+Std+Light' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/test.css" media="screen, print" />
     </head>
@@ -18,9 +16,12 @@
     	<h1>Sitemap Editor <em>// prototype</em></h1>
 		<div id="map"></div>
 		<div class="overlay">
-			<div id='node-editor'>
+			<div id='node-editor' class="node-editor">
 				<form>
 					<input class="title" type='text' />
+					<div class="options">
+						<div class="size slider"></div>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -30,6 +31,7 @@
 		<script src="js/skookum.jsutil.js"></script>
 		<script src="js/jquery.sitemap.js"></script>
 		<script src="js/jquery.node-editor.js"></script>
+		<script src="js/raphael.map-node.js"></script>
 		<script src="js/site.sitemap.js"></script>
     </body>
 </html>

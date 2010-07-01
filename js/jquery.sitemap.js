@@ -4,12 +4,23 @@ var SKOOKUM = SKOOKUM || {};
 	Requires Raphael, jQuery, the jQuery UI Widget Factory, skookum.jsutil.js
 */
 
-SKOOKUM.NodeMapProto = {
+var done = 0;
+
+SKOOKUM.SiteMapProto = {
 	options: {
-		class_name: "node-map"
+		class_name: "site-map",
+		ox: 320,
+		oy: 100,
+		data: null
 	},
-	add_node: function (title, x, y) {
-		var node = this.raph.mapNode(title, x, y);
+	default_layout: {
+		type: 'branch',
+		size: 10,
+		spacing: 10,
+		direction: 'down'
+	},
+	add_node: function (title, x, y, data) {
+		var node = this.raph.mapNode(title, x, y, data);
 		this.nodes.push(node);
 		return node;
 	},
@@ -20,37 +31,99 @@ SKOOKUM.NodeMapProto = {
 		this.ox += x;
 		this.oy += y;
 	},
-	/*build: function(data) {		// Develop a queue for breadth first processing
+	build: function(data) {		// Develop a queue for breadth first processing TODO: no longer necessary with the new layout model =(
+		jQuery.log("Building from data: " + data);
+		$(this.raph.canvas).empty();
+		this.data = data;
 		var queue = [];
 		var pointer = 0;
-		for(var i in data) {
-			queue.push(data[i]);
-			data[i].parent = null;
+		var i = null;
+		data.layout = this.default_layout;	// Set the layout for root(hidden)->first level nodes
+		
+		// Drop in all immediate children
+		data.parent = null;
+		for (i in data.children) {
+			jQuery.log("Pushing child " + i + " into queue...");
+			queue.push(data.children[i]);
+			data.children[i].layout = data.children[i].layout || this.default_layout;
+			data.children[i].parent = data;
 		}
-		while(pointer < queue.length) {
-			for(var j in queue[pointer].children) {
-				queue.push(queue[pointer].children[j]);
-				queue[pointer].children[j].parent = queue[pointer];	// Also build links back to parents
+		
+		// Add all of the deeper-than-1st-level children to the breadth first queue
+		while (pointer < queue.length) {
+			jQuery.log("Processing children of queue item #" + pointer);
+			for (i in queue[pointer].children) {
+				queue.push(queue[pointer].children[i]);
+				queue[pointer].children[i].layout = queue[pointer].children[i].layout || this.default_layout;	// Add default layouts
+				queue[pointer].children[i].parent = queue[pointer];	// Also build links back to parents
 			}
 			pointer++;
 		}
-		for(var k in queue) {			// Check the order of processing, TODO: remove
-			jQuery.log(queue[k].title);
+		
+		// Create all of these nodes in BF order
+		for (i in queue) {
+			this.add_node(queue[i].title, 0, 0, queue[i]);
 		}
 		
-	},*/
-	build: function(data, level) {
-		if (data.length < 1) return;
-		level = level || 0;
-		var ox = 100;
-		var oy = 100;
-		for(var i in data) {
-			$.log("Building " + data[i].title + " at level " + level + " with " + data[i].children.length + " children.");
-			this.add_node(data[i].title, ox + i * 100, oy + level * 100);
-			this.build(data[i].children, level + 1);
+		// Position all of the nodes
+		this._layout(this.data);
+	},
+	_layout: function(data, x, y) {
+		//jQuery.log("Layout for " + data.title + " at " + x + ", " + y);
+		var i = null,
+			parent_height = 0;
+		
+		// Root node should be positioned at the origin (ox, oy)
+		if (!data.parent) {
+			x = this.options.ox;
+			y = this.options.oy;
+		}
+		
+		// Sometimes we're just refreshing child nodes, so we want to keep the current position
+		x = x || data.node.x;
+		y = y || data.node.y;
+		
+		// Position the node at x, y (or at the origin x and y for the root node)
+		if (data.parent) {
+			data.node.moveTo(x, y);				// Only non-root data items have "node" elements for display
+			parent_height = data.node.height;
+		}
+		
+		// Recursively calculate positions for child nodes
+		if (data.children.length === 0) {
+			return;
+		}
+		if (data.layout.type === 'branch') {
+			var child_y = y + parent_height * .5;
+			var total_width = 0;
+			var split_y = child_y + data.layout.size;
+			var path = "M " + x + " " + (child_y) + " L " + x + " " + split_y + " " ;
+			child_y += data.layout.size * 2;
+			for (i in data.children) {
+				total_width += data.children[i].node.width;
+			}
+			total_width += ( data.layout.spacing * (data.children.length - 1) );
+			var child_x = x - total_width * .5; // - total_width * .5;
+			for (i in data.children) {
+				child_x = child_x + (data.children[i].node.width * .5);
+				path += "M " + child_x + " " + split_y + " ";
+				path += "L " + child_x + " " + (split_y + data.layout.size) + " ";
+				this._layout(data.children[i], child_x, child_y + (data.children[i].node.height * .5));
+				child_x = child_x + (data.children[i].node.width * .5) + data.layout.spacing;
+			}
+			if(data.children.length > 1) {
+				var node1 = data.children[0].node;
+				var node2 = data.children[data.children.length - 1].node;
+				path += "M " + node1.x + " " + split_y + " ";
+				path += "L " + node2.x + " " + split_y + " ";
+			}			
+			if(data.parent) {
+				jQuery.log("Path is " + path);
+				data.node.set('path', this.raph.path(path));
+			}
 		}
 	},
-	_init: function () {	// I see some of the widgets using _create now... change necessary?
+	_create: function () {
 		var that = this;
 		
 		this.nodes = [];
@@ -60,101 +133,36 @@ SKOOKUM.NodeMapProto = {
 		this.oy = 0;
 		this.dragging = { on:false, x:0, y:0 };
 		
-		jQuery.log("Setting up resize event...");
+		// Simulate an infinite canvas
 		$(window).resize(function (event) {
-			jQuery.log("Resizing to " + $(that.element).innerWidth() + "x" + $(that.element).innerHeight());
 			that.raph.setSize($(that.element).innerWidth(), $(that.element).innerHeight());
 		});
 	
+		// Dragging on the "artboard"
 		$(this.element).mousedown(function (event) {
 			if ($(event.target).closest("div").data("node-map") === that) {		// Required since Chrome & FF treat parent() differently for SVG elements
 				that.dragging = { on:true, x:event.pageX, y:event.pageY };
-				jQuery.log("Dragging from x, y: " + that.dragging.x + ", " + that.dragging.y);
-				document.onselectstart = function(){ return false; }	// Hack to display the proper cursor in Chrome
+				document.onselectstart = function(){ return false; }			// Hack to display the proper cursor in Chrome
 			}
 		});
-		
 		$(this.element).mousemove(function (event) {
 			if(that.dragging.on) {
 				var dX = event.pageX - that.dragging.x;
 				var dY = event.pageY - that.dragging.y;
-				//jQuery.log("Dragging over x, y: " + event.pageX + ", " + event.pageY + " with dX, dY: " + dX + ", " + dY);
 				that.offset(dX, dY);
 				that.dragging.x = event.pageX;
 				that.dragging.y = event.pageY;
 			}
 		});
-		
 		$(this.element).mouseup(function (event) {
 			that.dragging.on = false;
-			jQuery.log("No more dragging.");
 			document.onselectstart = function(){ return true; }		// Cursor hack part II
+		});
+		
+		// Refresh the display when any node is updated
+		$(document).bind('update-node', function(event, node) {
+			that._layout(node.data.parent);
 		});
 	}
 }
-jQuery.widget("ui.nodeMap", SKOOKUM.NodeMapProto);
-
-
-
-
-SKOOKUM.NodeProto = function(raph, title, x, y) {
-	var that = this;
-	
-	this.raph = raph;		// this.prototype = raph.el? That's how rect, circle, etc work...
-	this.title = title;
-	this.x = x;
-	this.y = y;
-	
-	this.clear = function() {
-		if(this.text) this.text.remove();
-		if(this.rect) this.rect.remove();
-	};
-	this.render = function() {
-		var h_padding = 20,
-			v_padding = 10,
-			roundedness = 3,
-			bbox = null;
-		this.clear();
-		this.text = this.raph.text(this.x, this.y, this.title),
-		bbox = this.text.getBBox(),
-		this.width = bbox.width + (h_padding * 2),
-		this.height = bbox.height + (v_padding * 2),
-		this.rect = this.raph.rect(this.x - this.width * .5, this.y - this.height * .5, this.width, this.height, roundedness),
-	
-		this.rect.attr({ fill:'#c7d3e0', stroke:'none', 'stroke-width':2, cursor:'pointer' });
-		this.text.attr({ fill:'#555', cursor:'pointer' });
-		this.text.toFront();
-		
-		this.rect.click(this.onClick);		// Is there any good reason to use $(this.rect.node).click() instead?
-		this.text.click(this.onClick);
-	};
-	this.move = function(x, y) {
-		this.x += x;
-		this.y += y;
-		this.rect.translate(x, y);
-		this.text.translate(x, y);
-	}
-	this.onClick = function(event) {
-		$(document).trigger('edit-node', [that]);	// A little cludgy
-	};
-	this.activate = function() {
-		that.rect.attr({ fill:'#cfdae6' });
-		that.text.attr({ fill:'#555' });
-	}
-	this.deactivate = function() {
-		that.rect.attr({ fill:'#c7d3e0' });
-		that.text.attr({ fill:'#555' });
-	}
-	this.set = function(prop, val) {
-		that[prop] = val;
-		if(prop === 'title') {
-			that.render();
-		}
-	};
-	
-	this.render();
-}
-
-Raphael.fn.mapNode = function (title, x, y) {	
-	return new SKOOKUM.NodeProto(this, title, x, y);		// Raphael.fn.* is called with apply() so "this" = the Raphael instance
-}
+jQuery.widget("ui.siteMap", SKOOKUM.SiteMapProto);

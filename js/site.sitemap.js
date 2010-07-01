@@ -8,26 +8,29 @@ Rect properties: 0, _, attrs, id, next, node, paper, prev, transformations, type
 
 var SITEMAP = SITEMAP || {};
 
-var test = [ {
+SITEMAP.test_data = {
 	  title: "Root node"
-	, children: [
+	  , children: [
 		  { title: "First level 1", children: [] }
 		, { title: "First level 2", children: [
-			  { title: "2nd Level A", children: [] }
+			  { title: "2nd Level A", children: [
+			  	  { title: "3rd Level X", children: [] }
+			  	, { title: "3rd Level Y", children: [] }
+			  ] }
 			, { title: "2nd Level B", children: [] }
 			, { title: "2nd Level C", children: [] }
 		] }
 	]
-}];
+};
 
 window.onload = function () {
 
 	SITEMAP.map = $("#map");
 	SITEMAP.editor = $("#node-editor");
 	
-	SITEMAP.map.nodeMap();
+	SITEMAP.map.siteMap();
 	SITEMAP.editor.nodeEditor();
 	
-	SITEMAP.map.nodeMap('build', test);
+	SITEMAP.map.siteMap('build', SITEMAP.test_data, 100, 100);
 
 }
