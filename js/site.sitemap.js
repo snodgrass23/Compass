@@ -25,12 +25,9 @@ SITEMAP.test_data = {
 
 window.onload = function () {
 
-	SITEMAP.map = $("#map");
-	SITEMAP.editor = $("#node-editor");
+	SITEMAP.siteMap = $("#map").siteMap();
+	SITEMAP.nodeEditor = $("#node-editor").nodeEditor();
 	
-	SITEMAP.map.siteMap();
-	SITEMAP.editor.nodeEditor();
-	
-	SITEMAP.map.siteMap('build', SITEMAP.test_data, 100, 100);
+	SITEMAP.siteMap('build', SITEMAP.test_data, 100, 100);
 
 }

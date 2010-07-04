@@ -126,13 +126,18 @@ SKOOKUM.SiteMapProto = {
 	_create: function () {
 		var that = this;
 		
-		this.nodes = [];
 		this.raph = Raphael(this.element.attr('id'), this.element.width(), this.element.height());
 		this.element.data("node-map", this);
-		this.ox = 0;
-		this.oy = 0;
+				
+		this.nodes = [];
+		this.off_x = 0;
+		this.off_y = 0;
 		this.dragging = { on:false, x:0, y:0 };
 		
+		this._create_event_listeners();		
+	},
+	_create_event_listeners: function () {
+	
 		// Simulate an infinite canvas
 		$(window).resize(function (event) {
 			that.raph.setSize($(that.element).innerWidth(), $(that.element).innerHeight());
