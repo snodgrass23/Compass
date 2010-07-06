@@ -181,7 +181,7 @@ SKOOKUM.SM.SiteMapProto = {
 			SKOOKUM.log("add-node for " + new_node.title);
 			var new_gui = that._add_gui(new_node, parent_gui);
 			that._layout(parent_gui);
-			$(new_gui).trigger('node-gui-focus', [new_gui]);
+			$(document).trigger('added-node-gui', [new_gui, that]);
 		});
 		
 		$(this).bind('node-gui-focus', function(event, node_gui) {

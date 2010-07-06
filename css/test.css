@@ -63,7 +63,7 @@ h1 em {
 	left: 0;
 	top: 0;
 	right: 210px;
-	bottom: 250px;
+	bottom: 350px;
 	background-color: #fff;
 	cursor: move;
 }
@@ -73,7 +73,7 @@ h1 em {
 	left: 0;
 	bottom: 0;
 	right: 210px;
-	height: 250px;
+	height: 350px;
 	background-color: #cde;
 	cursor: move;
 }

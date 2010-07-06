@@ -7,6 +7,7 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	edit_node: function(node_gui) {
 		this.node_gui = node_gui;
+		this.sitemap_instance = node_gui.ownerDocument;
 		var target = node_gui.getPageCoords();
 		target.left -= this.element.innerWidth() * .5;
 		target.top -= (this.element.innerHeight() + node_gui.height * .5);
@@ -33,10 +34,16 @@ SKOOKUM.SM.NodeEditorProto = {
 		var that = this;
 		this.element.hide();
 		this.node_gui = null;
+		this.sitemap_instance = null;
 		
 		$(document).bind('edit-node-gui', function(event, node_gui) {
 			SKOOKUM.log("EVENT: edit-node");
 			that.edit_node(node_gui);
+		});
+		$(document).bind('added-node-gui', function(event, node_gui, sitemap_instance) {
+			if (sitemap_instance === that.sitemap_instance) {
+				that.edit_node(node_gui);
+			}
 		});
 		this.element.find("input").change(function(event) {
 			SKOOKUM.log("EVENT: change");
