@@ -16,14 +16,15 @@ var SKOOKUM = (function() {
 	    return s;
 	};
 	
-	if (typeOf(SKOOKUM) === "object") {
+	if (typeOf(SKOOKUM) === "object") {		// Don't overwrite if SKOOKUM utils are included twice
 		return SKOOKUM;
 	}
 	else {
 		return {
 			typeOf: typeOf,
 			
-			introspect: function(name, obj) {
+			introspect: function(obj, name) {
+				name = name || "(no name given)";
 				var props = [],
 					meths = [];
 				for (var prop in obj) {
@@ -49,4 +50,4 @@ var SKOOKUM = (function() {
 			
 		};
 	}
-} () );
+}) ();
