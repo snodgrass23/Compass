@@ -131,6 +131,15 @@ SKOOKUM.SM.SiteMapProto = {
 		
 		this._create_event_listeners();		
 	},
+	_onDrag: function(x, y) {
+		if(this.dragging.on) {
+			var dX = x - this.dragging.x;
+			var dY = y - this.dragging.y;
+			this.offset(dX, dY);
+			this.dragging.x = x;
+			this.dragging.y = y;
+		}
+	},
 	_create_event_listeners: function () {
 		var that = this;
 		
@@ -144,17 +153,17 @@ SKOOKUM.SM.SiteMapProto = {
 			if ($(event.target).closest("div").data("node-map") === that) {		// Required since Chrome & FF treat parent() differently for SVG elements
 				that.dragging = { on:true, x:event.pageX, y:event.pageY };
 				document.onselectstart = function(){ return false; }			// Hack to display the proper cursor in Chrome
+				$(document).mousemove(function (event) {
+					that._onDrag(event.pageX, event.pageY);
+				});
+				$(document).bind('mouseup mouseleave', function(event) {
+					$(document).unbind('mouseup mouseleave');				// This could have side-effects! TODO: make more elegant?
+					that.dragging.on = false;
+					document.onselectstart = function(){ return true; }		// Cursor hack part II
+				});
 			}
 		});
-		$(this.element).mousemove(function (event) {
-			if(that.dragging.on) {
-				var dX = event.pageX - that.dragging.x;
-				var dY = event.pageY - that.dragging.y;
-				that.offset(dX, dY);
-				that.dragging.x = event.pageX;
-				that.dragging.y = event.pageY;
-			}
-		});
+		
 		$(this.element).mouseup(function (event) {
 			that.dragging.on = false;
 			document.onselectstart = function(){ return true; }		// Cursor hack part II
@@ -163,16 +172,20 @@ SKOOKUM.SM.SiteMapProto = {
 		// Refresh the display when any node is updated
 		// TODO: Modify these global event listeners to scope only to node_guis within this sitemap instance
 		// (how? Good question... bad answer is a loop iterating through node_guis[] and comparing)
-		$(document).bind('update-node-gui', function(event, node_gui) {
+		$(this).bind('update-node-gui', function(event, node_gui) {
 			SKOOKUM.log("update-node-gui for " + node_gui.data.title);
 			that._layout(node_gui.parent);
 		});
 		
-		$(this).bind('add-node-gui', function(event, new_node, parent_gui) {
-			SKOOKUM.log("add-node-gui for " + new_node.title);
+		$(this).bind('add-node', function(event, new_node, parent_gui) {
+			SKOOKUM.log("add-node for " + new_node.title);
 			var new_gui = that._add_gui(new_node, parent_gui);
 			that._layout(parent_gui);
-			$(document).trigger('edit-node', [new_gui]);
+			$(new_gui).trigger('node-gui-focus', [new_gui]);
+		});
+		
+		$(this).bind('node-gui-focus', function(event, node_gui) {
+			$(document).trigger('edit-node-gui', [node_gui]);
 		});
 		
 		$(document).bind('delete-node-gui', function(event, node_gui) {

@@ -3,16 +3,15 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 SKOOKUM.SM.NodeEditorProto = {
 	options: {
 		class_name: "node-editor",
+		opacity: 0.9
 	},
 	edit_node: function(node_gui) {
 		this.node_gui = node_gui;
-		target = $("#map").offset();
-		target.top += node_gui.y;				// TODO: Collapse these into one statement
-		target.left += node_gui.x;
+		var target = node_gui.getPageCoords();
 		target.left -= this.element.innerWidth() * .5;
 		target.top -= (this.element.innerHeight() + node_gui.height * .5);
 		target.top += 8;
-		this.element.stop().fadeTo(250, 1.0);
+		this.element.stop().fadeTo(250, this.options.opacity);
 		this.element.css('top', target.top);
 		this.element.css('left', target.left);
 		var input = this.element.find("input").first();
@@ -35,7 +34,7 @@ SKOOKUM.SM.NodeEditorProto = {
 		this.element.hide();
 		this.node_gui = null;
 		
-		$(document).bind('edit-node', function(event, node_gui) {
+		$(document).bind('edit-node-gui', function(event, node_gui) {
 			SKOOKUM.log("EVENT: edit-node");
 			that.edit_node(node_gui);
 		});

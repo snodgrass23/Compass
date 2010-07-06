@@ -195,6 +195,7 @@ h1 em {
 
 #node-editor ul li.label {
 /*	min-width: 35px;*/
+	font-weight: bold;
 }
 
 #node-editor ul li a {
@@ -202,19 +203,19 @@ h1 em {
 	display: block;
 	text-decoration: none;
 	padding: 1px 4px 1px 4px;
-	background: rgba(255, 255, 255, 0.7);
+	background: rgba(255, 255, 255, 1.0);
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;
 	color: #444;
 }
 
 #node-editor ul li a:hover {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 1.0);
 	color: #fff;
 }
 
 #node-editor ul li a.warn {
-	background: rgba(255, 0, 0, 0.7);
+	background: rgba(255, 0, 0, 1.0);
 	color: #fff;
 }
 

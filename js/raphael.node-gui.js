@@ -14,6 +14,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.data = data;
 	this.parent = null;
 	this.children = [];
+	this.ownerDocument = null;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
 	this.x = x || 0;
 	this.y = y || 0;
 	
@@ -60,6 +61,9 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});		
 
 	};
+	proto.onClick = function (event) {
+		$(this).trigger('node-gui-focus', [this]);
+	};
 	proto.listen = function () {
 		var that = this;
 		$(this.data).bind('update', function (event) {
@@ -68,7 +72,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 		$(this.data).bind('add-node', function(event, node) {		// Should creating new guis be handled here or in jquery.sitemap.js?
 			SKOOKUM.log("add-node for " + node.title);
-			$(that).trigger('add-node-gui', [node, that]);
+			$(that).trigger('add-node', [node, that]);
 		});
 		$(this.data).bind('delete-node', function(event) {
 			that.clear();
@@ -77,7 +81,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 	};
 	proto.update = function () {
-		$(document).trigger('update-node-gui', [this]);
+		$(this).trigger('update-node-gui', [this]);
 	};
 	proto.move = function (dx, dy) {
 		this.x += dx;
@@ -93,9 +97,12 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		var dy = y - this.y;
 		this.move(dx, dy);
 	};
-	proto.onClick = function (event) {
-		$(document).trigger('edit-node', [this]);
-	};
+	proto.getPageCoords = function() {
+		var offset = this.ownerDocument.element.offset();
+		offset.left += this.x;
+		offset.top += this.y;
+		return offset;
+	}
 	proto.activate = function () {
 
 	};
