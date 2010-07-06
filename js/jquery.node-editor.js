@@ -36,13 +36,37 @@ SKOOKUM.SM.NodeEditorProto = {
 		this.node_gui = null;
 		
 		$(document).bind('edit-node', function(event, node_gui) {
+			SKOOKUM.log("EVENT: edit-node");
 			that.edit_node(node_gui);
 		});
 		this.element.find("input").change(function(event) {
+			SKOOKUM.log("EVENT: change");
 			that.node_gui.data.set_title($(this).val());
 			that.hide();
 		});
+		this.element.find("input").keydown(function(event) {
+			if (event.which === 13) {	// Enter
+				SKOOKUM.log("EVENT: Enter pressed");
+				//$(this).trigger('change');
+				that.node_gui.data.set_title($(this).val());
+				that.node_gui.data.add_child();
+				return false;
+			}
+			else if (event.which === 9) {	// Tab
+				SKOOKUM.log("EVENT: Tab pressed");
+				//$(this).trigger('change');
+				that.node_gui.data.set_title($(this).val());
+				that.node_gui.data.add_sibling();
+				return false;
+			}
+			else if (event.which === 27) {	// Escape
+				that.node_gui.data.set_title($(this).val());
+				$(this).blur();
+				return false;
+			}
+		});
 		this.element.find("input").blur(function(event) {
+			SKOOKUM.log("EVENT: blur");
 			that.hide();
 		});
 		this.element.find("form").submit(function() {
