@@ -41,7 +41,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 			roundedness = 3,
 			bbox = null;
 		this.clear();
-		this.text = this.raph.rect(this.x - 5, this.y - 5, 10, 10); //this.raph.text(this.x, this.y, this.data.title),
+		this.text = this.raph.text(this.x, this.y, this.data.title),
 		bbox = this.text.getBBox(),
 		this.width = bbox.width + (h_padding * 2),
 		this.height = bbox.height + (v_padding * 2),
