@@ -1,10 +1,6 @@
-var SKOOKUM = SKOOKUM || {};
-
 /*
 	Requires Raphael, jQuery, the jQuery UI Widget Factory, skookum.jsutil.js
 */
-
-var done = 0;
 
 SKOOKUM.SiteMapProto = {
 	options: {
@@ -32,7 +28,7 @@ SKOOKUM.SiteMapProto = {
 		this.oy += y;
 	},
 	build: function(data) {		// Develop a queue for breadth first processing TODO: no longer necessary with the new layout model =(
-		jQuery.log("Building from data: " + data);
+		SKOOKUM.log("Building from data: " + data);
 		$(this.raph.canvas).empty();
 		this.data = data;
 		var queue = [];
@@ -43,7 +39,7 @@ SKOOKUM.SiteMapProto = {
 		// Drop in all immediate children
 		data.parent = null;
 		for (i in data.children) {
-			jQuery.log("Pushing child " + i + " into queue...");
+			SKOOKUM.log("Pushing child " + i + " into queue...");
 			queue.push(data.children[i]);
 			data.children[i].layout = data.children[i].layout || this.default_layout;
 			data.children[i].parent = data;
@@ -51,7 +47,7 @@ SKOOKUM.SiteMapProto = {
 		
 		// Add all of the deeper-than-1st-level children to the breadth first queue
 		while (pointer < queue.length) {
-			jQuery.log("Processing children of queue item #" + pointer);
+			SKOOKUM.log("Processing children of queue item #" + pointer);
 			for (i in queue[pointer].children) {
 				queue.push(queue[pointer].children[i]);
 				queue[pointer].children[i].layout = queue[pointer].children[i].layout || this.default_layout;	// Add default layouts
@@ -69,7 +65,7 @@ SKOOKUM.SiteMapProto = {
 		this._layout(this.data);
 	},
 	_layout: function(data, x, y) {
-		//jQuery.log("Layout for " + data.title + " at " + x + ", " + y);
+		//SKOOKUM.log("Layout for " + data.title + " at " + x + ", " + y);
 		var i = null,
 			parent_height = 0;
 		
@@ -118,7 +114,7 @@ SKOOKUM.SiteMapProto = {
 				path += "L " + node2.x + " " + split_y + " ";
 			}			
 			if(data.parent) {
-				jQuery.log("Path is " + path);
+				SKOOKUM.log("Path is " + path);
 				data.node.set('path', this.raph.path(path));
 			}
 		}
@@ -137,7 +133,8 @@ SKOOKUM.SiteMapProto = {
 		this._create_event_listeners();		
 	},
 	_create_event_listeners: function () {
-	
+		var that = this;
+		
 		// Simulate an infinite canvas
 		$(window).resize(function (event) {
 			that.raph.setSize($(that.element).innerWidth(), $(that.element).innerHeight());

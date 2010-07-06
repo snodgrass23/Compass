@@ -6,9 +6,9 @@ Rect methods: animate, animateAlong, animateAlongBack, animateWith, attr, blur, 
 Rect properties: 0, _, attrs, id, next, node, paper, prev, transformations, type 
 */
 
-var SITEMAP = SITEMAP || {};
+SKOOKUM.SM = {};
 
-SITEMAP.test_data = {
+SKOOKUM.SM.test_data = {
 	  title: "Root node"
 	  , children: [
 		  { title: "First level 1", children: [] }
@@ -25,9 +25,9 @@ SITEMAP.test_data = {
 
 window.onload = function () {
 
-	SITEMAP.siteMap = $("#map").siteMap();
-	SITEMAP.nodeEditor = $("#node-editor").nodeEditor();
+	SKOOKUM.SM.map = $("#map").siteMap();
+	SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
 	
-	SITEMAP.siteMap('build', SITEMAP.test_data, 100, 100);
+	SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.test_data, 100, 100);
 
 }
