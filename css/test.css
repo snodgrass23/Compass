@@ -63,8 +63,18 @@ h1 em {
 	left: 0;
 	top: 0;
 	right: 210px;
-	bottom: 0;
+	bottom: 250px;
 	background-color: #fff;
+	cursor: move;
+}
+
+#map2 {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 210px;
+	height: 250px;
+	background-color: #cde;
 	cursor: move;
 }
 
@@ -76,6 +86,7 @@ h1 em {
 	bottom: 0;
 	background: #eee;
 	background: -moz-linear-gradient(left, #ddd, #eee 10px);
+	background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#ddd), color-stop(0.07, #eee));
 }
 
 #toolbar h1, h2 {
@@ -98,13 +109,14 @@ h1 em {
 .toolbox h1 {
 	width: 175px;
 	padding: 3px 0 2px 5px;
-	/*-moz-border-radius-topleft: 5px;*/
 	-moz-border-radius-topright: 5px;
+	-webkit-border-top-right-radius: 5px;
 	margin: 0 0 0 0;
 	border-bottom: solid 1px #515151;
 	border-top: solid 1px #e2e2e2;
 	background: #b6b6b6;
 	background: -moz-linear-gradient(top, #cfcfcf, #a8a8a8);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cfcfcf), to(#a8a8a8));
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 	letter-spacing: .25px;
 	font-weight: bold;
@@ -117,6 +129,8 @@ h1 em {
 	margin-bottom: 12px;	
 	-moz-border-radius-bottomleft: 5px;
 	-moz-border-radius-topright: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
 	background: #ededed;
 	/*background: -moz-linear-gradient(top, #f0efef 50%, #d2d3d3);*/
 	-moz-box-shadow: 6px 6px 12px #ccc;
@@ -131,6 +145,7 @@ h1 em {
 	border-right: solid 1px #cccbcb;
 	border-bottom: solid 1px #cccbcb;
 	-moz-border-radius-bottomleft: 5px;	
+	-webkit-border-bottom-left-radius: 5px;
 }
 
 #node-editor {
@@ -189,6 +204,7 @@ h1 em {
 	padding: 1px 4px 1px 4px;
 	background: rgba(255, 255, 255, 0.7);
 	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
 	color: #444;
 }
 

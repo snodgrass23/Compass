@@ -9,6 +9,8 @@ SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData(
 
 window.onload = function () {
 	SKOOKUM.SM.map = $("#map").siteMap();
+	$("#map2").siteMap();
 	SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
 	SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.test_data, 100, 100);
+	$("#map2").siteMap('build', SKOOKUM.SM.test_data, 100, 100);
 }

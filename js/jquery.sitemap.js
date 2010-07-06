@@ -15,6 +15,7 @@ SKOOKUM.SM.SiteMapProto = {
 		var gui = this.raph.node_gui(data);
 		gui.parent = parent_gui;
 		parent_gui.children.push(gui);
+		gui.ownerDocument = this;			// To enable jQuery event "bubbling" on non-DOM objects
 		this.node_guis.push(gui);
 		return gui;
 	},
@@ -30,6 +31,7 @@ SKOOKUM.SM.SiteMapProto = {
 				gui.children.push(new_child);
 			}
 		}
+		gui.ownerDocument = this;		// To enable jQuery event "bubbling" on non-DOM objects
 		this.node_guis.push(gui);
 		return gui;
 	},
@@ -166,7 +168,7 @@ SKOOKUM.SM.SiteMapProto = {
 			that._layout(node_gui.parent);
 		});
 		
-		$(document).bind('add-node-gui', function(event, new_node, parent_gui) {
+		$(this).bind('add-node-gui', function(event, new_node, parent_gui) {
 			SKOOKUM.log("add-node-gui for " + new_node.title);
 			var new_gui = that._add_gui(new_node, parent_gui);
 			that._layout(parent_gui);

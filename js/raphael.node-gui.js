@@ -68,7 +68,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 		$(this.data).bind('add-node', function(event, node) {		// Should creating new guis be handled here or in jquery.sitemap.js?
 			SKOOKUM.log("add-node for " + node.title);
-			$(document).trigger('add-node-gui', [node, that]);
+			$(that).trigger('add-node-gui', [node, that]);
 		});
 		$(this.data).bind('delete-node', function(event) {
 			that.clear();
