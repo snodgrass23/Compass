@@ -63,11 +63,13 @@ h1 em {
 	left: 0;
 	top: 0;
 	right: 210px;
-	bottom: 350px;
+	/*bottom: 350px;*/
+	bottom: 0;
 	background-color: #fff;
 	cursor: move;
 }
 
+/*
 #map2 {
 	position: absolute;
 	left: 0;
@@ -77,6 +79,7 @@ h1 em {
 	background-color: #cde;
 	cursor: move;
 }
+*/
 
 #toolbar {
 	position: absolute;
