@@ -1,45 +1,45 @@
-SKOOKUM.NodeEditorProto = {
+SKOOKUM.SM = SKOOKUM.SM || {};
+
+SKOOKUM.SM.NodeEditorProto = {
 	options: {
 		class_name: "node-editor",
 	},
-	edit_node: function(node) {
-		this.node = node;
+	edit_node: function(node_gui) {
+		this.node_gui = node_gui;
 		target = $("#map").offset();
-		target.top += node.y;				// TODO: Collapse these into one statement
-		target.left += node.x;
+		target.top += node_gui.y;				// TODO: Collapse these into one statement
+		target.left += node_gui.x;
 		target.left -= this.element.innerWidth() * .5;
-		target.top -= (this.element.innerHeight() + node.height * .5);
+		target.top -= (this.element.innerHeight() + node_gui.height * .5);
 		target.top += 8;
 		this.element.stop().fadeTo(250, 1.0);
 		this.element.css('top', target.top);
 		this.element.css('left', target.left);
 		var input = this.element.find("input").first();
-		input.val(node.title);
+		input.val(node_gui.data.title);
 		input.focus();
 		input.select();
-		SKOOKUM.log(SKOOKUM.introspect(node));
-		SKOOKUM.log("Node position: " + node.x + ", " + node.y);
-		//node.activate();
+		node_gui.activate();
 	},
 	hide: function() {
 		this.element.stop().fadeOut(400);
-		this.node.deactivate();
+		this.node_gui.deactivate();
 	},
 	set_size: function(val) {
-		jQuery.log("layout.size was " + this.node.data.layout.size + "...");
-		this.node.data.layout.size = val;
-		this.node.update();
-		jQuery.log("... but now is " + this.node.data.layout.size);
+		this.node_gui.data.layout.size = val;
+		this.node_gui.update();
 	},
 	_create: function() {
+	
 		var that = this;
 		this.element.hide();
-		this.node = null;
-		$(document).bind('edit-node', function(event, node) {
-			that.edit_node(node);
+		this.node_gui = null;
+		
+		$(document).bind('edit-node', function(event, node_gui) {
+			that.edit_node(node_gui);
 		});
 		this.element.find("input").change(function(event) {
-			that.node.set('title', $(this).val());
+			that.node_gui.data.set_title($(this).val());
 			that.hide();
 		});
 		this.element.find("input").blur(function(event) {
@@ -48,14 +48,17 @@ SKOOKUM.NodeEditorProto = {
 		this.element.find("form").submit(function() {
 			return false;
 		});
-		this.element.find("action-new-child").click(function() {
-			var new_child = that.node.data.addChild();
-			$(document).trigger('edit-node', [new_child]);
+		this.element.find(".action-new-child").click(function() {
+			SKOOKUM.log("action-new-child");
+			var new_child = that.node_gui.data.add_child();
 			return false;
 		});
 		this.element.find(".action-new-sibling").click(function() {
-			var new_sibling = that.node.data.addSibling();
-			$(document).trigger('edit-node', [new_sibling]);
+			var new_sibling = that.node_gui.data.add_sibling();
+			return false;
+		});
+		this.element.find(".action-delete").click(function () {
+			that.node_gui.data.delete_self_recursive();
 			return false;
 		});
 		/*
@@ -71,4 +74,4 @@ SKOOKUM.NodeEditorProto = {
 		*/
 	}
 }
-jQuery.widget("ui.nodeEditor", SKOOKUM.NodeEditorProto);
+jQuery.widget("ui.nodeEditor", SKOOKUM.SM.NodeEditorProto);

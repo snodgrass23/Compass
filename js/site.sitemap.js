@@ -6,28 +6,16 @@ Rect methods: animate, animateAlong, animateAlongBack, animateWith, attr, blur, 
 Rect properties: 0, _, attrs, id, next, node, paper, prev, transformations, type 
 */
 
-SKOOKUM.SM = {};
+SKOOKUM.SM = SKOOKUM.SM || {};
 
-SKOOKUM.SM.test_data = {
-	  title: "Root node"
-	  , children: [
-		  { title: "First level 1", children: [] }
-		, { title: "First level 2", children: [
-			  { title: "2nd Level A", children: [
-			  	  { title: "3rd Level X", children: [] }
-			  	, { title: "3rd Level Y", children: [] }
-			  ] }
-			, { title: "2nd Level B", children: [] }
-			, { title: "2nd Level C", children: [] }
-		] }
+SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData(
+	{ title: "Root node", children: [
+			{ title: "Start Here", children: [] }
 	]
-};
+});
 
 window.onload = function () {
-
 	SKOOKUM.SM.map = $("#map").siteMap();
 	SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
-	
 	SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.test_data, 100, 100);
-
 }
