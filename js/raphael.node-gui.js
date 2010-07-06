@@ -83,14 +83,26 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.update = function () {
 		$(this).trigger('update-node-gui', [this]);
 	};
+	proto.get_all_raph_objects = function() {
+		var objs = [this.rect, this.text];
+		this.path && objs.push(this.path);
+		return objs;
+	};
 	proto.move = function (dx, dy) {
 		this.x += dx;
 		this.y += dy;
-		this.rect.translate(dx, dy);
-		this.text.translate(dx, dy);
-		if (this.path) {
-			this.path.translate(dx, dy);
+		if(this.path) {
+			this.raph.set(this.rect, this.text, this.path).translate(dx, dy);
 		}
+		else {
+			this.raph.set(this.rect, this.text).translate(dx, dy);
+		}
+		/*
+		this.raph.set(this.rect, this.text).translate(dx, dy);
+		//this.rect.translate(dx, dy);
+		//this.text.translate(dx, dy);
+		this.path && this.path.translate(dx, dy);
+		*/
 	};
 	proto.moveTo = function (x, y) {
 		var dx = x - this.x;

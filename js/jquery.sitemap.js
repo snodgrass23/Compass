@@ -150,14 +150,27 @@ SKOOKUM.SM.SiteMapProto = {
 	
 		// Dragging on the "artboard"
 		$(this.element).mousedown(function (event) {
-			if ($(event.target).closest("div").data("node-map") === that) {		// Required since Chrome & FF treat parent() differently for SVG elements
+			if ($(event.target).closest("div").data("node-map") === that) {		// Clearly not working
 				that.dragging = { on:true, x:event.pageX, y:event.pageY };
 				document.onselectstart = function(){ return false; }			// Hack to display the proper cursor in Chrome
+				var objs = [];
+				for (var i in that.node_guis) {
+					objs = objs.concat(that.node_guis[i].get_all_raph_objects());
+				}
+				var theSet = that.raph.set(objs);
 				$(document).mousemove(function (event) {
-					that._onDrag(event.pageX, event.pageY);
+					//that._onDrag(event.pageX, event.pageY);
+					var dX = event.pageX - that.dragging.x;
+					var dY = event.pageY - that.dragging.y;
+					theSet.translate(dX, dY);
+					that.ox += dX;
+					that.oy += dY;
+					that.dragging.x = event.pageX;
+					that.dragging.y = event.pageY;
 				});
 				$(document).bind('mouseup mouseleave', function(event) {
-					$(document).unbind('mouseup mouseleave');				// This could have side-effects! TODO: make more elegant?
+					$(document).unbind ('mousemove');
+					$(document).unbind ('mouseup mouseleave');				// This could have side-effects! TODO: make more elegant?
 					that.dragging.on = false;
 					document.onselectstart = function(){ return true; }		// Cursor hack part II
 				});
