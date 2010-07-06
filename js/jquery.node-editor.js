@@ -51,7 +51,7 @@ SKOOKUM.SM.NodeEditorProto = {
 			that.hide();
 		});
 		this.element.find("input").keydown(function(event) {
-			if (event.which === 13) {	// Enter
+			if (event.which === 13 && event.shiftKey) {	// Enter
 				SKOOKUM.log("EVENT: Enter pressed");
 				//$(this).trigger('change');
 				that.node_gui.data.set_title($(this).val());
@@ -66,7 +66,7 @@ SKOOKUM.SM.NodeEditorProto = {
 				return false;
 			}
 			else if (event.which === 27) {	// Escape
-				that.node_gui.data.set_title($(this).val());
+				//that.node_gui.data.set_title($(this).val());
 				$(this).blur();
 				return false;
 			}

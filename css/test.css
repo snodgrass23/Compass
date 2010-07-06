@@ -156,15 +156,15 @@ h1 em {
 	top: 0;
 	left: 0;
 	background: transparent url('../images/node_editor.png') top left no-repeat;
-	width: 208px;
-	height: 100px;
+	width: 178px;
+	height: 130px;
 	display: none;
 	font-size: 11px;
 	font-family: Arial, sans-serif;
 }
 
 #node-editor input {
-	width: 175px;
+	width: 145px;
 	position: absolute;
 	top: 13px;
 	left: 13px;
@@ -179,8 +179,6 @@ h1 em {
 }
 
 #node-editor ul {
-	float: left;
-	clear: left;
 	color: #444;
 	margin: 2px 0 2px 0;
 }
@@ -191,7 +189,6 @@ h1 em {
 }
 
 #node-editor ul li {
-	float: inherit;
 	display: block;
 	margin: 0 2px 0 2px;
 }
@@ -202,10 +199,12 @@ h1 em {
 }
 
 #node-editor ul li a {
-	float: inherit;
 	display: block;
+	float: left;
+	clear: left;
 	text-decoration: none;
 	padding: 1px 4px 1px 4px;
+	margin: 2px 0 1px 0;
 	background: rgba(255, 255, 255, 1.0);
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;

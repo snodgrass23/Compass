@@ -38,13 +38,6 @@ SKOOKUM.SM.SiteMapProto = {
 	_remove_gui: function(node_gui) {
 		this.node_guis.splice(this.node_guis.indexOf(node_gui), 1);
 	},
-	offset: function (x, y) {
-		for (var i in this.node_guis) {
-			this.node_guis[i].move(x, y);
-		}
-		this.ox += x;
-		this.oy += y;
-	},
 	/**
 	 * Build a sitemap from existing data
 	 * @param data the SKOOKUM.SM.DataNode to use as the root for this sitemap
@@ -139,6 +132,13 @@ SKOOKUM.SM.SiteMapProto = {
 			this.dragging.x = x;
 			this.dragging.y = y;
 		}
+	},
+	offset: function (x, y) {
+		for (var i in this.node_guis) {
+			this.node_guis[i].move(x, y);
+		}
+		this.ox += x;
+		this.oy += y;
 	},
 	_create_event_listeners: function () {
 		var that = this;
