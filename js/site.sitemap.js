@@ -1,10 +1,3 @@
-/*
-Raphael methods: circle, clear, ellipse, getFont, image, mapNode, path, print, raphael, rect, remove, safari, set, setSize, text 
-Raphael properties: bottom, canvas, defs, desc, height, svgns, top, width, xlink
-
-Rect methods: animate, animateAlong, animateAlongBack, animateWith, attr, blur, click, clone, dblclick, drag, gesturechange, gestureend, gesturestart, getBBox, getPointAtLength, getSubpath, getTotalLength, hide, hover, insertAfter, insertBefore, mousedown, mousemove, mouseout, mouseover, mouseup, onAnimation, orientationchange, remove, resetScale, rotate, scale, show, stop, toBack, toFront, toString, touchcancel, touchend, touchmove, touchstart, translate, unclick, undblclick, ungesturechange, ungestureend, ungesturestart, unhover, unmousedown, unmousemove, unmouseout, unmouseover, unmouseup, unorientationchange, untouchcancel, untouchend, untouchmove, untouchstart
-Rect properties: 0, _, attrs, id, next, node, paper, prev, transformations, type 
-*/
 
 SKOOKUM.SM = SKOOKUM.SM || {};
 
