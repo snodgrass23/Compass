@@ -140,17 +140,46 @@ SKOOKUM.SM.SiteMapProto = {
 			this.node_guis[i].move(x, y);
 		}
 	},
+	_update_size: function() {
+		this.raph.setSize($(this.element).innerWidth(), $(this.element).innerHeight());
+	},
 	_create_event_listeners: function () {
 		var that = this;
 		
 		// Simulate an infinite canvas
 		$(window).resize(function (event) {
-			that.raph.setSize($(that.element).innerWidth(), $(that.element).innerHeight());
+			that._update_size();	
 		});
 		
 		// Enable dragging around the artboard
-		// (old style moved elements on the SVG canvas... much faster in webkit to do this)
-		$(this.element).draggable();		
+		// TODO: Make the artboard stretch to always be exactly as large as the contents of the SVG,
+		// rather than forcing the SVG to be huge when you're just scrolling around.
+		var drag_update = null;
+		var drag_options = null;
+		if ($.browser.webkit) {			// webkit handles constant resizing very smoothly
+			drag_options = {
+				drag: function() {
+					that._update_size();
+				},
+				stop: function() {
+					that._update_size();
+				}
+			};
+		}
+		else {							// sadly, FF doesn't
+			drag_options = {
+				start: function() {
+					drag_update = window.setInterval(function() {
+						that._update_size();
+					}, 400);
+				},
+				stop: function() {
+					window.clearInterval(drag_update);
+					that._update_size();
+				}
+			}
+		}
+		$(this.element).draggable(drag_options);		
 		
 		$(this).bind('update-node-gui', function(event, node_gui) {
 			SKOOKUM.log("update-node-gui for " + node_gui.data.title);

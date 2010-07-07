@@ -46,6 +46,10 @@ var SKOOKUM = (function() {
 				if (window.console) {
 					console.log("%o", msg);
 				}
+			},
+			
+			getTicks: function() {
+				return (new Date()).getTime();
 			}
 			
 		};
