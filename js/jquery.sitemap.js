@@ -147,38 +147,11 @@ SKOOKUM.SM.SiteMapProto = {
 		$(window).resize(function (event) {
 			that.raph.setSize($(that.element).innerWidth(), $(that.element).innerHeight());
 		});
-	
-		// Dragging on the "artboard"
-		$(this.element).mousedown(function (event) {
-			if ($(event.target).closest("div").data("node-map") === that) {		// Clearly not working
-				var dragX = event.pageX;
-				var dragY = event.pageY;
-				document.onselectstart = function () { return false; }			// Hack to display the proper cursor in Chrome
-				$(document).mousemove(function (event) {
-					for (var i in that.node_guis) {
-						that.node_guis[i].move(event.pageX - dragX, event.pageY - dragY);
-					}
-					dragX = event.pageX;
-					dragY = event.pageY;
-				});
-				$(document).bind('mouseup mouseleave', function(event) {
-					that.ox += dragX;
-					that.oy += dragY;
-					$(document).unbind ('mousemove');
-					$(document).unbind ('mouseup mouseleave');				// This could have side-effects! TODO: make more elegant?
-					document.onselectstart = function(){ return true; }		// Cursor hack part II
-				});
-			}
-		});
 		
-		$(this.element).mouseup(function (event) {
-			that.dragging.on = false;
-			document.onselectstart = function(){ return true; }		// Cursor hack part II
-		});
+		// Enable dragging around the artboard
+		// (old style moved elements on the SVG canvas... much faster in webkit to do this)
+		$(this.element).draggable();		
 		
-		// Refresh the display when any node is updated
-		// TODO: Modify these global event listeners to scope only to node_guis within this sitemap instance
-		// (how? Good question... bad answer is a loop iterating through node_guis[] and comparing)
 		$(this).bind('update-node-gui', function(event, node_gui) {
 			SKOOKUM.log("update-node-gui for " + node_gui.data.title);
 			that._layout(node_gui.parent);
