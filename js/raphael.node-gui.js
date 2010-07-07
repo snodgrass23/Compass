@@ -36,6 +36,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		if (this.path) this.path.remove();
 	};
 	proto.render = function () {
+		if (!this.data) return;
 		var h_padding = 20,
 			v_padding = 10,
 			roundedness = 3,
@@ -54,14 +55,14 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		var that = this;
 
 		this.rect.click(function (event) {		// Must re-register listeners for newly created graphics objects
-			that.onClick(event);
+			that.request_focus();
 		});
 		this.text.click(function (event) {
-			that.onClick(event);
+			that.request_focus();
 		});		
 
 	};
-	proto.onClick = function (event) {
+	proto.request_focus = function () {
 		$(this).trigger('node-gui-focus', [this]);
 	};
 	proto.listen = function () {

@@ -17,6 +17,7 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 			this.children.push(new_child);
 		}
 	}
+	return this;
 };
 /*
 	Methods
@@ -44,6 +45,24 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	proto.set_title = function(title) {
 		this.title = title;
 		$(this).trigger('update');
+	};
+	proto.generate_random = function(min_children, depth, ascii) {
+		min_children = min_children || 0;
+		depth = depth || 7;
+		ascii = ascii || 65;
+		depth -= 1;
+		if (depth < 1) return;
+		this.title = String.fromCharCode(ascii);
+		var num_children = Math.max(Math.floor(Math.random() * 10) - (9 - depth), min_children);
+		if (num_children < 1) return; 
+		for (var i = 0; i < num_children; i++) {
+			ascii++;
+			this.add_child({title: String.fromCharCode(ascii)});
+		}
+		for (var j in this.children) {
+			this.children[j].generate_random(0, depth, ascii);
+		}
+		return this;
 	};
 }) (SKOOKUM.SM.NodeData.prototype);
 

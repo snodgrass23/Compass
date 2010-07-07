@@ -51,25 +51,52 @@ SKOOKUM.SM.NodeEditorProto = {
 			that.hide();
 		});
 		this.element.find("input").keydown(function(event) {
-			if (event.which === 13 && event.shiftKey) {	// Enter
+			if (event.which === 13 && event.shiftKey) {	// Enter + Shift
 				SKOOKUM.log("EVENT: Enter pressed");
 				//$(this).trigger('change');
 				that.node_gui.data.set_title($(this).val());
 				that.node_gui.data.add_child();
-				return false;
+			}
+			else if (event.which === 13) {	// Enter by itself
+				that.node_gui.data.set_title($(this).val());
+				$(this).blur();
 			}
 			else if (event.which === 9) {	// Tab
 				SKOOKUM.log("EVENT: Tab pressed");
 				//$(this).trigger('change');
 				that.node_gui.data.set_title($(this).val());
 				that.node_gui.data.add_sibling();
-				return false;
 			}
 			else if (event.which === 27) {	// Escape
 				//that.node_gui.data.set_title($(this).val());
 				$(this).blur();
-				return false;
 			}
+			
+			// TODO: Modify all these to navigate based on nearest X,Y node gui rather than by data hierarchy
+			
+			else if (event.shiftKey && event.which === 37) {	// Shift + Left
+				var child_i = that.node_gui.parent.children.indexOf(that.node_gui);
+				if (child_i > 0) {
+					that.node_gui.parent.children[child_i - 1].request_focus();
+				}
+			}
+			else if (event.shiftKey && event.which === 38) {	// Shift + Up
+				that.node_gui.parent && that.node_gui.parent.request_focus();
+			}
+			else if (event.shiftKey && event.which === 39) {	// Shift + Right
+				var child_i = that.node_gui.parent.children.indexOf(that.node_gui);
+				if (child_i < that.node_gui.parent.children.length - 1) {
+					that.node_gui.parent.children[child_i + 1].request_focus();
+				}
+			}
+			else if (event.shiftKey && event.which === 40) {	// Shift + Down
+				if (!that.node_gui.children.length) return;
+				that.node_gui.children[Math.floor(that.node_gui.children.length * .5)].request_focus();
+			}
+			else {
+				return true;
+			}
+			return false;
 		});
 		this.element.find("input").blur(function(event) {
 			SKOOKUM.log("EVENT: blur");

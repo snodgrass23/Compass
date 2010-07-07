@@ -125,20 +125,20 @@ SKOOKUM.SM.SiteMapProto = {
 		this._create_event_listeners();		
 	},
 	_onDrag: function(x, y) {
-		if(this.dragging.on) {
+		//if(this.dragging.on) {
 			var dX = x - this.dragging.x;
 			var dY = y - this.dragging.y;
-			this.offset(dX, dY);
+			for (var i in this.node_guis) {
+				this.node_guis[i].move(dX, dY);
+			}
 			this.dragging.x = x;
 			this.dragging.y = y;
-		}
+		//}
 	},
 	offset: function (x, y) {
 		for (var i in this.node_guis) {
 			this.node_guis[i].move(x, y);
 		}
-		this.ox += x;
-		this.oy += y;
 	},
 	_create_event_listeners: function () {
 		var that = this;
@@ -151,27 +151,21 @@ SKOOKUM.SM.SiteMapProto = {
 		// Dragging on the "artboard"
 		$(this.element).mousedown(function (event) {
 			if ($(event.target).closest("div").data("node-map") === that) {		// Clearly not working
-				that.dragging = { on:true, x:event.pageX, y:event.pageY };
-				document.onselectstart = function(){ return false; }			// Hack to display the proper cursor in Chrome
-				var objs = [];
-				for (var i in that.node_guis) {
-					objs = objs.concat(that.node_guis[i].get_all_raph_objects());
-				}
-				var theSet = that.raph.set(objs);
+				var dragX = event.pageX;
+				var dragY = event.pageY;
+				document.onselectstart = function () { return false; }			// Hack to display the proper cursor in Chrome
 				$(document).mousemove(function (event) {
-					//that._onDrag(event.pageX, event.pageY);
-					var dX = event.pageX - that.dragging.x;
-					var dY = event.pageY - that.dragging.y;
-					theSet.translate(dX, dY);
-					that.ox += dX;
-					that.oy += dY;
-					that.dragging.x = event.pageX;
-					that.dragging.y = event.pageY;
+					for (var i in that.node_guis) {
+						that.node_guis[i].move(event.pageX - dragX, event.pageY - dragY);
+					}
+					dragX = event.pageX;
+					dragY = event.pageY;
 				});
 				$(document).bind('mouseup mouseleave', function(event) {
+					that.ox += dragX;
+					that.oy += dragY;
 					$(document).unbind ('mousemove');
 					$(document).unbind ('mouseup mouseleave');				// This could have side-effects! TODO: make more elegant?
-					that.dragging.on = false;
 					document.onselectstart = function(){ return true; }		// Cursor hack part II
 				});
 			}
