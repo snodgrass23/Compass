@@ -9,7 +9,7 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	this.title = data.title || "";
 	this.parent = parent || null;
 	this.children = [];
-	this.layout = new SKOOKUM.SM.NodeLayout();
+	this.layout = [new SKOOKUM.SM.NodeLayout()];	// All nodes have a default layout and extra layouts add extra hashes
 	
 	if(data.children) {
 		for(var i in data.children) {
@@ -65,14 +65,3 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 		return this;
 	};
 }) (SKOOKUM.SM.NodeData.prototype);
-
-
-/*
-	Constructor
-*/
-SKOOKUM.SM.NodeLayout = function () {
-	this.type = "branch";
-	this.size = 10;
-	this.spacing = 10;
-	this.direction = "down";
-}

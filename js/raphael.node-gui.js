@@ -84,6 +84,12 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.update = function () {
 		$(this).trigger('update-node-gui', [this]);
 	};
+	proto.layout_at = function (view_id, x, y) {
+		SKOOKUM.log("layout_at for " + this.data.title);
+		var active_layout = this.data.layout[view_id] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
+		SKOOKUM.log("active_layout type is " + active_layout.type);
+		active_layout.position(view_id, x, y, this);
+	};
 	proto.get_all_raph_objects = function() {
 		var objs = [this.rect, this.text];
 		this.path && objs.push(this.path);
@@ -127,6 +133,12 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 			this.path.remove();
 		}	
 		this.path = path;
+	};
+	proto.set_path_str = function(str) {
+		if (this.path) {
+			this.path.remove();
+		}
+		this.path = this.raph.path(str);
 	};
 }) (SKOOKUM.SM.NodeGuiProto.prototype);
 
