@@ -9,8 +9,8 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	this.title = data.title || "";
 	this.parent = parent || null;
 	this.children = [];
-	this.layout = [new SKOOKUM.SM.NodeLayout()];	// All nodes have a default layout and extra layouts add extra hashes
-	
+	this.layout = [new SKOOKUM.SM.NodeLayout["BranchDown"]()];	// All nodes have a default layout and extra layouts add extra hashes
+	//SKOOKUM.log(SKOOKUM.introspect(this.layout[0]));
 	if(data.children) {
 		for(var i in data.children) {
 			var new_child = new SKOOKUM.SM.NodeData(data.children[i], this);

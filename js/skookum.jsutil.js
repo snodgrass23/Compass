@@ -51,7 +51,7 @@ var SKOOKUM = (function() {
 			getTicks: function() {
 				return (new Date()).getTime();
 			}
-			
+	
 		};
 	}
 }) ();

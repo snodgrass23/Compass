@@ -103,6 +103,9 @@ SKOOKUM.SM.SiteMapProto = {
 					that._update_size();
 				},
 				stop: function() {
+					var pos = that.element.position();
+					that.offset(pos.left, pos.top);
+					that.element.css({left: 0, top: 0});
 					that._update_size();
 				}
 			};
@@ -116,11 +119,14 @@ SKOOKUM.SM.SiteMapProto = {
 				},
 				stop: function() {
 					window.clearInterval(drag_update);
+					var pos = that.element.position();
+					that.offset(pos.left, pos.top);
+					that.element.css({left: 0, top: 0});
 					that._update_size();
 				}
 			}
 		}
-		$(this.element).draggable(drag_options);		
+		$(this.element).draggable(drag_options);		// TODO: This seems to break the blur event for the node editor from background clicks. Fix that.
 		
 		$(this).bind('update-node-gui', function(event, node_gui) {
 			SKOOKUM.log("update-node-gui for " + node_gui.data.title);
