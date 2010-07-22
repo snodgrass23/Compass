@@ -46,10 +46,6 @@ SKOOKUM.SM.SiteMapProto = {
 		$(this.raph.canvas).empty();
 
 		var root_gui = this._add_gui_recursive(data);
-
-		// Position all of the nodes
-		//this._layout(root_gui);
-		
 		root_gui.layout_at(this, 320, 200); //$(this.element).innerWidth() * .5, $(this.element).innerHeight() * .5);
 	},
 	_create: function () {
@@ -66,15 +62,13 @@ SKOOKUM.SM.SiteMapProto = {
 		this._create_event_listeners();		
 	},
 	_onDrag: function(x, y) {
-		//if(this.dragging.on) {
-			var dX = x - this.dragging.x;
-			var dY = y - this.dragging.y;
-			for (var i in this.node_guis) {
-				this.node_guis[i].move(dX, dY);
-			}
-			this.dragging.x = x;
-			this.dragging.y = y;
-		//}
+		var dX = x - this.dragging.x;
+		var dY = y - this.dragging.y;
+		for (var i in this.node_guis) {
+			this.node_guis[i].move(dX, dY);
+		}
+		this.dragging.x = x;
+		this.dragging.y = y;
 	},
 	offset: function (x, y) {
 		for (var i in this.node_guis) {
@@ -99,6 +93,14 @@ SKOOKUM.SM.SiteMapProto = {
 		var drag_options = null;
 		if ($.browser.webkit) {			// webkit handles constant resizing very smoothly
 			drag_options = {
+				start: function(event, ui) {
+					SKOOKUM.log(event.target);		// TODO: This isn't working, need to figure out why
+					SKOOKUM.log("vs");
+					SKOOKUM.log(that.element.get(0));
+					if (event.target != that.element.get(0)) {
+						return false;
+					}
+				},
 				drag: function() {
 					that._update_size();
 				},
@@ -112,12 +114,20 @@ SKOOKUM.SM.SiteMapProto = {
 		}
 		else {							// sadly, FF doesn't
 			drag_options = {
-				start: function() {
+				start: function(event, ui) {
+					// Implement something here that checks to make sure the event target is the sitemap div so button clicks etc don't
+					// have a side-effect of triggering a drag as well
+											SKOOKUM.log(event.target);
+						SKOOKUM.log("vs");
+						SKOOKUM.log(that.element.get(0));
+					if (event.target != that.element.get(0)) {
+						return false;
+					}
 					drag_update = window.setInterval(function() {
 						that._update_size();
 					}, 400);
 				},
-				stop: function() {
+				stop: function(event, ui) {
 					window.clearInterval(drag_update);
 					var pos = that.element.position();
 					that.offset(pos.left, pos.top);

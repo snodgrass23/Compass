@@ -59,7 +59,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 		this.text.click(function (event) {
 			that.request_focus();
-		});		
+		});	
 
 	};
 	proto.request_focus = function () {

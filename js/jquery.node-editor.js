@@ -6,13 +6,17 @@ SKOOKUM.SM.NodeEditorProto = {
 		opacity: 0.9
 	},
 	edit_node: function(node_gui) {
+		SKOOKUM.log("edit_node");
+		if (this.node_gui == node_gui) {
+			return;
+		}
 		this.node_gui = node_gui;
 		this.sitemap_instance = node_gui.ownerDocument;
 		var target = node_gui.getPageCoords();
 		target.left -= this.element.innerWidth() * .5;
 		target.top -= (this.element.innerHeight() + node_gui.height * .5);
 		target.top += 8;
-		this.element.stop().fadeTo(250, this.options.opacity);
+		this.element.stop().fadeTo(200, this.options.opacity);
 		this.element.css('top', target.top);
 		this.element.css('left', target.left);
 		var input = this.element.find("input").first();
@@ -22,8 +26,12 @@ SKOOKUM.SM.NodeEditorProto = {
 		node_gui.activate();
 	},
 	hide: function() {
-		this.element.stop().fadeOut(400);
-		this.node_gui.deactivate();
+		SKOOKUM.log("hide");
+		this.element.stop().fadeOut(100);
+		if (this.node_gui != null) {
+			this.node_gui.deactivate();
+			this.node_gui = null;
+		}
 	},
 	set_size: function(val) {
 		this.node_gui.data.layout.size = val;

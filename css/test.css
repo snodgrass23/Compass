@@ -10,6 +10,10 @@ body {
 	background: #ddd;
 }
 
+a:focus {
+     outline: none;
+}
+
 h1, h2 {
 	font-family: 'Josefin Sans Std Light', arial, serif;
 }
@@ -78,6 +82,16 @@ h1 em {
 	width: 200px;
 	bottom: 0;
 	background: #eee;
+}
+
+#fullscreen-button {
+	display: block;
+	width: 24px;
+	height: 24px;
+	top: 10px;
+	right: 20px;
+	position: absolute;
+	background: #f00;
 }
 
 .ui-layout-toggler {
