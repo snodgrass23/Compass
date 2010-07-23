@@ -31,6 +31,10 @@ app.configure('production', function(){
 
 // Routes
 
+app.get('/', function(req, res) {
+	res.send("Huh this shouldn't happen...");
+});
+
 app.get('/download', function(req, res){
     res.send('Downloading!');
 });
