@@ -10,6 +10,7 @@ body {
 	background: #ddd;
 	overflow-x: hidden;
 	overflow-y: auto;
+	font-family: Verdana, Arial, sans-serif;
 }
 
 a:focus {
@@ -20,12 +21,37 @@ h1, h2 {
 	font-family: 'Josefin Sans Std Light', arial, serif;
 }
 
+#logo {
+	z-index: 10000;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 55px;
+	height: 53px;
+
+}
+
+.full #logo {
+	top: 10px;
+	left: 10px;
+}
+
 #title h1 {
-	background: transparent url('../images/logo.png') center left no-repeat;
+	position: absolute;
+	background: transparent url('../images/logo.png') 0 0 no-repeat;	
 	font-size: 200%;
-	padding: 20px 0 23px 52px;
-	margin: 5px 0 0 20px;
+	width: 0;
+	padding: 7px 0 0 52px;
+	height: 53px;
 	color: #fff;
+	overflow: visible;
+	white-space: nowrap;
+	top: 17px;
+	left: 20px;
+	z-index: 10000;
+}
+.full #title h1 {
+	color: #000;
 }
 
 h1 em {
@@ -33,10 +59,11 @@ h1 em {
 	font-size: 80%;
 }
 
-/* The drawing canvas and included elements */
 
 .ui-layout-north {
-	background: #333;
+	background: #444;
+	background: -moz-linear-gradient(0 0 270deg, #222, #444 40%);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#444));
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -46,7 +73,7 @@ h1 em {
 	border-bottom: solid 1px #000;
 	-moz-box-shadow: 0 0px 10px #666;
 	-webkit-box-shadow: 0 0px 10px #666;
-	box-shadow: 0 0px 10px #666;	
+	box-shadow: 0 0px 10px #666;
 }
 .landing .ui-layout-north {
 	height: 250px;
@@ -63,7 +90,7 @@ h1 em {
 	top: 60px;
 	z-index: 5;
 	overflow: hidden;
-	min-height: 500px;
+	min-height: 400px;
 }
 .landing .ui-layout-south {
 	top: 250px;
@@ -100,6 +127,36 @@ h1 em {
 .full .ui-layout-east {
 	display: none;
 }
+
+
+
+#menu {
+	position: absolute;
+	bottom: 5px;
+	right: 210px;
+}
+
+#menu ul {
+	list-style-type: none;
+}
+
+#menu li {
+	float: left;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	margin: 0 10px 0 10px;
+	padding: 2px 2px 2px 2px;
+	color: #fff;
+	font-size: 80%;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+
+
 
 #work-area {
 	position: absolute;
@@ -155,6 +212,8 @@ h1 em {
 
 .full #fullscreen-btn {
 	background: transparent url('../images/fullscreen_btn2.png') top left no-repeat;
+	top: 20px;
+	right: 30px;
 }
 
 #toolbar h1, h2 {
