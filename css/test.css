@@ -39,7 +39,7 @@ h1, h2 {
 	position: absolute;
 	background: transparent url('../images/logo.png') 0 0 no-repeat;	
 	width: 55px;
-	height: 53px;
+	height: 56px;
 	overflow: visible;
 	top: 17px;
 	left: 20px;
@@ -70,8 +70,8 @@ h1, h2 {
 #creator {
 	display: block;
 	position: absolute;
-	top: 33px;
-	right: 10px;
+	bottom: 16px;
+	right: 17px;
 	width: 100px;
 	height: 19px;
 	background: transparent url('../images/skookum.png') 0 0 no-repeat;
@@ -87,7 +87,7 @@ h1, h2 {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 60px;
+	height: 70px;
 	z-index: 10;
 	border-bottom: solid 1px #000;
 	-moz-box-shadow: 0 0px 10px #666;
@@ -106,7 +106,7 @@ h1, h2 {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	top: 60px;
+	top: 70px;
 	z-index: 5;
 	overflow: hidden;
 	min-height: 400px;
@@ -151,7 +151,7 @@ h1, h2 {
 
 #menu {
 	position: absolute;
-	bottom: 5px;
+	bottom: 14px;
 	right: 210px;
 }
 
@@ -231,20 +231,39 @@ h1, h2 {
 	background: #eee;
 }
 
-#fullscreen-btn {
+#nav-buttons {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+.full #nav-buttons {
+	top: 20px;
+	right: 30px;
+}
+#nav-buttons li {
+	float: right;
+}
+#nav-buttons li a {
 	display: block;
 	width: 36px;
 	height: 36px;
-	top: 10px;
-	right: 20px;
-	position: absolute;
+	float: right;
+	margin-left: 6px;
+}
+#fullscreen-btn {
 	background: transparent url('../images/fullscreen_btn.png') top left no-repeat;
 }
-
 .full #fullscreen-btn {
 	background: transparent url('../images/fullscreen_btn2.png') top left no-repeat;
-	top: 20px;
-	right: 30px;
+}
+#scale150-btn {
+	background: transparent url('../images/scale150_btn.png') top left no-repeat;
+}
+#scale100-btn {
+	background: transparent url('../images/scale100_btn.png') top left no-repeat;
+}
+#scale50-btn {
+	background: transparent url('../images/scale50_btn.png') top left no-repeat;
 }
 
 #toolbar h1, h2 {
