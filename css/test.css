@@ -109,7 +109,7 @@ h1, h2 {
 	top: 70px;
 	z-index: 5;
 	overflow: hidden;
-	min-height: 400px;
+	/*min-height: 400px;*/ /* Good for a landing page */
 }
 .landing .ui-layout-south {
 	top: 250px;
@@ -202,7 +202,6 @@ h1, h2 {
 	left: 0;
 	top: 0;
 	right: 0;
-	/*bottom: 350px;*/
 	bottom: 0;
 	background-color: #fff;
 	cursor: move;

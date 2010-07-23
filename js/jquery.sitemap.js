@@ -75,6 +75,9 @@ SKOOKUM.SM.SiteMapProto = {
 			this.node_guis[i].move(x, y);
 		}
 	},
+	zoom: function(zoom) {
+		this.raph.setZoom(zoom);
+	},
 	_update_size: function() {
 		this.raph.setSize($(this.element).innerWidth(), $(this.element).innerHeight());
 	},
