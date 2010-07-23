@@ -12,6 +12,13 @@ SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData(
 SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData().generate_random(5);
 
 window.onload = function () {
+	$('[title]').tooltip({
+		position: {
+			my: 'bottom center',
+			at: 'top center',
+			offset: "0 -25"
+		}
+	});
 	$('#fullscreen-btn').toggle(
 		function(event) {
 			$('body').addClass('full');

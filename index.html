@@ -10,20 +10,21 @@
 		<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.2.custom.css" />
 		<link href='http://fonts.googleapis.com/css?family=Josefin+Sans+Std+Light' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/test.css" media="screen, print" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.ui.tooltip.css" media="screen, print" />
     </head>
 
     <body>
-        <div id="title">
+        <div id="title" title="Build sitemaps">
 	    	<h1>Compass <em>// prototype</em></h1>
 	    </div>
     	<div class="ui-layout-north">
 	    	<div id="menu">
 	    		<ul>
-	    			<li><a href="#">New</a></li>
-	    			<li><a href="#">Download</a></li>
+	    			<li><a href="#" title="Discard this sitemap, start over">New</a></li>
+	    			<li><a href="#" title="That's right, for Adobe Illustrator - as a vector!">Download</a></li>
 	    		</ul>
 	    	</div>
-  		    <a id="creator" href="http://www.skookum.com"><span>by Skookum</span></a>
+  		    <a id="creator" href="http://www.skookum.com" title="Building sexy stuff"><span>by Skookum</span></a>
     	</div>
     	<div class="ui-layout-south">
 			<div class="ui-layout-west">
@@ -32,7 +33,7 @@
 			    		<div id="map"></div>
 			    	</div>
 			    </div>
-			    <a id="fullscreen-btn" href="#"></a>
+			    <a id="fullscreen-btn" href="#" title="Toggle fullscreen"></a>
 			</div>
 			<div class="ui-layout-east">
 				<div id="toolbar">
@@ -86,7 +87,7 @@
 		<script src="js/raphael.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-		<script src="js/jquery.layout-1.2.0.js"></script>
+		<script src="js/jquery.ui.tooltip.js"></script>
 		<script src="js/skookum.jsutil.js"></script>
 		<script src="js/jquery.sitemap.js"></script>
 		<script src="js/jquery.node-editor.js"></script>
