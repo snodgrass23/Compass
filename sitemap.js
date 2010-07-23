@@ -1,12 +1,38 @@
-var express = require('express');
 
+/**
+ * Module dependencies.
+ */
 
-var server = express.createServer(
-	express.staticProvider(__dirname + '/static')
-);
+var express = require('express'),
+    connect = require('connect');
 
-server.get('/download', function(req, res){
-	res.send('Downloading!');
+// Create and export Express app
+
+var app = express.createServer();
+
+// Configuration
+
+app.configure(function(){
+    /*app.set('views', __dirname + '/views');*/
+    app.use(connect.bodyDecoder());
+    app.use(connect.methodOverride());
+    app.use(connect.compiler({ src: __dirname + '/static', enable: ['sass'] }));
+    app.use(connect.staticProvider(__dirname + '/static'));
 });
 
-server.listen(3000);
+app.configure('development', function(){
+    app.set('reload views', 1000);
+    app.use(connect.errorHandler({ dumpExceptions: true, showStack: true })); 
+});
+
+app.configure('production', function(){
+   app.use(connect.errorHandler()); 
+});
+
+// Routes
+
+app.get('/download', function(req, res){
+    res.send('Downloading!');
+});
+
+app.listen(3000);
