@@ -27,11 +27,12 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	hide: function() {
 		SKOOKUM.log("hide");
-		this.element.stop().fadeOut(100);
-		if (this.node_gui != null) {
-			this.node_gui.deactivate();
-			this.node_gui = null;
-		}
+		this.element.stop().fadeOut(100, function() {
+			if (this.node_gui != null) {
+				this.node_gui.deactivate();
+				this.node_gui = null;
+			}
+		});		
 	},
 	set_size: function(val) {
 		this.node_gui.data.layout.size = val;

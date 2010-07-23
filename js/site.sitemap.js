@@ -12,31 +12,14 @@ SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData(
 SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData().generate_random(5);
 
 window.onload = function () {
-	SKOOKUM.SM.layout = $('body').layout({
-		defaults: {
-			fxName:					"slide",
-			fxSpeed:				200,
-			resizable:				false,
-			slidable:				false,
-			spacing_open:			0,
-			spacing_closed:			15,
-			initClosed:				false,
-			togglerLength_closed:	"15",
-			togglerLength_open:		"0",
-			togglerAlign_closed:	"top"
+	$('#fullscreen-btn').toggle(
+		function(event) {
+			$('body').addClass('full');
 		},
-		north: {
-			
-		},
-		east: {
-			initClosed:				false
+		function(event) {
+			$('body').removeClass('full');
 		}
-	});
-	SKOOKUM.SM.layout.addCloseBtn('#toolbar-closer', 'east');
-	$('#fullscreen-button').click(function(event) {
-		SKOOKUM.SM.layout.toggle('east');
-		SKOOKUM.SM.layout.toggle('north');
-	});
+	);
 	SKOOKUM.SM.map = $("#map").siteMap();
 	//$("#map2").siteMap();
 	SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
