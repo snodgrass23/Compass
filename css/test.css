@@ -63,7 +63,7 @@ h1 em {
 .ui-layout-north {
 	background: #444;
 	background: -moz-linear-gradient(0 0 270deg, #222, #444 40%);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#444));
+ 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222), to(#444), color-stop(40%, #444));
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -183,7 +183,7 @@ h1 em {
 }
 .full #map-container {
 	background: -moz-linear-gradient(0 0 270deg, #aaa, #ddd 3%, #fff 8%);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#444));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#fff), color-stop(3%, #ddd), color-stop(8%, #fff));
 }
 
 #map {
