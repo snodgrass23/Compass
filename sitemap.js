@@ -1,7 +1,7 @@
 var app = require('express').createServer();
 
 app.get('/', function(req, res){
-	res.render('index.html', {
+	res.render('index.haml', {
 		
 	});
 });
