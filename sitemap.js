@@ -1,7 +1,9 @@
 var app = require('express').createServer();
 
 app.get('/', function(req, res){
-    res.send('Basic site up, deployment scripts working!');
+	res.render('client/index.html', {
+		
+	});
 });
 
 app.listen(3000);
