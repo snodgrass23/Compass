@@ -1,9 +1,12 @@
-var app = require('express').createServer();
+require('express');
 
-app.get('/', function(req, res){
-	res.render('index.haml', {
-		
-	});
+
+var server = express.createServer(
+	express.staticProvider(__dirname + '/static')
+);
+
+server.get('/download', function(req, res){
+	res.send('Downloading!');
 });
 
-app.listen(3000);
+server.listen(3000);
