@@ -181,6 +181,10 @@ h1 em {
 	cursor: move;
 	overflow: hidden;
 }
+.full #map-container {
+	background: -moz-linear-gradient(0 0 270deg, #aaa, #ddd 3%, #fff 8%);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#444));
+}
 
 #map {
 	position: absolute;
