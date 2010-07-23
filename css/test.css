@@ -53,11 +53,14 @@ h1, h2 {
 .full #title h1 {
 	color: #000;
 }
-
-h1 em {
+#title h1 em {
 	color: #999;
 	font-size: 80%;
 }
+.full #title h1 em {
+	display: none;
+}
+
 
 
 .ui-layout-north {
