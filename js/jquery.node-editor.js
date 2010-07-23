@@ -7,9 +7,6 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	edit_node: function(node_gui) {
 		SKOOKUM.log("edit_node");
-		if (this.node_gui == node_gui) {
-			return;
-		}
 		this.node_gui = node_gui;
 		this.sitemap_instance = node_gui.ownerDocument;
 		var target = node_gui.getPageCoords();

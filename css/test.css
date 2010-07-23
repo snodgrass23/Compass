@@ -6,11 +6,10 @@ html, body {
 }
 
 body {
-	/*background: url(images/bg.gif) repeat;*/
 	background: #ddd;
 	overflow-x: hidden;
 	overflow-y: auto;
-	font-family: Verdana, Arial, sans-serif;
+	font-family: Arial, sans-serif;
 }
 
 a:focus {
@@ -36,19 +35,23 @@ h1, h2 {
 	left: 10px;
 }
 
-#title h1 {
+#title {
 	position: absolute;
 	background: transparent url('../images/logo.png') 0 0 no-repeat;	
-	font-size: 200%;
-	width: 0;
-	padding: 7px 0 0 52px;
+	width: 55px;
 	height: 53px;
-	color: #fff;
 	overflow: visible;
-	white-space: nowrap;
 	top: 17px;
 	left: 20px;
 	z-index: 10000;
+}
+#title h1 {
+	position: absolute;
+	font-size: 200%;
+	color: #fff;
+	white-space: nowrap;
+	top: 8px;
+	left: 50px;
 }
 .full #title h1 {
 	color: #000;
@@ -59,6 +62,19 @@ h1, h2 {
 }
 .full #title h1 em {
 	display: none;
+}
+
+#creator span {
+	display: none;
+}
+#creator {
+	display: block;
+	position: absolute;
+	top: 33px;
+	right: 10px;
+	width: 100px;
+	height: 19px;
+	background: transparent url('../images/skookum.png') 0 0 no-repeat;
 }
 
 
@@ -150,12 +166,20 @@ h1, h2 {
 #menu a {
 	display: block;
 	float: left;
-	margin: 0 10px 0 10px;
-	padding: 2px 2px 2px 2px;
-	color: #fff;
+	margin: 0 3px 0 3px;
+	padding: 2px 10px 2px 10px;
 	font-size: 80%;
 	font-weight: normal;
 	text-decoration: none;
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #666;
+    color: #eee;
+}
+#menu a:hover {
+	background: #777;
+	color: #fff;
 }
 
 
