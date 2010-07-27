@@ -61,6 +61,10 @@ SKOOKUM.SM.SiteMapProto = {
 		root_gui = this._add_gui_recursive(data);
 		root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
 		root_gui.apply_recursive_layout();
+		SKOOKUM.log(this.guis_breadth_first.reverse());
+	},
+	guis_breadth_first: function() {
+	
 	},
 	offset: function (x, y) {
 		for (var i in this.node_guis) {
