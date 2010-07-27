@@ -105,14 +105,14 @@ SKOOKUM.SM.NodeEditorProto = {
 			return false;
 		});
 		this.element.find("input").blur(function(event) {
-			SKOOKUM.log("EVENT: blur");
+			//SKOOKUM.log("EVENT: blur");
 			that.hide();
 		});
 		this.element.find("form").submit(function() {
 			return false;
 		});
 		this.element.find(".action-new-child").click(function() {
-			SKOOKUM.log("action-new-child");
+			//SKOOKUM.log("action-new-child");
 			var new_child = that.node_gui.data.add_child();
 			return false;
 		});

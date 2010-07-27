@@ -1,7 +1,8 @@
 SKOOKUM.SM.NodeLayout = {};
 
+
 /*
-	Base Layout Prototype
+	Base Prototype for Layouts
 */
 SKOOKUM.SM.NodeLayout.Base = function () {
 	this.type = "branch";
@@ -10,18 +11,32 @@ SKOOKUM.SM.NodeLayout.Base = function () {
 	this.direction = "down";
 };
 (function (proto) {
-	proto.position = function(view_id, x, y, node_gui) {
+
+	proto.apply_to = function(node_gui) { };
+	
+}) (SKOOKUM.SM.NodeLayout.Base.prototype);
+
+
+
+
+/*
+	Branching Down and then out:
+     |
+   ~~~~~
+   | | |
+   o o o
+*/
+SKOOKUM.SM.NodeLayout["BranchDown"] = function() {};
+SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base();
+(function (proto) {
+	proto.apply_to = function(node_gui) {
 	
 		var i = null,
 			parent_height = 0,
-			data = node_gui.data;
-				
-		// Sometimes we're just refreshing child nodes, so we want to keep the current position
-		x = x || node_gui.x;
-		y = y || node_gui.y;
+			data = node_gui.data,
+			x = node_gui.x,
+			y = node_gui.y;
 		
-		SKOOKUM.log("moving " + node_gui.data.title + " to " + x + ", " + y);
-		node_gui.moveTo(x, y);
 		parent_height = node_gui.height;
 		
 		if (node_gui.children.length === 0) {
@@ -41,7 +56,7 @@ SKOOKUM.SM.NodeLayout.Base = function () {
 			child_x = child_x + (node_gui.children[i].width * .5);
 			path += "M " + child_x + " " + split_y + " ";
 			path += "L " + child_x + " " + (split_y + this.size) + " ";
-			node_gui.children[i].layout_at(view_id, child_x, child_y + (node_gui.children[i].height * .5));
+			node_gui.children[i].move_to(child_x, child_y + (node_gui.children[i].height * .5));
 			child_x = child_x + (node_gui.children[i].width * .5) + this.spacing;
 		}
 		if(node_gui.children.length > 1) {
@@ -55,17 +70,21 @@ SKOOKUM.SM.NodeLayout.Base = function () {
 			//node_gui.set_path(this.raph.path(path));	// TODO: Clean up!
 			node_gui.set_path_str(path);
 		}
-	};
-}) (SKOOKUM.SM.NodeLayout.Base.prototype);
+	};	
+}) (SKOOKUM.SM.NodeLayout["BranchDown"].prototype);
 
 
-SKOOKUM.SM.NodeLayout["BranchDown"] = function() {};
-SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 
+/*
+	Branching Right and then out:
+     |--o
+   --|--o
+     |--o
+*/
 SKOOKUM.SM.NodeLayout["BranchRight"] = function() {};
 SKOOKUM.SM.NodeLayout["BranchRight"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 (function(proto) {
-	proto.position = function(view_id, x, y, node_gui) {
+	proto.position = function(sitemap, x, y, node_gui) {
 		var i = null,
 			parent_height = 0,
 			data = node_gui.data;
@@ -74,7 +93,7 @@ SKOOKUM.SM.NodeLayout["BranchRight"].prototype = new SKOOKUM.SM.NodeLayout.Base(
 		x = x || node_gui.x;
 		y = y || node_gui.y;
 		
-		node_gui.moveTo(x, y);
+		node_gui.move_to(x, y);
 		parent_width = node_gui.width;
 		
 		if (node_gui.children.length === 0) {
@@ -94,7 +113,7 @@ SKOOKUM.SM.NodeLayout["BranchRight"].prototype = new SKOOKUM.SM.NodeLayout.Base(
 			child_y = child_y + (node_gui.children[i].height * .5);
 			path += "M " + split_x + " " + child_y + " ";
 			path += "L " + split_x + " " + (child_y + this.size) + " ";
-			node_gui.children[i].layout_at(view_id, child_x + (node_gui.children[i].width * .5), child_y);
+			node_gui.children[i].layout_at(sitemap, child_x + (node_gui.children[i].width * .5), child_y);
 			child_y = child_y + (node_gui.children[i].height * .5) + this.spacing;
 		}
 		if(node_gui.children.length > 1) {

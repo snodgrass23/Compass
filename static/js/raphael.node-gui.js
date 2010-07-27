@@ -62,9 +62,15 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});	
 
 	};
-	proto.request_focus = function () {
-		$(this).trigger('node-gui-focus', [this]);
-	};
+	
+	
+	
+	
+	/* EVENTS
+	 
+	 	This is the primary method of communication between the loosely-coupled objects, so this is where most of the action happens	
+	*/
+		
 	proto.listen = function () {
 		var that = this;
 		$(this.data).bind('update', function (event) {
@@ -84,17 +90,18 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.update = function () {
 		$(this).trigger('update-node-gui', [this]);
 	};
-	proto.layout_at = function (view_id, x, y) {
-		SKOOKUM.log("layout_at for " + this.data.title);
-		var active_layout = this.data.layout[view_id] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
-		SKOOKUM.log("active_layout type is " + active_layout.type);
-		active_layout.position(view_id, x, y, this);
+	proto.request_focus = function () {
+		$(this).trigger('node-gui-focus', [this]);
 	};
+	
+	
+	
+	
 	proto.get_all_raph_objects = function() {
 		var objs = [this.rect, this.text];
 		this.path && objs.push(this.path);
 		return objs;
-	};
+	};	
 	proto.move = function (dx, dy) {
 		this.x += dx;
 		this.y += dy;
@@ -111,10 +118,17 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		this.path && this.path.translate(dx, dy);
 		*/
 	};
-	proto.moveTo = function (x, y) {
+	proto.move_to = function (x, y) {
 		var dx = x - this.x;
 		var dy = y - this.y;
 		this.move(dx, dy);
+	};
+	proto.apply_recursive_layout = function () {
+		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
+		active_layout.apply_to(this);	// Moves all direct children into place, draws path lines
+		for (var i in this.children) {
+			this.children[i].apply_recursive_layout();	// Pass it down the line
+		}
 	};
 	proto.getPageCoords = function() {
 		var offset = this.ownerDocument.element.offset();

@@ -1,25 +1,17 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express'),
     connect = require('connect');
 
-// Create and export Express app
 
+// Create and export Express app
 var app = express.createServer();
 
 // Configuration
+app.use(connect.bodyDecoder());
+app.use(connect.methodOverride());
+app.use(connect.compiler({ src: __dirname + '/static', enable: ['sass'] }));
+app.use(connect.staticProvider(__dirname + '/static'));
 
-app.configure(function(){
-    /*app.set('views', __dirname + '/views');*/
-    app.use(connect.bodyDecoder());
-    app.use(connect.methodOverride());
-    app.use(connect.compiler({ src: __dirname + '/static', enable: ['sass'] }));
-    app.use(connect.staticProvider(__dirname + '/static'));
-});
-
+/*
 app.configure('development', function(){
     app.set('reload views', 1000);
     app.use(connect.errorHandler({ dumpExceptions: true, showStack: true })); 
@@ -28,15 +20,24 @@ app.configure('development', function(){
 app.configure('production', function(){
    app.use(connect.errorHandler()); 
 });
+*/
+
 
 // Routes
 
 app.get('/', function(req, res) {
-	res.send("Huh this shouldn't happen...");
+	res.redirect('/index.html');
 });
 
-app.get('/download', function(req, res){
-    res.send('Downloading!');
+app.post('/download', function(req, res) {
+	if (req.body.svg) {
+		res.header('Content-Type', 'image/svg');
+		res.header('Content-Disposition', 'attachment; filename=sitemap.svg');
+	    res.send(req.body.svg);
+	}
+	else {
+		res.redirect('/');
+	}
 });
 
 app.listen(3000);

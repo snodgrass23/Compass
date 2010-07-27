@@ -6,11 +6,24 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 
 SKOOKUM.SM.SiteMapProto = {
 	options: {
+		name: "default",
 		class_name: "site-map",
 		ox: 320,					// TODO: Cleanup the offset stuff, it's really messy. DRY
 		oy: 100,
 		data: null
 	},
+	_create: function () {
+		var that = this;
+		
+		this.raph = Raphael(this.element.attr('id'), this.element.width(), this.element.height());
+		this.element.data("node-map", this);
+				
+		this.node_guis = [];
+		this.off_x = 0;
+		this.off_y = 0;
+		
+		this._create_event_listeners();		
+	},	
 	_add_gui: function(data, parent_gui) {
 		var gui = this.raph.node_gui(data);
 		gui.parent = parent_gui;
@@ -43,32 +56,11 @@ SKOOKUM.SM.SiteMapProto = {
 	 * @param data the SKOOKUM.SM.DataNode to use as the root for this sitemap
 	 */
 	build: function(data) {
+		var root_gui;
 		$(this.raph.canvas).empty();
-
-		var root_gui = this._add_gui_recursive(data);
-		root_gui.layout_at(this, 320, 200); //$(this.element).innerWidth() * .5, $(this.element).innerHeight() * .5);
-	},
-	_create: function () {
-		var that = this;
-		
-		this.raph = Raphael(this.element.attr('id'), this.element.width(), this.element.height());
-		this.element.data("node-map", this);
-				
-		this.node_guis = [];
-		this.off_x = 0;
-		this.off_y = 0;
-		this.dragging = { on:false, x:0, y:0 };
-		
-		this._create_event_listeners();		
-	},
-	_onDrag: function(x, y) {
-		var dX = x - this.dragging.x;
-		var dY = y - this.dragging.y;
-		for (var i in this.node_guis) {
-			this.node_guis[i].move(dX, dY);
-		}
-		this.dragging.x = x;
-		this.dragging.y = y;
+		root_gui = this._add_gui_recursive(data);
+		root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
+		root_gui.apply_recursive_layout();
 	},
 	offset: function (x, y) {
 		for (var i in this.node_guis) {
@@ -77,6 +69,9 @@ SKOOKUM.SM.SiteMapProto = {
 	},
 	zoom: function(zoom) {
 		this.raph.setZoom(zoom);
+	},
+	get_svg: function() {
+		return this.element.html();
 	},
 	_update_size: function() {
 		this.raph.setSize($(this.element).innerWidth(), $(this.element).innerHeight());
@@ -143,7 +138,7 @@ SKOOKUM.SM.SiteMapProto = {
 		
 		$(this).bind('update-node-gui', function(event, node_gui) {
 			SKOOKUM.log("update-node-gui for " + node_gui.data.title);
-			node_gui.parent.layout_at(that);
+			node_gui.parent.apply_recursive_layout();
 			//that._layout(node_gui.parent);
 		});
 		
@@ -151,7 +146,7 @@ SKOOKUM.SM.SiteMapProto = {
 			SKOOKUM.log("add-node for " + new_node.title);
 			var new_gui = that._add_gui(new_node, parent_gui);
 			//that._layout(parent_gui);
-			parent_gui.layout_at(that);
+			parent_gui.apply_recursive_layout();
 			$(document).trigger('added-node-gui', [new_gui, that]);
 		});
 		
@@ -163,7 +158,7 @@ SKOOKUM.SM.SiteMapProto = {
 			that._remove_gui(node_gui);
 			SKOOKUM.log("updating layout for " + node_gui.parent.data.title);
 			//that._layout(node_gui.parent);
-			node_gui.parent.layout_at(that);
+			node_gui.parent.apply_recursive_layout();
 		})
 	}
 }
