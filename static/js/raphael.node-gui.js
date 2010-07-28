@@ -20,6 +20,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.y = y || 0;
 	this.width = 0;
 	this.height = 0;
+	this.box = {};		// Connection box
 	
 	this.rect = null;
 	this.text = null;
@@ -112,19 +113,23 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 			this.raph.set(this.rect, this.text, this.path).translate(dx, dy);
 		}
 		else {
+			SKOOKUM.log("Moving set by dx, dy: " + dx + ", " + dy);
 			this.raph.set(this.rect, this.text).translate(dx, dy);
 		}
-		/*
-		this.raph.set(this.rect, this.text).translate(dx, dy);
-		//this.rect.translate(dx, dy);
-		//this.text.translate(dx, dy);
-		this.path && this.path.translate(dx, dy);
-		*/
 	};
 	proto.move_to = function (x, y) {
+		SKOOKUM.log("Moving to " + x + ", " + y);
 		var dx = x - this.x;
 		var dy = y - this.y;
 		this.move(dx, dy);
+	};
+	proto.move_to_with_children = function (x, y) {
+		var dx = x - this.x;
+		var dy = y - this.y;
+		this.move(dx, dy);
+		for (var i in this.children) {
+			this.children[i].move(dx, dy);
+		}
 	};
 	proto.apply_recursive_layout = function () {
 		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
@@ -157,7 +162,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		}
 		this.path = this.raph.path(str);
 	};
-	breadth_first = function() {
+	proto.breadth_first = function() {
 		var queue = [this],
 			bf_array = [],
 			gui;
@@ -170,25 +175,41 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		} while (queue.length > 0);
 		return bf_array;
 	};
-	proto.connection_box = function() {
-		var box = {};
-		if (true) { //(self.children.length == 0) {
-			box.width = this.width;
-			box.height = this.height;
-			box.connect_top = 0;
-			box.connect_bottom = this.height;
-			box.connect_left = 0;
-			box.connect_right = this.width;
+	proto.update_box = function() {
+		var box = this.box;
+		if (this.children.length == 0) {
+			box.top = this.y;
+			box.bottom = this.y + this.height;
+			box.left = this.x;
+			box.right = this.x + this.width;
 		}
+		else {
+			box.left = box.right = box.top = box.bottom = 0;
+			for (var i in this.children) {
+				var child = this.children[i];
+				box.left = (child.box.left < box.left) ? child.box.left : box.left;
+				box.right = (child.box.right > box.right) ? child.box.right : box.right;
+				box.top = (child.box.top < box.top) ? child.box.top : box.top;
+				box.bottom = (child.box.bottom > box.bottom) ? child.box.bottom : box.bottom;
+			}
+		}
+		box.width = box.right - box.left;
+		box.height = box.bottom - box.top;
+		SKOOKUM.log(this.data.title + " Box is " + box.left + "," + box.right + ", " + box.width + "," + box.top);
 		return box;
 	};
+	proto.apply_layout = function () {
+		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
+		active_layout.apply_to(this);	// Moves all direct children into place, draws path lines
+	};
 	proto.smart_deep_layout = function() {
-		var gui_list = this.breadth_first();
+		var gui_list = this.breadth_first().reverse();
 		for (var i = 0; i < gui_list.length; i++) {
 			var node_gui = gui_list[i];
 			if (node_gui.children.length > 0) {
 				node_gui.apply_layout();
 			}
+			node_gui.update_box();
 		}
 	};
 }) (SKOOKUM.SM.NodeGuiProto.prototype);

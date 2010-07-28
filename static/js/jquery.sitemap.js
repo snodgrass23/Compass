@@ -54,9 +54,9 @@ SKOOKUM.SM.SiteMapProto = {
 		var root_gui;
 		this.clear();
 		this.root_gui = this._add_gui_recursive(data);
+		SKOOKUM.log("Moving root node to center");
 		this.root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
-		//this.root_gui.apply_recursive_layout();
-		//SKOOKUM.log(this.guis_breadth_first().reverse());
+		SKOOKUM.log("Applying smart deep layout");
 		this.root_gui.smart_deep_layout();
 	},
 	clear: function() {
@@ -88,6 +88,35 @@ SKOOKUM.SM.SiteMapProto = {
 			that._update_size();	
 		});
 		
+		this._enable_drag();
+		
+		$(this).bind('update-node-gui', function(event, node_gui) {
+			SKOOKUM.log("update-node-gui for " + node_gui.data.title);
+			node_gui.parent.smart_deep_layout();
+			//that._layout(node_gui.parent);
+		});
+		
+		$(this).bind('add-node', function(event, new_node, parent_gui) {
+			SKOOKUM.log("add-node for " + new_node.title);
+			var new_gui = that._add_gui(new_node, parent_gui);
+			//that._layout(parent_gui);
+			parent_gui.smart_deep_layout();
+			$(document).trigger('added-node-gui', [new_gui, that]);
+		});
+		
+		$(this).bind('node-gui-focus', function(event, node_gui) {
+			$(document).trigger('edit-node-gui', [node_gui]);
+		});
+		
+		$(document).bind('delete-node-gui', function(event, node_gui) {
+			that._remove_gui(node_gui);
+			SKOOKUM.log("updating layout for " + node_gui.parent.data.title);
+			//that._layout(node_gui.parent);
+			node_gui.parent.smart_deep_layout();
+		})
+	},
+	_enable_drag: function() {
+		var that = this;
 		// Enable dragging around the artboard
 		// TODO: Make the artboard stretch to always be exactly as large as the contents of the SVG,
 		// rather than forcing the SVG to be huge when you're just scrolling around.
@@ -139,31 +168,6 @@ SKOOKUM.SM.SiteMapProto = {
 			}
 		}
 		$(this.element).draggable(drag_options);		// TODO: This seems to break the blur event for the node editor from background clicks. Fix that.
-		
-		$(this).bind('update-node-gui', function(event, node_gui) {
-			SKOOKUM.log("update-node-gui for " + node_gui.data.title);
-			node_gui.parent.apply_recursive_layout();
-			//that._layout(node_gui.parent);
-		});
-		
-		$(this).bind('add-node', function(event, new_node, parent_gui) {
-			SKOOKUM.log("add-node for " + new_node.title);
-			var new_gui = that._add_gui(new_node, parent_gui);
-			//that._layout(parent_gui);
-			parent_gui.apply_recursive_layout();
-			$(document).trigger('added-node-gui', [new_gui, that]);
-		});
-		
-		$(this).bind('node-gui-focus', function(event, node_gui) {
-			$(document).trigger('edit-node-gui', [node_gui]);
-		});
-		
-		$(document).bind('delete-node-gui', function(event, node_gui) {
-			that._remove_gui(node_gui);
-			SKOOKUM.log("updating layout for " + node_gui.parent.data.title);
-			//that._layout(node_gui.parent);
-			node_gui.parent.apply_recursive_layout();
-		})
 	}
 }
 jQuery.widget("ui.siteMap", SKOOKUM.SM.SiteMapProto);
