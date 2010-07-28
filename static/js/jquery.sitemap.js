@@ -7,10 +7,7 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 SKOOKUM.SM.SiteMapProto = {
 	options: {
 		name: "default",
-		class_name: "site-map",
-		ox: 320,					// TODO: Cleanup the offset stuff, it's really messy. DRY
-		oy: 100,
-		data: null
+		class_name: "site-map"		// TODO: Add "data" as an option, so you can just say siteMap('option', 'data', newdata)
 	},
 	_create: function () {
 		var that = this;
@@ -18,9 +15,7 @@ SKOOKUM.SM.SiteMapProto = {
 		this.raph = Raphael(this.element.attr('id'), this.element.width(), this.element.height());
 		this.element.data("node-map", this);
 				
-		this.node_guis = [];
-		this.off_x = 0;
-		this.off_y = 0;
+		this.clear();
 		
 		this._create_event_listeners();		
 	},	
@@ -57,17 +52,22 @@ SKOOKUM.SM.SiteMapProto = {
 	 */
 	build: function(data) {
 		var root_gui;
-		$(this.raph.canvas).empty();
-		root_gui = this._add_gui_recursive(data);
-		root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
-		root_gui.apply_recursive_layout();
-		SKOOKUM.log(this.guis_breadth_first.reverse());
+		this.clear();
+		this.root_gui = this._add_gui_recursive(data);
+		this.root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
+		//this.root_gui.apply_recursive_layout();
+		//SKOOKUM.log(this.guis_breadth_first().reverse());
+		this.root_gui.smart_deep_layout();
 	},
-	guis_breadth_first: function() {
-	
+	clear: function() {
+		$(this.raph.canvas).empty();
+		this.node_guis = [];
+		this.root_gui = null;
+		this.off_x = 0;
+		this.off_y = 0;
 	},
 	offset: function (x, y) {
-		for (var i in this.node_guis) {
+		for (var i in this.node_guis) {			// TODO compare this syntax to standard Array looping syntax
 			this.node_guis[i].move(x, y);
 		}
 	},

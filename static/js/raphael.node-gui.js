@@ -15,8 +15,11 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.parent = null;
 	this.children = [];
 	this.ownerDocument = null;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
+	
 	this.x = x || 0;
 	this.y = y || 0;
+	this.width = 0;
+	this.height = 0;
 	
 	this.rect = null;
 	this.text = null;
@@ -153,6 +156,40 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 			this.path.remove();
 		}
 		this.path = this.raph.path(str);
+	};
+	breadth_first = function() {
+		var queue = [this],
+			bf_array = [],
+			gui;
+		do {
+			gui = queue.shift();
+			bf_array.push(gui);
+			for (var i in gui.children) {
+				queue.push(gui.children[i]);
+			}
+		} while (queue.length > 0);
+		return bf_array;
+	};
+	proto.connection_box = function() {
+		var box = {};
+		if (true) { //(self.children.length == 0) {
+			box.width = this.width;
+			box.height = this.height;
+			box.connect_top = 0;
+			box.connect_bottom = this.height;
+			box.connect_left = 0;
+			box.connect_right = this.width;
+		}
+		return box;
+	};
+	proto.smart_deep_layout = function() {
+		var gui_list = this.breadth_first();
+		for (var i = 0; i < gui_list.length; i++) {
+			var node_gui = gui_list[i];
+			if (node_gui.children.length > 0) {
+				node_gui.apply_layout();
+			}
+		}
 	};
 }) (SKOOKUM.SM.NodeGuiProto.prototype);
 
