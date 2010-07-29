@@ -34,26 +34,30 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	Methods
 */
 (function (proto) {
+
 	proto.clear = function () {
 		if (this.text) this.text.remove();
 		if (this.rect) this.rect.remove();
 		if (this.path) this.path.remove();
 	};
+	
 	proto.render = function () {
 		if (!this.data) return;
 		var h_padding = 20,
 			v_padding = 10,
 			roundedness = 3,
 			bbox = null;
+			
 		this.clear();
 		this.text = this.raph.text(this.x, this.y, this.data.title),
+		this.text.attr({ fill:'#fff', cursor:'pointer' });
+				
 		bbox = this.text.getBBox(),
 		this.width = bbox.width + (h_padding * 2),
 		this.height = bbox.height + (v_padding * 2),
+		
 		this.rect = this.raph.rect(this.x - this.width * .5, this.y - this.height * .5, this.width, this.height, roundedness),
-	
 		this.rect.attr({ fill:'#000', stroke:'none', 'stroke-width':2, cursor:'pointer' });
-		this.text.attr({ fill:'#fff', cursor:'pointer' });
 		this.text.toFront();
 
 		var that = this;
@@ -64,33 +68,28 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		this.text.click(function (event) {
 			that.request_focus();
 		});	
-
 	};
 	
-	
-	
-	
-	/* EVENTS
-	 
-	 	This is the primary method of communication between the loosely-coupled objects, so this is where most of the action happens	
-	*/
-		
 	proto.listen = function () {
 		var that = this;
+		
 		$(this.data).bind('update', function (event) {
 			that.render();
 			that.update();
 		});
+		
 		$(this.data).bind('add-node', function(event, node) {		// Should creating new guis be handled here or in jquery.sitemap.js?
 			SKOOKUM.log("add-node for " + node.title);
 			$(that).trigger('add-node', [node, that]);
 		});
+		
 		$(this.data).bind('delete-node', function(event) {
 			that.clear();
 			that.parent.children.splice(that.parent.children.indexOf(that), 1);
-			$(document).trigger('delete-node-gui', [that]);
+			$(that).trigger('delete-node-gui', [that]);
 		});
 	};
+	
 	proto.update = function () {
 		$(this).trigger('update-node-gui', [this]);
 	};

@@ -6,8 +6,7 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 
 
 // EVENTS
-// Broadcasts (bubbling):
-// Broadcasts (global): edit-node-gui
+// Broadcasts (bubbling): edit-node-gui
 // Receives (bubbling): update-node-gui, add-node, node-gui-focus
 // Receives (global): delete-node-gui
 
@@ -83,14 +82,14 @@ SKOOKUM.SM.SiteMapProto = {
 		$(this).bind('add-node', function(event, new_node, parent_gui) {
 			var new_gui = that._add_gui(new_node, parent_gui);
 			this.root_gui.smart_deep_layout();
-			$(document).trigger('added-node-gui', [new_gui, that]);
+			$(this).trigger('added-node-gui', [new_gui, that]);
 		});
 		
 		$(this).bind('node-gui-focus', function(event, node_gui) {
-			$(document).trigger('edit-node-gui', [node_gui]);
+			$(this).trigger('edit-node-gui', [node_gui]);
 		});
 		
-		$(document).bind('delete-node-gui', function(event, node_gui) {
+		$(this).bind('delete-node-gui', function(event, node_gui) {
 			that._remove_gui(node_gui);
 			that.root_gui.smart_deep_layout();
 		})
