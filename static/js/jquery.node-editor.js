@@ -29,32 +29,36 @@ SKOOKUM.SM.NodeEditorProto = {
 			}
 		});
 		
-		this.element.find("input").change(function(event) {			// Connect the "title" input box to the "title" attribute of the active node
-			if (that.node_gui) {
-				that.node_gui.data.set_title($(this).val());
+		$(document).bind('resize', function (event) {
+			if (event.target == that.sitemap_instance) {
+				that.hide();
 			}
-			that.hide();
-		});
-		
-		this.element.find("input").blur(function(event) {
-			that.hide();
 		});
 		
 		this.element.find("form").submit(function() {
 			return false;
 		});
 		
-		this.element.find(".action-new-child").click(function() {
+		this.element.find(".accept-change").click(function() {
+			that.node_gui.data.set_title(that.element.find("input").val());
+			that.hide();
+		});
+		
+		this.element.find(".cancel-change").click(function() {
+			that.hide();
+		});
+		
+		this.element.find(".new-child").click(function() {
 			var new_child = that.node_gui.data.add_child();
 			return false;
 		});
 		
-		this.element.find(".action-new-sibling").click(function() {
+		this.element.find(".new-sibling").click(function() {
 			var new_sibling = that.node_gui.data.add_sibling();
 			return false;
 		});
 		
-		this.element.find(".action-delete").click(function () {
+		this.element.find(".delete-node").click(function () {
 			that.node_gui.data.delete_self_recursive();
 			return false;
 		});
@@ -83,31 +87,6 @@ SKOOKUM.SM.NodeEditorProto = {
 			
 			else if (event.which === 27) {						// Escape
 				$(this).blur();
-			}
-			
-			// TODO: Modify all these to navigate based on nearest X,Y node gui rather than by data hierarchy
-			
-			else if (event.shiftKey && event.which === 37) {	// Shift + Left
-				var child_i = that.node_gui.parent.children.indexOf(that.node_gui);
-				if (child_i > 0) {
-					that.node_gui.parent.children[child_i - 1].request_focus();
-				}
-			}
-			
-			else if (event.shiftKey && event.which === 38) {	// Shift + Up
-				that.node_gui.parent && that.node_gui.parent.request_focus();
-			}
-			
-			else if (event.shiftKey && event.which === 39) {	// Shift + Right
-				var child_i = that.node_gui.parent.children.indexOf(that.node_gui);
-				if (child_i < that.node_gui.parent.children.length - 1) {
-					that.node_gui.parent.children[child_i + 1].request_focus();
-				}
-			}
-			
-			else if (event.shiftKey && event.which === 40) {	// Shift + Down
-				if (!that.node_gui.children.length) return;
-				that.node_gui.children[Math.floor(that.node_gui.children.length * .5)].request_focus();
 			}
 			
 			else {
@@ -139,9 +118,8 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	
 	hide: function() {
-		this.element.stop().fadeOut(100, function() {
-			this.node_gui = null;
-		});		
+		this.node_gui = null;
+		this.element.stop().fadeOut(100);
 	}
 }
 

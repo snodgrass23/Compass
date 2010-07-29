@@ -25,6 +25,11 @@ window.onload = function () {
 			offset: "0 -25"
 		}
 	});
+	
+	$('.action').click(function(event) {
+		return false;
+	});
+	
 	$('#new-btn').click(function(event) {
 		SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );
 		return false;
@@ -32,10 +37,12 @@ window.onload = function () {
 	$('#fullscreen-btn').toggle(
 		function(event) {
 			$('body').addClass('full');
+			$(window).trigger('resize');
 			return false;
 		},
 		function(event) {
 			$('body').removeClass('full');
+			$(window).trigger('resize');
 			return false;
 		}
 	);

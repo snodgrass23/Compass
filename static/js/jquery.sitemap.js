@@ -77,6 +77,7 @@ SKOOKUM.SM.SiteMapProto = {
 	
 	_update_size: function() {
 		this.raph.setSize($(this.element).innerWidth(), $(this.element).innerHeight());
+		$(this).trigger("resize");
 	},
 	
 	_create_event_listeners: function () {
@@ -87,12 +88,10 @@ SKOOKUM.SM.SiteMapProto = {
 		});
 		
 		$(this).bind('update-node-gui', function(event, node_gui) {
-			SKOOKUM.log("EVENT: update-node-gui");
 			this._layout_guis_smart_deep();
 		});
 		
 		$(this).bind('add-node', function(event, new_node, parent_gui) {
-			SKOOKUM.log("EVENT: add-node");
 			var new_gui = that._add_gui(new_node, parent_gui);
 			this._layout_guis_smart_deep();
 			$(this).trigger('added-node-gui', [new_gui, this]);
