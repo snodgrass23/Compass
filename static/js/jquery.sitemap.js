@@ -7,8 +7,7 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 
 // EVENTS
 // Broadcasts (bubbling): edit-node-gui
-// Receives (bubbling): update-node-gui, add-node, node-gui-focus
-// Receives (global): delete-node-gui
+// Handles (bubbling): update-node-gui, add-node, node-gui-focus, delete-node-gui
 
 SKOOKUM.SM.SiteMapProto = {
 
@@ -59,9 +58,16 @@ SKOOKUM.SM.SiteMapProto = {
 		return gui;
 	},
 	
-	_remove_gui: function(node_gui) {
+	_remove_gui: function (node_gui) {
 		this.node_guis.splice(this.node_guis.indexOf(node_gui), 1);
 		return node_gui;
+	},
+	
+	_layout_guis_smart_deep: function () {
+		var gui_list = this.root_gui.breadth_first().reverse();
+		for (var i = 0; i < gui_list.length; i++) {
+			gui_list[i].apply_layout();
+		}
 	},
 	
 	_update_size: function() {
@@ -76,13 +82,13 @@ SKOOKUM.SM.SiteMapProto = {
 		});
 		
 		$(this).bind('update-node-gui', function(event, node_gui) {
-			this.root_gui.smart_deep_layout();
+			this._layout_guis_smart_deep();
 		});
 		
 		$(this).bind('add-node', function(event, new_node, parent_gui) {
 			var new_gui = that._add_gui(new_node, parent_gui);
-			this.root_gui.smart_deep_layout();
-			$(this).trigger('added-node-gui', [new_gui, that]);
+			this._layout_guis_smart_deep();
+			$(this).trigger('added-node-gui', [new_gui, this]);
 		});
 		
 		$(this).bind('node-gui-focus', function(event, node_gui) {
@@ -90,8 +96,8 @@ SKOOKUM.SM.SiteMapProto = {
 		});
 		
 		$(this).bind('delete-node-gui', function(event, node_gui) {
-			that._remove_gui(node_gui);
-			that.root_gui.smart_deep_layout();
+			this._remove_gui(node_gui);
+			this._layout_guis_smart_deep();
 		})
 	},
 	
@@ -149,7 +155,7 @@ SKOOKUM.SM.SiteMapProto = {
 		this.clear();
 		this.root_gui = this._add_gui_recursive(data);
 		this.root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
-		this.root_gui.smart_deep_layout();
+		this._layout_guis_smart_deep();
 	},
 	
 	// Reset to zero-state

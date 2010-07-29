@@ -1,12 +1,11 @@
-/*
-	Requires Raphael JS, skookum.jsutil.js
-*/
+
+//	Requires Raphael JS, skookum.jsutil.js
 
 SKOOKUM.SM = SKOOKUM.SM || {};
 
-/*
-	Constructor
-*/
+
+// Constructor
+
 SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	var that = this;
 	
@@ -30,9 +29,9 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.listen();
 };
 
-/*
-	Methods
-*/
+
+// Methods
+
 (function (proto) {
 
 	proto.clear = function () {
@@ -63,10 +62,10 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		var that = this;
 
 		this.rect.click(function (event) {		// Must re-register listeners for newly created graphics objects
-			that.request_focus();
+			$(that).trigger('node-gui-focus', [that]);
 		});
 		this.text.click(function (event) {
-			that.request_focus();
+			$(that).trigger('node-gui-focus', [that]);
 		});	
 	};
 	
@@ -75,7 +74,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		
 		$(this.data).bind('update', function (event) {
 			that.render();
-			that.update();
+			$(that).trigger('update-node-gui', [this]);
 		});
 		
 		$(this.data).bind('add-node', function(event, node) {		// Should creating new guis be handled here or in jquery.sitemap.js?
@@ -90,38 +89,24 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 	};
 	
-	proto.update = function () {
-		$(this).trigger('update-node-gui', [this]);
-	};
-	proto.request_focus = function () {
-		$(this).trigger('node-gui-focus', [this]);
-	};
-	
-	
-	
-	
-	proto.get_all_raph_objects = function() {
-		var objs = [this.rect, this.text];
-		this.path && objs.push(this.path);
-		return objs;
-	};	
 	proto.move = function (dx, dy) {
 		this.x += dx;
 		this.y += dy;
+		
 		if(this.path) {
 			this.raph.set(this.rect, this.text, this.path).translate(dx, dy);
 		}
 		else {
-			SKOOKUM.log("Moving set by dx, dy: " + dx + ", " + dy);
 			this.raph.set(this.rect, this.text).translate(dx, dy);
 		}
 	};
+	
 	proto.move_to = function (x, y) {
-		SKOOKUM.log("Moving to " + x + ", " + y);
 		var dx = x - this.x;
 		var dy = y - this.y;
 		this.move(dx, dy);
 	};
+	
 	proto.move_to_with_children = function (x, y) {
 		var dx = x - this.x;
 		var dy = y - this.y;
@@ -130,30 +115,28 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 			this.children[i].move(dx, dy);
 		}
 	};
-	proto.getPageCoords = function() {
+	
+	proto.get_page_coords = function() {
 		var offset = this.ownerDocument.element.offset();
 		offset.left += this.x;
 		offset.top += this.y;
 		return offset;
-	}
-	proto.activate = function () {
-
 	};
-	proto.deactivate = function () {
 
-	};
 	proto.set_path = function(path) {
 		if (this.path) {
 			this.path.remove();
 		}	
 		this.path = path;
 	};
+	
 	proto.set_path_str = function(str) {
 		if (this.path) {
 			this.path.remove();
 		}
 		this.path = this.raph.path(str);
 	};
+	
 	proto.breadth_first = function() {
 		var queue = [this],
 			bf_array = [],
@@ -167,8 +150,9 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		} while (queue.length > 0);
 		return bf_array;
 	};
-	proto.get_box = function() {
-		var box = {}; // = this.box;
+	
+	proto.get_box = function() {				// This is probably super inefficient. Making all these calculations each time could probably be done better; but this works for now.
+		var box = {};
 		box.top = this.y - this.height * .5;
 		box.bottom = this.y + this.height + this.height * .5;
 		box.left = this.x - this.width * .5;
@@ -182,20 +166,14 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		}
 		box.width = box.right - box.left;
 		box.height = box.bottom - box.top;
-		SKOOKUM.log(this.data.title + " Box is " + box.left + "," + box.right + ", " + box.width + "," + box.top);
 		return box;
 	};
+	
 	proto.apply_layout = function () {
 		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
-		active_layout.apply_to(this);	// Moves all direct children into place, draws path lines
-		//this.update_box();
+		active_layout.apply_to(this);
 	};
-	proto.smart_deep_layout = function() {
-		var gui_list = this.breadth_first().reverse();
-		for (var i = 0; i < gui_list.length; i++) {
-			gui_list[i].apply_layout();
-		}
-	};
+	
 }) (SKOOKUM.SM.NodeGuiProto.prototype);
 
 
