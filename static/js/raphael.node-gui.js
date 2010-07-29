@@ -131,13 +131,6 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 			this.children[i].move(dx, dy);
 		}
 	};
-	proto.apply_recursive_layout = function () {
-		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
-		active_layout.apply_to(this);	// Moves all direct children into place, draws path lines
-		for (var i in this.children) {
-			this.children[i].apply_recursive_layout();	// Pass it down the line
-		}
-	};
 	proto.getPageCoords = function() {
 		var offset = this.ownerDocument.element.offset();
 		offset.left += this.x;
@@ -175,23 +168,18 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		} while (queue.length > 0);
 		return bf_array;
 	};
-	proto.update_box = function() {
-		var box = this.box;
-		if (this.children.length == 0) {
-			box.top = this.y;
-			box.bottom = this.y + this.height;
-			box.left = this.x;
-			box.right = this.x + this.width;
-		}
-		else {
-			box.left = box.right = box.top = box.bottom = 0;
-			for (var i in this.children) {
-				var child = this.children[i];
-				box.left = (child.box.left < box.left) ? child.box.left : box.left;
-				box.right = (child.box.right > box.right) ? child.box.right : box.right;
-				box.top = (child.box.top < box.top) ? child.box.top : box.top;
-				box.bottom = (child.box.bottom > box.bottom) ? child.box.bottom : box.bottom;
-			}
+	proto.get_box = function() {
+		var box = {}; // = this.box;
+		box.top = this.y - this.height * .5;
+		box.bottom = this.y + this.height + this.height * .5;
+		box.left = this.x - this.width * .5;
+		box.right = this.x + this.width * .5;
+		for (var i in this.children) {
+			var child_box = this.children[i].get_box();
+			box.left = (child_box.left < box.left) ? child_box.left : box.left;
+			box.right = (child_box.right > box.right) ? child_box.right : box.right;
+			box.top = (child_box.top < box.top) ? child_box.top : box.top;
+			box.bottom = (child_box.bottom > box.bottom) ? child_box.bottom : box.bottom;
 		}
 		box.width = box.right - box.left;
 		box.height = box.bottom - box.top;
@@ -201,15 +189,12 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.apply_layout = function () {
 		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
 		active_layout.apply_to(this);	// Moves all direct children into place, draws path lines
+		//this.update_box();
 	};
 	proto.smart_deep_layout = function() {
 		var gui_list = this.breadth_first().reverse();
 		for (var i = 0; i < gui_list.length; i++) {
-			var node_gui = gui_list[i];
-			if (node_gui.children.length > 0) {
-				node_gui.apply_layout();
-			}
-			node_gui.update_box();
+			gui_list[i].apply_layout();
 		}
 	};
 }) (SKOOKUM.SM.NodeGuiProto.prototype);

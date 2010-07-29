@@ -37,6 +37,7 @@ SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 			
 		var total_width;
 		var child_x, child_y;
+		var child_box;
 		var x, y;
 		var data;
 		var i;
@@ -54,7 +55,8 @@ SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 		// Find WIDTH of all children together with spacing
 		total_width = 0;
 		for (i in node_gui.children) {
-			total_width += node_gui.children[i].box.width;
+			child_box = node_gui.children[i].get_box();
+			total_width += child_box.width;
 		}
 		total_width += ( this.spacing * (node_gui.children.length - 1) );
 		
@@ -62,11 +64,12 @@ SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 		child_x = x - total_width * .5;
 		for (var i = 0; i < node_gui.children.length; i++) {
 			var child = node_gui.children[i];
-			child_x = child_x + (child.box.width * .5);
+			child_box = child.get_box();
+			child_x = child_x + (child_box.width * .5);
 			//path += "M " + child_x + " " + split_y + " ";
 			//path += "L " + child_x + " " + (split_y + this.size) + " ";
 			child.move_to_with_children(child_x, child_y + (child.height * .5));
-			child_x = child_x + (child.box.width * .5) + this.spacing;
+			child_x = child_x + (child_box.width * .5) + this.spacing;
 		}
 		if(node_gui.children.length > 1) {
 			//var node1 = node_gui.children[0];
