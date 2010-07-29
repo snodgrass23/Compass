@@ -8,7 +8,6 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 
 	_create: function() {
-		var that = this;
 		this.element.hide();
 		this.node_gui = null;
 		this.sitemap_instance = null;
@@ -18,7 +17,8 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	
 	_create_event_listeners: function() {
-	
+		var that = this;
+		
 		$(document).bind('edit-node-gui', function(event, node_gui) {			// Edit any nodes on the page
 			that.edit_node(node_gui);
 		});
@@ -62,6 +62,8 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	
 	_create_keyboard_listeners: function() {
+		var that = this;
+		
 		this.element.find("input").keydown(function(event) {
 		
 			if (event.which === 13 && event.shiftKey) {			// Enter + Shift
@@ -91,22 +93,27 @@ SKOOKUM.SM.NodeEditorProto = {
 					that.node_gui.parent.children[child_i - 1].request_focus();
 				}
 			}
+			
 			else if (event.shiftKey && event.which === 38) {	// Shift + Up
 				that.node_gui.parent && that.node_gui.parent.request_focus();
 			}
+			
 			else if (event.shiftKey && event.which === 39) {	// Shift + Right
 				var child_i = that.node_gui.parent.children.indexOf(that.node_gui);
 				if (child_i < that.node_gui.parent.children.length - 1) {
 					that.node_gui.parent.children[child_i + 1].request_focus();
 				}
 			}
+			
 			else if (event.shiftKey && event.which === 40) {	// Shift + Down
 				if (!that.node_gui.children.length) return;
 				that.node_gui.children[Math.floor(that.node_gui.children.length * .5)].request_focus();
 			}
+			
 			else {
 				return true;
 			}
+			
 			return false;
 		});
 	},	
