@@ -78,7 +78,6 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 		
 		$(this.data).bind('add-node', function(event, node) {		// Should creating new guis be handled here or in jquery.sitemap.js?
-			SKOOKUM.log("add-node for " + node.title);
 			$(that).trigger('add-node', [node, that]);
 		});
 		
@@ -90,6 +89,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	};
 	
 	proto.move = function (dx, dy) {
+		SKOOKUM.log("Moving " + this.data.title);
 		this.x += dx;
 		this.y += dy;
 		
@@ -98,6 +98,13 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		}
 		else {
 			this.raph.set(this.rect, this.text).translate(dx, dy);
+		}
+	};
+	
+	proto.move_with_children = function (dx, dy) {
+		this.move(dx, dy);
+		for (var i in this.children) {
+			this.children[i].move_with_children(dx, dy);
 		}
 	};
 	
@@ -110,10 +117,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.move_to_with_children = function (x, y) {
 		var dx = x - this.x;
 		var dy = y - this.y;
-		this.move(dx, dy);
-		for (var i in this.children) {
-			this.children[i].move(dx, dy);
-		}
+		this.move_with_children(dx, dy);
 	};
 	
 	proto.get_page_coords = function() {
@@ -151,6 +155,8 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		return bf_array;
 	};
 	
+	// Returns the bounding box of this node + descendents
+	// Results are meaningless unless descendents have already been positioned according to their apply_layout() function
 	proto.get_box = function() {				// This is probably super inefficient. Making all these calculations each time could probably be done better; but this works for now.
 		var box = {};
 		box.top = this.y - this.height * .5;

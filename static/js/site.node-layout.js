@@ -35,12 +35,15 @@ SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 			return;
 		}
 			
-		var total_width;
-		var child_x, child_y;
-		var child_box;
-		var x, y;
-		var data;
-		var i;
+		var total_width,
+			child_x, child_y,
+			parent_y, line_y,
+			left_node, right_node,
+			child_box,
+			x, y,
+			data,
+			i,
+			path;
 		
 		//var path = "M " + x + " " + (child_y) + " L " + x + " " + split_y + " " ;
 		
@@ -50,7 +53,10 @@ SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 		data = node_gui.data;
 		
 		// Find Y of all children (will be the same)
-		child_y = y + (node_gui.height * .5) + (this.size * 2);
+		parent_y = y + (node_gui.height * .5);
+		line_y = parent_y + this.size;
+		child_y = line_y + this.size;
+		path = "M " + x + " " + parent_y + " L " + x + " " + line_y + " " ;
 		
 		// Find WIDTH of all children together with spacing
 		total_width = 0;
@@ -66,19 +72,19 @@ SKOOKUM.SM.NodeLayout["BranchDown"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 			var child = node_gui.children[i];
 			child_box = child.get_box();
 			child_x = child_x + (child_box.width * .5);
-			//path += "M " + child_x + " " + split_y + " ";
-			//path += "L " + child_x + " " + (split_y + this.size) + " ";
+			path += "M " + child_x + " " + line_y + " ";
+			path += "L " + child_x + " " + child_y + " ";
 			child.move_to_with_children(child_x, child_y + (child.height * .5));
 			child_x = child_x + (child_box.width * .5) + this.spacing;
 		}
 		if(node_gui.children.length > 1) {
-			//var node1 = node_gui.children[0];
-			//var node2 = node_gui.children[data.children.length - 1];
-			//path += "M " + node1.x + " " + split_y + " ";
-			//path += "L " + node2.x + " " + split_y + " ";
+			left_node = node_gui.children[0];
+			right_node = node_gui.children[data.children.length - 1];
+			path += "M " + left_node.x + " " + line_y + " ";
+			path += "L " + right_node.x + " " + line_y + " ";
 		}			
-		if(data.parent) {
-			//node_gui.set_path_str(path);
+		if(data.parent) {						// "Not Root"
+			node_gui.set_path_str(path);
 		}
 	};	
 }) (SKOOKUM.SM.NodeLayout["BranchDown"].prototype);

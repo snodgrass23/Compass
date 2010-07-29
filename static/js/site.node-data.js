@@ -33,10 +33,7 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	};
 	
 	proto.add_sibling = function(data) {
-		var sibling = new SKOOKUM.SM.NodeData(data, this.parent);
-		this.parent.children.push(sibling);
-		$(this.parent).trigger('add-node', [sibling]);
-		return sibling;
+		return this.parent.add_child(data);
 	};
 	
 	proto.delete_self_recursive = function() {
