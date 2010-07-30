@@ -237,40 +237,6 @@ h1, h2 {
 	background: #eee;
 }
 
-#nav-buttons {
-	position: absolute;
-	top: 10px;
-	right: 20px;
-}
-.full #nav-buttons {
-	top: 20px;
-	right: 30px;
-}
-#nav-buttons li {
-	float: right;
-}
-#nav-buttons li a {
-	display: block;
-	width: 36px;
-	height: 36px;
-	float: right;
-	margin-left: 6px;
-}
-#fullscreen-btn {
-	background: transparent url('images/fullscreen_btn.png') top left no-repeat;
-}
-.full #fullscreen-btn {
-	background: transparent url('images/fullscreen_btn_full.png') top left no-repeat;
-}
-#scale150-btn {
-	background: transparent url('images/scale150_btn.png') top left no-repeat;
-}
-#scale100-btn {
-	background: transparent url('images/scale100_btn.png') top left no-repeat;
-}
-#scale50-btn {
-	background: transparent url('images/scale50_btn.png') top left no-repeat;
-}
 
 #toolbar h1, h2 {
 	font-family: Arial, sans-serif;
@@ -291,12 +257,14 @@ h1, h2 {
 }
 
 .toolbox {
+	clear: both;
 	width: 100%;
 	margin-bottom: 8px;	
 	background: #ededed;
 	-moz-box-shadow: 6px 6px 12px #ccc;
 	-webkit-box-shadow: 2px 2px 4px #666;
 	box-shadow: 2px 2px 4px #666;
+	float: left;
 }
 
 .toolbox h1 {
@@ -310,6 +278,10 @@ h1, h2 {
 .toolbox-contents {
 	padding: 10px 0 10px 15px;
 	background: #ddd;
+}
+
+.toolbox-contents br {
+	clear: both;
 }
 
 #overlay {

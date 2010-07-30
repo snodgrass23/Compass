@@ -1,0 +1,66 @@
+#nav-buttons {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+
+.full #nav-buttons {
+	top: 20px;
+	right: 30px;
+}
+
+#nav-buttons li {
+	float: right;
+}
+
+#nav-buttons li a {
+	display: block;
+	width: 36px;
+	height: 36px;
+	float: right;
+	margin-left: 6px;
+}
+
+#fullscreen-btn {
+	background: transparent url('images/buttons/fullscreen_btn.png') top left no-repeat;
+}
+
+.full #fullscreen-btn {
+	background: transparent url('images/buttons/fullscreen_btn_full.png') top left no-repeat;
+}
+
+.toolbox ul {
+	margin: 3px 0 0 0;
+}
+
+.toolbox li a {
+	display: block;
+	float: left;
+	width: 22px;
+	height: 22px;
+	margin-right: 3px;
+}
+
+.layout-down-tree {
+	background: transparent url('images/buttons/layout_down_tree.png') top left no-repeat;
+}
+
+.layout-down-ladder {
+	background: transparent url('images/buttons/layout_down_ladder.png') top left no-repeat;
+}
+
+.layout-down-L {
+	background: transparent url('images/buttons/layout_down_L.png') top left no-repeat;
+}
+
+.layout-right-tree {
+	background: transparent url('images/buttons/layout_right_tree.png') top left no-repeat;
+}
+
+.layout-right-double {
+	background: transparent url('images/buttons/layout_right_double.png') top left no-repeat;
+}
+
+.layout-right-ladder {
+	background: transparent url('images/buttons/layout_right_ladder.png') top left no-repeat;
+}

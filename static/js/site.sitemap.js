@@ -11,49 +11,61 @@ SKOOKUM.SM.default_data = function() {
 
 //SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData().generate_random(5);
 
-window.onload = function () {
-	SKOOKUM.SM.map = $("#map").siteMap();
-	//$("#map2").siteMap();
-	SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
-	SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );
-	//$("#map2").siteMap('build', SKOOKUM.SM.test_data, 100, 100);
-	
-	$('[title]').tooltip({
-		position: {
-			my: 'bottom center',
-			at: 'top center',
-			offset: "0 -25"
-		}
-	});
-	
-	$('.action').click(function(event) {
-		return false;
-	});
-	
-	$('#new-btn').click(function(event) {
+SKOOKUM.SM.init = {
+
+	create_widgets: function () {
+		SKOOKUM.SM.map = $("#map").siteMap();
 		SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );
-		return false;
-	});
-	$('#fullscreen-btn').toggle(
-		function(event) {
-			$('body').addClass('full');
-			$(window).trigger('resize');
+
+		SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
+		
+		$("#appearance").toolboxAppearance	({ title: "Appearance" });
+		$("#palette").toolbox				({ title: "Palette" });
+		$("#history").toolbox				({ title: "History" });
+		$("#navigator").toolbox				({ title: "Navigator" });
+		
+		$('[title]').tooltip({
+			position: {
+				my: 'bottom center',
+				at: 'top center',
+				offset: "0 -25"
+			}
+		});	
+	},
+	
+	create_listeners: function() {
+		$('.action').click(function(event) {
 			return false;
-		},
-		function(event) {
-			$('body').removeClass('full');
-			$(window).trigger('resize');
+		});
+		
+		$('#new-btn').click(function(event) {
+			SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );
 			return false;
-		}
-	);
-	$('#download-btn').click(function(event) {
-		var svg = SKOOKUM.SM.map.siteMap('get_svg');
-		$.download('download', { 'svg':svg }, 'POST');
-		return false;
-	});
-	/*
-	$('#scale150-btn').click(function(event) {
-		SKOOKUM.SM.map.siteMap('zoom', 1.5);
-	});
-	*/
+		});
+		
+		$('#fullscreen-btn').toggle(
+			function(event) {
+				$('body').addClass('full');
+				$(window).trigger('resize');
+				return false;
+			},
+			function(event) {
+				$('body').removeClass('full');
+				$(window).trigger('resize');
+				return false;
+			}
+		);
+		
+		$('#download-btn').click(function(event) {
+			var svg = SKOOKUM.SM.map.siteMap('get_svg');
+			$.download('download', { 'svg':svg }, 'POST');
+			return false;
+		});	
+	},	
+	
+};
+
+window.onload = function () {
+	SKOOKUM.SM.init.create_widgets();
+	SKOOKUM.SM.init.create_listeners();
 }

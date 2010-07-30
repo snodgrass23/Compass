@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.2.custom.css" />
 		<link href='http://fonts.googleapis.com/css?family=Josefin+Sans+Std+Light' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/app.css" media="screen, print" />
+        <link rel="stylesheet" type="text/css" href="css/buttons.css" media="screen, print" />
         <link rel="stylesheet" type="text/css" href="css/jquery.ui.tooltip.css" media="screen, print" />
     </head>
 
@@ -21,6 +22,7 @@
 	    	<div id="menu">
 	    		<ul>
 	    			<li><a id="new-btn" href="#" title="Discard this sitemap, start over">New</a></li>
+	    			<li><a id="open-btn" href="#" title="Open a sample sitemap to see what's possible">Open</a></li>
 	    			<li><a id="download-btn" href="#" title="That's right, for Adobe Illustrator - as a vector!">Download</a></li>
 	    		</ul>
 	    	</div>
@@ -36,39 +38,16 @@
 			    <div id="nav-buttons">
 			    	<ul>
 			    		<li><a id="fullscreen-btn" href="#" title="Toggle fullscreen"></a></li>
-			    		<!--<li><a id="scale150-btn" href="#" title="BIG"></a></li>
-			    		<li><a id="scale100-btn" href="#" title="Normal"></a></li>
-			    		<li><a id="scale50-btn" href="#" title="tiny"></a></li>-->
 			    	</ul>
 			    </div>
 			</div>
 			<div class="ui-layout-east">
 				<div id="toolbar">
 					<div id="toolbar-contents">
-						<div class="toolbox" id="appearance">
-							<h1>Appearance</h1>					
-							<div class="toolbox-contents">
-								<p>No selection</p>
-							</div>
-						</div>
-						<div class="toolbox" id="palette">
-							<h1>Palette</h1>					
-							<div class="toolbox-contents">
-								<p>Toolbox help text</p>
-							</div>
-						</div>
-						<div class="toolbox" id="history">
-							<h1>History</h1>					
-							<div class="toolbox-contents">
-								<p>Toolbox help text</p>
-							</div>
-						</div>
-						<div class="toolbox" id="navigator">
-							<h1>Navigator</h1>					
-							<div class="toolbox-contents">
-								<p>Toolbox help text</p>
-							</div>
-						</div>					
+						<div id="appearance"></div>
+						<div id="palette"></div>
+						<div id="history"></div>
+						<div id="navigator"></div>
 					</div>
 				</div>		
 			</div>
@@ -92,18 +71,31 @@
 				</form>
 			</div>
 		</div>
-		<script src="js/raphael.js"></script>
-		<script src="js/raphael.zoom.js"></script> 
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-		<script src="js/jquery.download.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-		<script src="js/jquery.ui.tooltip.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+		
 		<script src="js/skookum.jsutil.js"></script>
-		<script src="js/jquery.sitemap.js"></script>
-		<script src="js/jquery.node-editor.js"></script>
-		<script src="js/site.node-data.js"></script>
-		<script src="js/raphael.node-gui.js"></script>
-		<script src="js/site.node-layout.js"></script>
+				
+		<script src="js/jquery.download.js"></script>
+		<script src="js/jquery.ui.tooltip.js"></script>
+
+		<script src="js/sitemap_data/site.node.data.js"></script>
+		<script src="js/sitemap_data/site.node.layout.js"></script>
+		<script src="js/sitemap_data/site.node.layout.downtree.js"></script>
+		<script src="js/sitemap_data/site.node.layout.downL.js"></script>
+		<script src="js/sitemap_data/site.node.layout.righttree.js"></script>
+
+		<script src="js/sitemap_view/raphael.js"></script>
+		<script src="js/sitemap_view/raphael.zoom.js"></script> 		
+		<script src="js/sitemap_view/jquery.sitemap.js"></script>
+		<script src="js/sitemap_view/jquery.node-editor.js"></script>
+		<script src="js/sitemap_view/raphael.node-gui.js"></script>
+		
+		<script src="js/toolbar/jquery.toolbox.js"></script>
+		<script src="js/toolbar/jquery.toolbox.appearance.js"></script>
+		
 		<script src="js/site.sitemap.js"></script>
+				
     </body>
 </html>

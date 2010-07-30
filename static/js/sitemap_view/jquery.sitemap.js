@@ -19,7 +19,6 @@ SKOOKUM.SM.SiteMapProto = {
 	_create: function () {
 		var that = this;
 		this.raph = Raphael(this.element.attr('id'), this.element.width(), this.element.height());
-		this.element.data("node-map", this);
 		this.ownerDocument = document;
 		
 		this.clear();
@@ -120,6 +119,7 @@ SKOOKUM.SM.SiteMapProto = {
 					if (event.target != that.element.get(0)) {
 						return false;
 					}
+					$(that).trigger("drag");
 				},
 				drag: function() {
 					that._update_size();
@@ -143,6 +143,7 @@ SKOOKUM.SM.SiteMapProto = {
 					drag_update = window.setInterval(function() {
 						that._update_size();
 					}, 400);
+					$(that).trigger("drag");
 				},
 				stop: function(event, ui) {
 					window.clearInterval(drag_update);
@@ -191,4 +192,4 @@ SKOOKUM.SM.SiteMapProto = {
 	}
 	
 }
-jQuery.widget("ui.siteMap", SKOOKUM.SM.SiteMapProto);
+jQuery.widget("sm.siteMap", SKOOKUM.SM.SiteMapProto);

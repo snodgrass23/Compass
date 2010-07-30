@@ -29,7 +29,7 @@ SKOOKUM.SM.NodeEditorProto = {
 			}
 		});
 		
-		$(document).bind('resize', function (event) {
+		$(document).bind('resize drag', function (event) {
 			if (event.target == that.sitemap_instance) {
 				that.hide();
 			}
@@ -77,7 +77,7 @@ SKOOKUM.SM.NodeEditorProto = {
 			
 			else if (event.which === 13) {						// Enter by itself
 				that.node_gui.data.set_title($(this).val());
-				$(this).blur();
+				that.hide();
 			}
 			
 			else if (event.which === 9) {						// Tab
@@ -86,7 +86,7 @@ SKOOKUM.SM.NodeEditorProto = {
 			}
 			
 			else if (event.which === 27) {						// Escape
-				$(this).blur();
+				that.hide();
 			}
 			
 			else {
@@ -115,12 +115,16 @@ SKOOKUM.SM.NodeEditorProto = {
 		input.val(node_gui.data.title);
 		input.focus();
 		input.select();
+		
+		this._trigger("edit", null, {'node_gui':node_gui});		// TODO: Convert others to this style, which doesn't rely on "ownerDocument"
 	},
 	
 	hide: function() {
 		this.node_gui = null;
+		this.sitemap_instance = null;
 		this.element.stop().fadeOut(100);
+		this._trigger("edit", null, {'node_gui':null});
 	}
-}
+};
 
-jQuery.widget("ui.nodeEditor", SKOOKUM.SM.NodeEditorProto);
+jQuery.widget("sm.nodeEditor", SKOOKUM.SM.NodeEditorProto);
