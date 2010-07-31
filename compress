@@ -1,0 +1,39 @@
+#! /bin/sh
+
+# Skookum JS + CSS deployment compression script
+# v.1.0
+#
+# "Compiles" *.js recursively in JS_DIR -> JS_DIR/compressed.js
+# Compresses CSS_SOURCES in listed order -> CSS_DIR/compressed.css
+# 
+# hunter@skookum.com
+
+
+# Configure these per-project
+# Since stylesheets cascade, order is important
+
+JS_DIR=./static/js
+CSS_DIR=./static/css
+CSS_FILES='smoothness/jquery-ui-1.8.2.custom.css jquery.ui.tooltip.css app.css buttons.css'
+COMPRESSED_DIR=./static/compressed
+
+GOOGLE_CLOSURE=../build_tools/closure_compiler.jar
+YUI_COMPRESSOR=../build_tools/yuicompressor-2.4.2.jar
+
+
+# Leave these alone unless you want to relocate the compressed files
+
+HERE=`pwd`
+JS_TARGET=$COMPRESSED_DIR/scripts.js
+CSS_TARGET=$COMPRESSED_DIR/styles.css
+
+
+echo "Compiling JavaScript files from $JS_DIR with $GOOGLE_CLOSURE into $JS_TARGET..."
+find $JS_DIR -name '*.js'
+java -jar $GOOGLE_CLOSURE --compilation_level SIMPLE_OPTIMIZATIONS --summary_detail_level 3 $(find $JS_DIR -name '*.js' -exec printf ' --js %s' '{}' ';') --js_output_file $JS_TARGET
+#cat $(find $JS_DIR -name '*.js') | java -jar $YUI_COMPRESSOR --type js --verbose > $JS_TARGET
+
+echo "Compressing CSS files ($CSS_FILES) into $CSS_TARGET..."
+cd $CSS_DIR
+cat $CSS_FILES | java -jar $HERE/$YUI_COMPRESSOR --type css > $HERE/$CSS_TARGET
+cd $HERE

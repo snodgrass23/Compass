@@ -58,7 +58,7 @@ SKOOKUM.SM.init = {
 			$.download('download', { 'svg':svg }, 'POST');
 			return false;
 		});	
-	},	
+	}
 	
 };
 
