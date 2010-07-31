@@ -10,7 +10,8 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	this.parent = parent || null;
 	this.children = [];
 	this.layout = [new SKOOKUM.SM.NodeLayout["DownTree"]()];	// All nodes have a default layout and extra layouts add extra hashes
-
+	this.ownerDocument = document;								// For event bubbling from non-DOM objects
+	
 	if(data.children) {
 		for(var i in data.children) {
 			var new_child = new SKOOKUM.SM.NodeData(data.children[i], this);
@@ -50,8 +51,16 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	};
 	
 	proto.set_layout = function(layout_name) {
-		this.layout[0] = new SKOOKUM.SM.NodeLayout[layout_name]();
-		$(this).trigger('update');
+		if (SKOOKUM.SM.NodeLayout[layout_name]) {
+			this.layout[0] = new SKOOKUM.SM.NodeLayout[layout_name]();
+			$(this).trigger('update');
+			return true;
+		}
+		return false;
+	}
+	
+	proto.get_layout = function() {
+		return this.layout[0].name;
 	}
 	
 	proto.generate_random = function(min_children, depth, ascii) {

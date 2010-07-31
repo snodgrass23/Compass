@@ -14,6 +14,8 @@ SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 
 (function (proto) {
 
+	proto.name = "DownLadder";
+	
 	proto.apply_to = function(node_gui) {
 		if (node_gui.children.length === 0) {
 			return;

@@ -39,28 +39,102 @@
 	width: 22px;
 	height: 22px;
 	margin-right: 3px;
+	background: transparent url('images/buttons/layout_button_sprites.png') top left no-repeat;
+	background-position: 0 0;	
 }
 
-.layout-down-tree {
-	background: transparent url('images/buttons/layout_down_tree.png') top left no-repeat;
+.toolbox li a:hover {
+	background-position: 0 -22px;
 }
 
-.layout-down-ladder {
-	background: transparent url('images/buttons/layout_down_ladder.png') top left no-repeat;
+.toolbox li a.active {
+	background-position: 0 -44px;
 }
 
-.layout-down-L {
-	background: transparent url('images/buttons/layout_down_L.png') top left no-repeat;
+.toolbox .layouts {
+	display: none;
 }
 
-.layout-right-tree {
-	background: transparent url('images/buttons/layout_right_tree.png') top left no-repeat;
+
+
+.toolbox li a.DownL {
+	background-position: 0 0;
 }
 
-.layout-right-double {
-	background: transparent url('images/buttons/layout_right_double.png') top left no-repeat;
+.toolbox li a:hover.DownL {
+	background-position: 0 -22px;
 }
 
-.layout-right-ladder {
-	background: transparent url('images/buttons/layout_right_ladder.png') top left no-repeat;
+.toolbox li a.active.DownL {
+	background-position: 0 -44px;
+}
+
+
+
+.toolbox li a.DownLadder {
+	background-position: -22px 0;
+}
+
+.toolbox li a:hover.DownLadder {
+	background-position: -22px -22px;
+}
+
+.toolbox li a.active.DownLadder {
+	background-position: -22px -44px;
+}
+
+
+
+.toolbox li a.DownTree {
+	background-position: -44px 0;
+}
+
+.toolbox li a:hover.DownTree {
+	background-position: -44px -22px;
+}
+
+.toolbox li a.active.DownTree {
+	background-position: -44px -44px;
+}
+
+
+
+.toolbox li a.RightDouble {
+	background-position: -66px 0;
+}
+
+.toolbox li a:hover.RightDouble {
+	background-position: -66px -22px;
+}
+
+.toolbox li a.active.RightDouble {
+	background-position: -66px -44px;
+}
+
+
+
+.toolbox li a.RightLadder {
+	background-position: -88px 0;
+}
+
+.toolbox li a:hover.RightLadder {
+	background-position: -88px -22px;
+}
+
+.toolbox li a.active.RightLadder {
+	background-position: -88px -44px;
+}
+
+
+
+.toolbox li a.RightTree {
+	background-position: -110px 0;
+}
+
+.toolbox li a:hover.RightTree {
+	background-position: -110px -22px;
+}
+
+.toolbox li a.active.RightTree {
+	background-position: -110px -44px;
 }

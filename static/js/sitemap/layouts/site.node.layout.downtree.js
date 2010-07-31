@@ -12,6 +12,8 @@ SKOOKUM.SM.NodeLayout["DownTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 
 (function (proto) {
 
+	proto.name = "DownTree";
+	
 	proto.apply_to = function(node_gui) {
 		if (node_gui.children.length === 0) {
 			return;

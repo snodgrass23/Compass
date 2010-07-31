@@ -11,6 +11,8 @@ SKOOKUM.SM.NodeLayout.Base = function () {
 };
 (function (proto) {
 
+	proto.name = "BaseLayout";
+	
 	proto.apply_to = function(node_gui) { };
 	
 }) (SKOOKUM.SM.NodeLayout.Base.prototype);
