@@ -23,10 +23,12 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 	
 	_create_listeners: function() {
 		var that = this;
+		
 		$(document).bind('nodeeditoredit', function(event, ui) {
 			that._edit(ui.node_gui);
 		});
 		
+		SKOOKUM.log("Creating listeners...");
 		$(this.element).find(".layouts").click(function(event) {
 			var btn = $(event.target);
 			
