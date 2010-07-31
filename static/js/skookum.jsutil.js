@@ -47,15 +47,7 @@ var SKOOKUM = (function() {
 		
 		getTicks: function() {
 			return (new Date()).getTime();
-		},
-		
-		object: (function() {
-			function F(){}
-			return (function (o) {
-				F.prototype = o;
-				return new F();
-			});	
-		})()
+		}
 
 	};
 

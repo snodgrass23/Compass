@@ -30,11 +30,15 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 		$(this.element).find(".layouts").click(function(event) {
 			var btn = $(event.target);
 			
+			SKOOKUM.log("Click on " + btn);
 			if (btn.hasClass('layout-down-tree')) {
-				this.data.layout[0] = new SKOOKUM.SM.NodeLayout["DownTree"]();
+				that.data.set_layout("DownTree");
 			}
 			else if (btn.hasClass('layout-down-ladder')) {
-				this.data.layout[0] = new SKOOKUM.SM.NodeLayout["DownLadder"]();
+				that.data.set_layout("DownLadder");
+			}
+			else if (btn.hasClass('layout-right-tree')) {
+				that.data.set_layout("RightTree");
 			}
 			
 			return false;

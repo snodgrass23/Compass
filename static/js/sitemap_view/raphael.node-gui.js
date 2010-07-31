@@ -160,7 +160,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.get_box = function() {				// This is probably super inefficient. Making all these calculations each time could probably be done better; but this works for now.
 		var box = {};
 		box.top = this.y - this.height * .5;
-		box.bottom = this.y + this.height + this.height * .5;
+		box.bottom = this.y + this.height * .5;
 		box.left = this.x - this.width * .5;
 		box.right = this.x + this.width * .5;
 		for (var i in this.children) {

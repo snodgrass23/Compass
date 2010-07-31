@@ -34,9 +34,6 @@ SKOOKUM.SM.init = {
 	},
 	
 	create_listeners: function() {
-		$('.action').click(function(event) {
-			return false;
-		});
 		
 		$('#new-btn').click(function(event) {
 			SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );

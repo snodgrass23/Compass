@@ -49,6 +49,11 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 		$(this).trigger('update');
 	};
 	
+	proto.set_layout = function(layout_name) {
+		this.layout[0] = new SKOOKUM.SM.NodeLayout[layout_name]();
+		$(this).trigger('update');
+	}
+	
 	proto.generate_random = function(min_children, depth, ascii) {
 		min_children = min_children || 0;
 		depth = depth || 7;
