@@ -5,13 +5,15 @@ var express = require('express'),
 // Create and export Express app
 var app = express.createServer();
 
+app.set('development');
+
 // Configuration
 app.use(connect.bodyDecoder());
 app.use(connect.methodOverride());
+app.use(connect.gzip());
 app.use(connect.compiler({ src: __dirname + '/static', enable: ['sass'] }));
 app.use(connect.staticProvider(__dirname + '/static'));
 
-/*
 app.configure('development', function(){
     app.set('reload views', 1000);
     app.use(connect.errorHandler({ dumpExceptions: true, showStack: true })); 
@@ -20,7 +22,7 @@ app.configure('development', function(){
 app.configure('production', function(){
    app.use(connect.errorHandler()); 
 });
-*/
+
 
 
 // Routes
@@ -38,6 +40,10 @@ app.post('/download', function(req, res) {
 	else {
 		res.redirect('/');
 	}
+});
+
+app.post('/virtual/compressed.css', function(req, res) {
+	
 });
 
 app.listen(3000);
