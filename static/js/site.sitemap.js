@@ -14,8 +14,8 @@ SKOOKUM.SM.default_data = function() {
 SKOOKUM.SM.init = {
 
 	create_widgets: function () {
-		SKOOKUM.SM.map = $("#map").siteMap();
-		SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );
+		SKOOKUM.SM.map = $("#map-container").sitemap();
+		SKOOKUM.SM.map.sitemap('build', SKOOKUM.SM.default_data() );
 
 		SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
 		
@@ -36,7 +36,7 @@ SKOOKUM.SM.init = {
 	create_listeners: function() {
 		
 		$('#new-btn').click(function(event) {
-			SKOOKUM.SM.map.siteMap('build', SKOOKUM.SM.default_data() );
+			SKOOKUM.SM.map.sitemap('build', SKOOKUM.SM.default_data() );
 			return false;
 		});
 		
@@ -54,7 +54,7 @@ SKOOKUM.SM.init = {
 		);
 		
 		$('#download-btn').click(function(event) {
-			var svg = SKOOKUM.SM.map.siteMap('get_svg');
+			var svg = SKOOKUM.SM.map.sitemap('get_svg');
 			$.download('download', { 'svg':svg }, 'POST');
 			return false;
 		});	

@@ -141,6 +141,11 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		this.path = this.raph.path(str);
 	};
 	
+	proto.debug_box = function() {
+		this.debug_rect && this.debug_rect.remove();
+		this.debug_rect = this.raph.rect(this.left(), this.top(), this.width, this.height);
+	}
+	
 	proto.breadth_first = function() {
 		var queue = [this],
 			bf_array = [],
@@ -159,10 +164,10 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	// Results are meaningless unless descendents have already been positioned according to their apply_layout() function
 	proto.get_box = function() {				// This is probably super inefficient. Making all these calculations each time could probably be done better; but this works for now.
 		var box = {};
-		box.top = this.y - this.height * .5;
-		box.bottom = this.y + this.height * .5;
-		box.left = this.x - this.width * .5;
-		box.right = this.x + this.width * .5;
+		box.top = this.top();
+		box.bottom = this.bottom();
+		box.left = this.left();
+		box.right = this.right();
 		for (var i in this.children) {
 			var child_box = this.children[i].get_box();
 			box.left = (child_box.left < box.left) ? child_box.left : box.left;
@@ -172,12 +177,33 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		}
 		box.width = box.right - box.left;
 		box.height = box.bottom - box.top;
+		box.p_top = this.top() - box.top;				// Padding, crucial for positioning
+		box.p_bottom = box.bottom - this.bottom();
+		box.p_left = this.left() - box.left;
+		box.p_right = box.right - this.right();
 		return box;
 	};
+	
+	proto.top = function() {
+		return this.y - this.height * .5;
+	}
+	
+	proto.bottom = function() {
+		return this.y + this.height * .5;
+	}
+	
+	proto.left = function() {
+		return this.x - this.width * .5;
+	}
+	
+	proto.right = function() {
+		return this.x + this.width * .5;
+	}
 	
 	proto.apply_layout = function () {
 		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
 		active_layout.apply_to(this);
+		this.debug_box();
 	};
 	
 }) (SKOOKUM.SM.NodeGuiProto.prototype);

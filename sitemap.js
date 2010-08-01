@@ -10,7 +10,7 @@ app.set('development');
 // Configuration
 app.use(connect.bodyDecoder());
 app.use(connect.methodOverride());
-app.use(connect.gzip());
+//app.use(connect.gzip());
 app.use(connect.compiler({ src: __dirname + '/static', enable: ['sass'] }));
 app.use(connect.staticProvider(__dirname + '/static'));
 

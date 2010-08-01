@@ -53,11 +53,12 @@ SKOOKUM.SM.NodeLayout["RightTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 		for (var i = 0; i < node_gui.children.length; i++) {
 			var child = node_gui.children[i];
 			child_box = child.get_box();
-			child_y += (child_box.height * .5);
+			child_y += (child_box.height * .5) + child_box.p_top;
+			child_x = line_x + this.size + (child.width * .5) + child_box.p_left;
 			path += "M " + line_x + " " + child_y + " ";
 			path += "L " + child_x + " " + child_y + " ";
 			child.move_to_with_children(child_x + (child.width * .5), child_y);
-			child_y = child_y + (child_box.height * .5) + this.spacing;
+			child_y += (child_box.height * .5) + child_box.p_bottom + this.spacing;
 		}
 		if(node_gui.children.length > 1) {
 			top_node = node_gui.children[0];

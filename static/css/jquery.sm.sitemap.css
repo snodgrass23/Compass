@@ -1,0 +1,28 @@
+#map-container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #fff;
+	cursor: move;
+	overflow: hidden;
+}
+.full #map-container {
+	background: -moz-linear-gradient(0 0 270deg, #aaa, #ddd 3%, #fff 8%);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#fff), color-stop(3%, #ddd), color-stop(8%, #fff));
+}
+
+.sitemap {
+
+}
+
+.sitemap .raph {
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	cursor: move;
+}

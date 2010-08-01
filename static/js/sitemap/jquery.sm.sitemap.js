@@ -9,7 +9,7 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 // Broadcasts (bubbling): edit-node-gui
 // Handles (bubbling): update-node-gui, add-node, node-gui-focus, delete-node-gui
 
-SKOOKUM.SM.SiteMapProto = {
+SKOOKUM.SM.SitemapProto = {
 
 	options: {
 		name: "default",
@@ -18,7 +18,10 @@ SKOOKUM.SM.SiteMapProto = {
 	
 	_create: function () {
 		var that = this;
-		this.raph = Raphael(this.element.attr('id'), this.element.width(), this.element.height());
+		
+		this.element.addClass('sitemap');
+		this.raph_wrap = this.element.append('<div class="raph"></div>');
+		this.raph = Raphael(this.raph_wrap.get(0), this.element.width(), this.element.height());
 		this.ownerDocument = document;
 		
 		this.clear();
@@ -75,7 +78,7 @@ SKOOKUM.SM.SiteMapProto = {
 	},
 	
 	_update_size: function() {
-		this.raph.setSize($(this.element).innerWidth(), $(this.element).innerHeight());
+		this.raph.setSize($(this.raph_wrap).innerWidth(), $(this.raph_wrap).innerHeight());
 		$(this).trigger("resize");
 	},
 	
@@ -116,7 +119,7 @@ SKOOKUM.SM.SiteMapProto = {
 		if ($.browser.webkit) {			// webkit handles constant resizing very smoothly
 			drag_options = {
 				start: function(event, ui) {
-					if (event.target != that.element.get(0)) {
+					if (event.target != that.raph_wrap.get(0)) {
 						return false;
 					}
 					$(that).trigger("drag");
@@ -125,9 +128,9 @@ SKOOKUM.SM.SiteMapProto = {
 					that._update_size();
 				},
 				stop: function() {
-					var pos = that.element.position();
+					var pos = that.raph_wrap.position();
 					that.offset(pos.left, pos.top);
-					that.element.css({left: 0, top: 0});
+					that.raph_wrap.css({left: 0, top: 0});
 					that._update_size();
 				}
 			};
@@ -137,7 +140,7 @@ SKOOKUM.SM.SiteMapProto = {
 				start: function(event, ui) {
 					// Implement something here that checks to make sure the event target is the sitemap div so button clicks etc don't
 					// have a side-effect of triggering a drag as well
-					if (event.target != that.element.get(0)) {
+					if (event.target != that.raph_wrap.get(0)) {
 						return false;
 					}
 					drag_update = window.setInterval(function() {
@@ -147,21 +150,21 @@ SKOOKUM.SM.SiteMapProto = {
 				},
 				stop: function(event, ui) {
 					window.clearInterval(drag_update);
-					var pos = that.element.position();
+					var pos = that.raph_wrap.position();
 					that.offset(pos.left, pos.top);
-					that.element.css({left: 0, top: 0});
+					that.raph_wrap.css({left: 0, top: 0});
 					that._update_size();
 				}
 			}
 		}
-		$(this.element).draggable(drag_options);		// TODO: This seems to break the blur event for the node editor from background clicks. Fix that.
+		$(this.raph_wrap).draggable(drag_options);		// TODO: This seems to break the blur event for the node editor from background clicks. Fix that.
 	},
 
 	// Build a sitemap from existing data
 	build: function(data) {
 		this.clear();
 		this.root_gui = this._add_gui_recursive(data);
-		this.root_gui.move_to(this.element.parent().innerWidth() * .5, this.element.parent().innerHeight() * .5 - 50);
+		this.root_gui.move_to(this.element.innerWidth() * .5, this.element.innerHeight() * .5 - 50);
 		this._layout_guis_smart_deep();
 	},
 	
@@ -188,8 +191,8 @@ SKOOKUM.SM.SiteMapProto = {
 	
 	// Returns the DOMs SVG element as a string
 	get_svg: function() {
-		return this.element.html();
+		return this.raph_wrap.html();
 	}
 	
 }
-jQuery.widget("sm.siteMap", SKOOKUM.SM.SiteMapProto);
+jQuery.widget("sm.sitemap", SKOOKUM.SM.SitemapProto);
