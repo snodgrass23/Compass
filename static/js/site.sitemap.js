@@ -62,7 +62,7 @@ SKOOKUM.SM.init = {
 	
 };
 
-window.onload = function () {
+$(document).ready(function () {
 	SKOOKUM.SM.init.create_widgets();
 	SKOOKUM.SM.init.create_listeners();
-}
+});

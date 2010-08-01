@@ -1,5 +1,3 @@
-SKOOKUM.SM = SKOOKUM.SM || {};
-
 SKOOKUM.SM.NodeEditorProto = {
 
 	options: {

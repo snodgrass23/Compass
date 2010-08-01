@@ -15,7 +15,6 @@
 JS_DIR=./static/js
 CSS_DIR=./static/css
 CSS_FILES='smoothness/jquery-ui-1.8.2.custom.css jquery.ui.tooltip.css app.css buttons.css'
-COMPRESSED_DIR=./static/compressed
 
 GOOGLE_CLOSURE=../build_tools/closure_compiler.jar
 YUI_COMPRESSOR=../build_tools/yuicompressor-2.4.2.jar
@@ -23,14 +22,40 @@ YUI_COMPRESSOR=../build_tools/yuicompressor-2.4.2.jar
 
 # Leave these alone unless you want to relocate the compressed files
 
-HERE=`pwd`
-JS_TARGET=$COMPRESSED_DIR/scripts.js
-CSS_TARGET=$COMPRESSED_DIR/styles.css
+JS_TARGET=$JS_DIR/compressed.js
+CSS_TARGET=$CSS_DIR/compressed.css
 
+HERE=`pwd`
 
 echo "Compiling JavaScript files from $JS_DIR with $GOOGLE_CLOSURE into $JS_TARGET..."
-find $JS_DIR -name '*.js'
-java -jar $GOOGLE_CLOSURE --compilation_level SIMPLE_OPTIMIZATIONS --summary_detail_level 3 $(find $JS_DIR -name '*.js' -exec printf ' --js %s' '{}' ';') --js_output_file $JS_TARGET
+#find $JS_DIR -name '*.js'
+java -jar $GOOGLE_CLOSURE --compilation_level SIMPLE_OPTIMIZATIONS --summary_detail_level 3 \
+--js static/js/libs/jquery-1.4.2.js \
+--js static/js/libs/raphael.js \
+--js static/js/libs/raphael.zoom.js \
+--js static/js/libs/skookum.js \
+--js static/js/libs/ui/jquery-ui.js \
+--js static/js/libs/ui/jquery.effects.core.js \
+--js static/js/libs/ui/jquery.effects.fade.js \
+--js static/js/libs/ui/jquery.ui.draggable.js \
+--js static/js/libs/ui/jquery.ui.mouse.js \
+--js static/js/libs/ui/jquery.ui.position.js \
+--js static/js/libs/ui/jquery.ui.tooltip.js \
+--js static/js/libs/ui/jquery.ui.widget.js \
+--js static/js/sitemap/site.node.data.js \
+--js static/js/sitemap/layouts/site.node.layout.js \
+--js static/js/sitemap/layouts/site.node.layout.downtree.js \
+--js static/js/sitemap/layouts/site.node.layout.downladder.js \
+--js static/js/sitemap/layouts/site.node.layout.downL.js \
+--js static/js/sitemap/layouts/site.node.layout.righttree.js \
+--js static/js/sitemap/raphael.node-gui.js \
+--js static/js/sitemap/jquery.sitemap.js \
+--js static/js/sitemap/jquery.node-editor.js \
+--js static/js/toolbar/jquery.toolbox.js \
+--js static/js/toolbar/jquery.toolbox.appearance.js \
+--js static/js/jquery.download.js \
+--js static/js/site.sitemap.js \
+--js_output_file $JS_TARGET
 #cat $(find $JS_DIR -name '*.js') | java -jar $YUI_COMPRESSOR --type js --verbose > $JS_TARGET
 
 echo "Compressing CSS files ($CSS_FILES) into $CSS_TARGET..."
