@@ -88,6 +88,10 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 	};
 	
+	proto.trigger_update = function() {
+		this.debug_box();
+	};
+	
 	proto.move = function (dx, dy) {
 		SKOOKUM.log("Moving " + this.data.title);
 		this.x += dx;
@@ -99,6 +103,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		else {
 			this.raph.set(this.rect, this.text).translate(dx, dy);
 		}
+		this.trigger_update();
 	};
 	
 	proto.move_with_children = function (dx, dy) {
@@ -117,6 +122,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.move_to_with_children = function (x, y) {
 		var dx = x - this.x;
 		var dy = y - this.y;
+		this.trigger_update();
 		this.move_with_children(dx, dy);
 	};
 	
@@ -141,9 +147,24 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		this.path = this.raph.path(str);
 	};
 	
+	proto.is_root = function() {
+		return !this.parent;
+	}
+	
 	proto.debug_box = function() {
+		return;
 		this.debug_rect && this.debug_rect.remove();
-		this.debug_rect = this.raph.rect(this.left(), this.top(), this.width, this.height);
+		var my_box = this.get_box();
+		this.debug_rect = this.raph.rect(my_box.left, my_box.top, my_box.width, my_box.height);
+		if (this.is_root()) {
+			this.debug_rect.attr({stroke: 'green', 'stroke-width': 3});
+		}
+		else if (this.children.length == 0) {
+			this.debug_rect.attr({stroke: 'red', 'stroke-width': 3});
+		}
+		else {
+			this.debug_rect.attr({stroke: 'blue', 'stroke-width': 3});
+		}
 	}
 	
 	proto.breadth_first = function() {
@@ -203,7 +224,6 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.apply_layout = function () {
 		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
 		active_layout.apply_to(this);
-		this.debug_box();
 	};
 	
 }) (SKOOKUM.SM.NodeGuiProto.prototype);

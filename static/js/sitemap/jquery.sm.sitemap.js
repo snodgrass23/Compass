@@ -20,7 +20,8 @@ SKOOKUM.SM.SitemapProto = {
 		var that = this;
 		
 		this.element.addClass('sitemap');
-		this.raph_wrap = this.element.append('<div class="raph"></div>');
+		this.raph_wrap = $('<div class="raph"></div>');
+		this.element.append(this.raph_wrap);
 		this.raph = Raphael(this.raph_wrap.get(0), this.element.width(), this.element.height());
 		this.ownerDocument = document;
 		

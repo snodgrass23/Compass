@@ -58,7 +58,7 @@ SKOOKUM.SM.NodeLayout["DownTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 			child_y = line_y + this.size + (child.height * .5) + child_box.p_top;
 			path += "M " + child_x + " " + line_y + " ";
 			path += "L " + child_x + " " + child_y + " ";
-			child.move_to_with_children(child_x, child_y + (child.height * .5));
+			child.move_to_with_children(child_x, child_y);
 			child_x += (child.width * .5) + child_box.p_right + this.spacing;
 		}
 		if(node_gui.children.length > 1) {

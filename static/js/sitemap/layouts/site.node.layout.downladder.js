@@ -24,7 +24,7 @@ SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 		var total_width,
 			child_x, child_y,
 			last_y,
-			child_box,
+			child_box = {},
 			x, y,
 			data,
 			i,
@@ -36,11 +36,12 @@ SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 				
 		child_x = x;
 		last_y = y + (node_gui.height * .5);
-		
+		child_box.p_bottom = 0; 
 		for (var i = 0; i < node_gui.children.length; i++) {
 			var child = node_gui.children[i];
-			child_box = child.get_box();
-			child_y = last_y + this.spacing;
+			child_y = last_y + child_box.p_bottom + this.spacing;
+			child_box = child.get_box();			
+			child_y += child_box.p_top;
 			path += "M " + child_x + " " + last_y + " ";
 			path += "L " + child_x + " " + child_y + " ";
 			child.move_to_with_children(child_x, child_y + (child.height * .5));
