@@ -42,8 +42,4 @@ app.post('/download', function(req, res) {
 	}
 });
 
-app.post('/virtual/compressed.css', function(req, res) {
-	
-});
-
 app.listen(3000);
