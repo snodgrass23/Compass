@@ -2065,12 +2065,17 @@ jQuery.event = {
 	}
 };
 
+// HBL - PATCH - from http://github.com/jquery/jquery/commit/7f5179b65431b77e89fa32623a5000e3630c191c
 var removeEvent = document.removeEventListener ?
 	function( elem, type, handle ) {
-		elem.removeEventListener( type, handle, false );
+		if (elem.removeEventListener) {
+			elem.removeEventListener( type, handle, false );
+		}
 	} : 
 	function( elem, type, handle ) {
-		elem.detachEvent( "on" + type, handle );
+		if (elem.detachEvent) {
+			elem.detachEvent( "on" + type, handle );
+		}
 	};
 
 jQuery.Event = function( src ) {

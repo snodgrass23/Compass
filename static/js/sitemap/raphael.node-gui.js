@@ -63,9 +63,13 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 
 		this.rect.click(function (event) {		// Must re-register listeners for newly created graphics objects
 			$(that).trigger('node-gui-focus', [that]);
+			event.stopPropagation();
+			return false;
 		});
 		this.text.click(function (event) {
 			$(that).trigger('node-gui-focus', [that]);
+			event.stopPropagation();
+			return false;
 		});	
 	};
 	
@@ -88,8 +92,9 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		});
 	};
 	
-	proto.trigger_update = function() {
+	proto.trigger_moved = function() {
 		this.debug_box();
+		$(this).trigger('moved-node-gui', [this]);
 	};
 	
 	proto.move = function (dx, dy) {
@@ -103,7 +108,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		else {
 			this.raph.set(this.rect, this.text).translate(dx, dy);
 		}
-		this.trigger_update();
+		this.trigger_moved();
 	};
 	
 	proto.move_with_children = function (dx, dy) {
@@ -122,12 +127,12 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	proto.move_to_with_children = function (x, y) {
 		var dx = x - this.x;
 		var dy = y - this.y;
-		this.trigger_update();
+		this.trigger_moved();
 		this.move_with_children(dx, dy);
 	};
 	
 	proto.get_page_coords = function() {
-		var offset = this.ownerDocument.element.offset();
+		var offset = this.ownerDocument.raph_wrap.offset();
 		offset.left += this.x;
 		offset.top += this.y;
 		return offset;

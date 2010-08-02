@@ -1,0 +1,7 @@
+- convert all these bubbling "binds" into fewer "delegates"
+
+- instead of using ownerDocument = something arbitrary for widgets,
+consider using ownerDocument = this.element; I think that will be a more natural standard,
+and it will automatically enable bubbling since this.element will be on the DOM
+ref: http://api.jquery.com/triggerHandler/
+

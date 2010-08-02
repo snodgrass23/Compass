@@ -29,7 +29,8 @@ SKOOKUM.SM.NodeEditorProto = {
 		
 		$(document).bind('resize drag', function (event) {
 			if (event.target == that.sitemap_instance) {
-				that.hide();
+				//that.hide();
+				that._position_over_gui();
 			}
 		});
 		
@@ -93,28 +94,74 @@ SKOOKUM.SM.NodeEditorProto = {
 			
 			return false;
 		});
-	},	
+	},
 	
-	edit_node: function(node_gui) {
-		var target;
-		this.node_gui = node_gui;
-		this.sitemap_instance = node_gui.ownerDocument;
+	_position_over_gui: function(node_gui) {
+		node_gui = node_gui || this.node_gui;
+
+		if (!node_gui) {
+			return;
+		}
 		
 		target = node_gui.get_page_coords();
 		target.left -= this.element.innerWidth() * .5;
 		target.top -= (this.element.innerHeight() + node_gui.height * .5);
-		target.top += 8;
+		target.top += 8;	
 		
-		this.element.stop().fadeTo(200, this.options.opacity);
 		this.element.css('top', target.top);
-		this.element.css('left', target.left);
+		this.element.css('left', target.left);		
+	},
+	
+	_register_listeners: function() {
+		if (!this.node_gui) {
+			return;
+		}
 		
-		var input = this.element.find("input").first();
-		input.val(node_gui.data.title);
-		input.focus();
-		input.select();
+		$(this.node_gui).bind('delete-node-gui', this, this._handle_deleted);
+		$(this.node_gui).bind('moved-node-gui', this, this._handle_moved);
+	},
+	
+	_handle_deleted: function(event) {	// event.data === this
+		event.data.hide();
+	},
+	
+	_handle_moved: function(event) {	// event.data === this
+		event.data._position_over_gui();
+	},
+	
+	_unregister_listeners: function() {
+		$(this.node_gui).unbind('delete-node-gui', this._handle_deleted);
+		$(this.node_gui).unbind('moved-node-gui', this._handle_moved);
+	},
+	
+	edit_node: function(node_gui) {
+		var target;
 		
-		this._trigger("edit", null, {'node_gui':node_gui});		// TODO: Convert others to this style, which doesn't rely on "ownerDocument"
+		if (this.node_gui) {
+			this._unregister_listeners();
+		}
+		
+		this.node_gui = node_gui;
+		
+		if (node_gui) {
+			this.sitemap_instance = node_gui.ownerDocument;
+			
+			this._position_over_gui(node_gui);	
+			this.element.stop().fadeTo(200, this.options.opacity);
+			
+			var input = this.element.find("input").first();
+			input.val(node_gui.data.title);
+			input.focus();
+			input.select();
+			
+			this._register_listeners();
+			
+			this._trigger("edit", null, {'node_gui':node_gui});		// TODO: Convert others to this style, which doesn't rely on "ownerDocument"
+		}
+		
+		else {
+			this.hide();
+		}
 	},
 	
 	hide: function() {

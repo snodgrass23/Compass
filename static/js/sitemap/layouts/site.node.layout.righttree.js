@@ -46,6 +46,8 @@ SKOOKUM.SM.NodeLayout["RightTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 			child_box = node_gui.children[i].get_box();
 			total_height += child_box.height;
 		}
+		total_height -= node_gui.children[0].get_box().p_top;
+		total_height -= node_gui.children[node_gui.children.length - 1].get_box().p_bottom;
 		total_height += ( this.spacing * (node_gui.children.length - 1) );
 		
 		// Loop through children, positioning each

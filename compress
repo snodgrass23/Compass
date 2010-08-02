@@ -14,7 +14,7 @@
 
 JS_DIR=./static/js
 CSS_DIR=./static/css
-CSS_FILES='smoothness/jquery-ui-1.8.2.custom.css jquery.ui.tooltip.css app.css buttons.css'
+CSS_FILES=''
 
 GOOGLE_CLOSURE=../build_tools/closure_compiler.jar
 YUI_COMPRESSOR=../build_tools/yuicompressor-2.4.2.jar
@@ -29,6 +29,7 @@ HERE=`pwd`
 
 echo "Compiling JavaScript files from $JS_DIR with $GOOGLE_CLOSURE into $JS_TARGET..."
 #find $JS_DIR -name '*.js'
+
 java -jar $GOOGLE_CLOSURE --compilation_level SIMPLE_OPTIMIZATIONS --summary_detail_level 3 \
 --js static/js/libs/jquery-1.4.2.js \
 --js static/js/libs/raphael.js \
@@ -56,9 +57,17 @@ java -jar $GOOGLE_CLOSURE --compilation_level SIMPLE_OPTIMIZATIONS --summary_det
 --js static/js/jquery.download.js \
 --js static/js/site.sitemap.js \
 --js_output_file $JS_TARGET
+
 #cat $(find $JS_DIR -name '*.js') | java -jar $YUI_COMPRESSOR --type js --verbose > $JS_TARGET
 
-echo "Compressing CSS files ($CSS_FILES) into $CSS_TARGET..."
+echo "Compressing CSS files into $CSS_TARGET..."
 cd $CSS_DIR
-cat $CSS_FILES | java -jar $HERE/$YUI_COMPRESSOR --type css > $HERE/$CSS_TARGET
+
+cat \
+smoothness/jquery-ui-1.8.2.custom.css \
+jquery.ui.tooltip.css \
+app.css \
+buttons.css \
+| java -jar $HERE/$YUI_COMPRESSOR --type css > $HERE/$CSS_TARGET
+
 cd $HERE

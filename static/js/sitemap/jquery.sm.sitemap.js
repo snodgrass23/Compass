@@ -107,7 +107,12 @@ SKOOKUM.SM.SitemapProto = {
 		$(this).bind('delete-node-gui', function(event, node_gui) {
 			this._remove_gui(node_gui);
 			this._layout_guis_smart_deep();
+			$(this).trigger('deleted-node-gui', [node_gui]);
 		})
+		
+		$(this.raph_wrap).click(function(event) {
+			$(that).trigger('edit-node-gui', [null]);
+		});
 	},
 	
 	_create_dragging: function() {
@@ -115,9 +120,7 @@ SKOOKUM.SM.SitemapProto = {
 		// Enable dragging around the artboard
 		// TODO: Make the artboard stretch to always be exactly as large as the contents of the SVG,
 		// rather than forcing the SVG to be huge when you're just scrolling around.
-		var drag_update = null;
-		var drag_options = null;
-		if ($.browser.webkit) {			// webkit handles constant resizing very smoothly
+		var drag_update = null,
 			drag_options = {
 				start: function(event, ui) {
 					if (event.target != that.raph_wrap.get(0)) {
@@ -135,29 +138,6 @@ SKOOKUM.SM.SitemapProto = {
 					that._update_size();
 				}
 			};
-		}
-		else {							// sadly, FF doesn't
-			drag_options = {
-				start: function(event, ui) {
-					// Implement something here that checks to make sure the event target is the sitemap div so button clicks etc don't
-					// have a side-effect of triggering a drag as well
-					if (event.target != that.raph_wrap.get(0)) {
-						return false;
-					}
-					drag_update = window.setInterval(function() {
-						that._update_size();
-					}, 400);
-					$(that).trigger("drag");
-				},
-				stop: function(event, ui) {
-					window.clearInterval(drag_update);
-					var pos = that.raph_wrap.position();
-					that.offset(pos.left, pos.top);
-					that.raph_wrap.css({left: 0, top: 0});
-					that._update_size();
-				}
-			}
-		}
 		$(this.raph_wrap).draggable(drag_options);		// TODO: This seems to break the blur event for the node editor from background clicks. Fix that.
 	},
 
