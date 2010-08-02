@@ -77,3 +77,13 @@
 	background: #000;
 	color: #f55;
 }
+
+.node-editor .close-btn {
+	display: block;
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	right: -8px;
+	top: -8px;
+	background: transparent url('images/x_btn.png') top left no-repeat;
+}

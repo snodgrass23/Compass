@@ -10,6 +10,25 @@ SKOOKUM.SM.NodeEditorProto = {
 		this.node_gui = null;
 		this.sitemap_instance = null;
 		
+		this.element.addClass('node-editor');
+		this.element.append('<form> \
+					<input class="title" type="text" /> \
+					<div class="actions"> \
+						<ul> \
+							<li><a href="#" class="action accept-change">ok (enter)</a></li> \
+							<li><a href="#" class="action cancel-change">cancel (escape)</a></li> \
+							<li><a href="#" class="action new-sibling">new sibling (tab)</a></li> \
+							<li><a href="#" class="action new-child">new child (shift+enter)</a></li> \
+						</ul> \
+						<ul class="alt"> \
+							<li><a href="#" class="warn action delete-node">delete</a></li> \
+						</ul> \
+					</div> \
+				</form>');
+		
+		this.close_btn = $('<a href="#" class="close-btn"></a>');
+		this.element.append(this.close_btn);
+		
 		this._create_event_listeners();
 		this._create_keyboard_listeners();
 	},
@@ -40,6 +59,10 @@ SKOOKUM.SM.NodeEditorProto = {
 		
 		this.element.find(".accept-change").click(function() {
 			that.node_gui.data.set_title(that.element.find("input").val());
+			that.hide();
+		});
+		
+		this.close_btn.click(function(event) {
 			that.hide();
 		});
 		
