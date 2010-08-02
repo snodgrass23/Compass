@@ -47,6 +47,8 @@ SKOOKUM.SM.NodeLayout["DownTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 			child_box = node_gui.children[i].get_box();
 			total_width += child_box.width;
 		}
+		total_width -= node_gui.children[0].get_box().p_left;
+		total_width -= node_gui.children[node_gui.children.length - 1].get_box().p_right;
 		total_width += ( this.spacing * (node_gui.children.length - 1) );
 		
 		// Loop through children, positioning each
@@ -54,7 +56,10 @@ SKOOKUM.SM.NodeLayout["DownTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 		for (var i = 0; i < node_gui.children.length; i++) {
 			var child = node_gui.children[i];
 			child_box = child.get_box();
-			child_x += (child.width * .5) + child_box.p_left;
+			child_x += (child.width * .5);
+			if (i > 0) {
+				child_x += child_box.p_left;
+			}
 			child_y = line_y + this.size + (child.height * .5) + child_box.p_top;
 			path += "M " + child_x + " " + line_y + " ";
 			path += "L " + child_x + " " + child_y + " ";

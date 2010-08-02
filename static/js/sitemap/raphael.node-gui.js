@@ -157,7 +157,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	}
 	
 	proto.debug_box = function() {
-		return;
+		//return;
 		this.debug_rect && this.debug_rect.remove();
 		var my_box = this.get_box();
 		this.debug_rect = this.raph.rect(my_box.left, my_box.top, my_box.width, my_box.height);

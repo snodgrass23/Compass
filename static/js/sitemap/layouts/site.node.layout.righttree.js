@@ -56,6 +56,9 @@ SKOOKUM.SM.NodeLayout["RightTree"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 			var child = node_gui.children[i];
 			child_box = child.get_box();
 			child_y += (child.height * .5) + child_box.p_top;
+			if (i > 0) {
+				child_y += child_box.p_top;
+			}
 			child_x = line_x + this.size + (child.width * .5) + child_box.p_left;
 			path += "M " + line_x + " " + child_y + " ";
 			path += "L " + child_x + " " + child_y + " ";
