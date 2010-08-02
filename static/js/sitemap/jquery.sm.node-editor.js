@@ -76,7 +76,7 @@ SKOOKUM.SM.NodeEditorProto = {
 			
 			else if (event.which === 13) {						// Enter by itself
 				that.node_gui.data.set_title($(this).val());
-				that.hide();
+				//that.hide();
 			}
 			
 			else if (event.which === 9) {						// Tab
