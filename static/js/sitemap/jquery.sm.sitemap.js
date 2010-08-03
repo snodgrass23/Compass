@@ -203,7 +203,7 @@ SKOOKUM.SM.SitemapProto = {
 		if (filtered.length > 0) {
 			for (i in filtered) {
 				distance = Math.sqrt(Math.pow(filtered[i].gui.y - node_gui.y, 2) + Math.pow(filtered[i].gui.x - node_gui.x, 2));
-				filtered[i].dist += (Math.sqrt(distance) * 0.1);				
+				filtered[i].dist += (Math.sqrt(distance) * 0.3);				
 				SKOOKUM.log("Checking " + filtered[i].gui.data.title + ": " + distance + " linear distance making " + filtered[i].dist + " total distance.");				
 				if (shortest_i === -1 || filtered[i].dist < filtered[shortest_i].dist) {
 					shortest_i = i;
