@@ -173,6 +173,73 @@ SKOOKUM.SM.SitemapProto = {
 	// Returns the DOMs SVG element as a string
 	get_svg: function() {
 		return this.raph_wrap.html();
+	},
+	
+	_next_gui_at_angle: function(node_gui, target_angle) {
+		var filtered = [],
+			i,
+			distance;
+		for (i in this.node_guis) {
+			var test_gui = this.node_guis[i];
+			if (test_gui !== node_gui && !test_gui.is_root()) {
+				var angle = Math.atan2( (test_gui.y - node_gui.y), (test_gui.x - node_gui.x) );
+				if (angle < 0) {
+					angle += (Math.PI * 2);
+				}
+				distance = Math.abs(target_angle - angle);
+				if (distance < Math.PI * .45) {
+					//SKOOKUM.log("Good angle = " + angle + "( close to " + target_angle + ")");
+					filtered.push({gui: test_gui, dist: distance});
+				}
+				else {
+					//SKOOKUM.log("Bad angle = " + angle + "(or " + (angle + Math.PI * 2) + ") ( not close to " + target_angle + ")");
+				}
+			}
+		}
+		if (filtered.length === 0) {
+			return null;
+		}
+		var shortest_i = -1;
+		if (filtered.length > 0) {
+			for (i in filtered) {
+				distance = Math.sqrt(Math.pow(filtered[i].gui.y - node_gui.y, 2) + Math.pow(filtered[i].gui.x - node_gui.x, 2));
+				filtered[i].dist += (Math.sqrt(distance) * 0.1);				
+				SKOOKUM.log("Checking " + filtered[i].gui.data.title + ": " + distance + " linear distance making " + filtered[i].dist + " total distance.");				
+				if (shortest_i === -1 || filtered[i].dist < filtered[shortest_i].dist) {
+					shortest_i = i;
+					SKOOKUM.log("Shortest i is now " + filtered[i].gui.data.title);
+				}				
+			}
+		}
+		if (shortest_i === -1) {
+			return null;
+		}
+		return filtered[shortest_i].gui;
+	},
+	
+	shift: function(gui, direction) {
+		var options;
+		var to_gui = null;
+		
+		SKOOKUM.log("shifting " + gui + " " + direction + "!!");
+		if (direction === "up") {
+			to_gui = this._next_gui_at_angle(gui, 1.5 * Math.PI);
+		}
+		else if (direction === "left") {
+			to_gui = this._next_gui_at_angle(gui, Math.PI);
+		}
+		else if (direction === "down") {
+			to_gui = this._next_gui_at_angle(gui, 0.5 * Math.PI);
+		}
+		else if (direction === "right") {
+			to_gui = this._next_gui_at_angle(gui, 0);
+		}
+		else {
+			return;
+		}
+		if (to_gui) {
+			$(this).trigger('edit-node-gui', [ to_gui ]);
+		}	
 	}
 	
 }

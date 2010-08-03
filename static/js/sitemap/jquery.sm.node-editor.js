@@ -117,6 +117,25 @@ SKOOKUM.SM.NodeEditorProto = {
 			
 			return false;
 		});
+		
+		$(document).keydown(function (event) {
+			SKOOKUM.log("Key " + event.which + " pressed");
+			if (event.shiftKey) {
+				if (event.which === 38) {		// Up
+					SKOOKUM.log("UP!");
+					that.sitemap_instance.shift(that.node_gui, "up");
+				}
+				else if (event.which === 39) {	// Right
+					that.sitemap_instance.shift(that.node_gui, "right");
+				}
+				else if (event.which === 40) {	// Down
+					that.sitemap_instance.shift(that.node_gui, "down");
+				}
+				else if (event.which === 37) {	// Left
+					that.sitemap_instance.shift(that.node_gui, "left");
+				}
+			}
+		});
 	},
 	
 	_position_over_gui: function(node_gui) {

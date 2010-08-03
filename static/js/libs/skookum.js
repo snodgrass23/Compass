@@ -49,6 +49,10 @@ SKOOKUM.getTicks = function() {
 	return (new Date()).getTime();
 };
 
+SKOOKUM.mod = function(m,n) {
+	return ((m%n)+n)%n;
+}
+
 window.SKOOKUM = SKOOKUM;
 	
 }) (window);
