@@ -149,7 +149,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		if (this.path) {
 			this.path.remove();
 		}
-		this.path = this.raph.path(str);
+		this.path = this.raph.path(str).toBack();
 	};
 	
 	proto.is_root = function() {
