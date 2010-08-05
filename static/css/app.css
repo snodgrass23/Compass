@@ -132,9 +132,9 @@ h1, h2 {
 	left: 0;
 	top: 0;
 	right: 200px;
-	-moz-box-shadow: 5px 0px 50px #666;
-	-webkit-box-shadow: 5px 0px 50px #666;
-	box-shadow: 5px 0px 50px #666;
+	-moz-box-shadow: 5px 0px 12px #666;
+	-webkit-box-shadow: 5px 0px 12px #666;
+	box-shadow: 5px 0px 12px #666;
 	z-index: 5;
 	/*background: #ddd;*/
 }

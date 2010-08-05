@@ -9,6 +9,7 @@ SKOOKUM.SM.NodeEditorProto = {
 		this.element.hide();
 		this.node_gui = null;
 		this.sitemap_instance = null;
+		this.active = false;
 		
 		this.element.addClass('node-editor');
 		this.element.append('<form> \
@@ -17,11 +18,11 @@ SKOOKUM.SM.NodeEditorProto = {
 						<ul> \
 							<li><a href="#" class="action accept-change">ok (enter)</a></li> \
 							<li><a href="#" class="action cancel-change">cancel (escape)</a></li> \
-							<li><a href="#" class="action new-sibling">new sibling (tab)</a></li> \
-							<li><a href="#" class="action new-child">new child (shift+enter)</a></li> \
+							<li><a href="#" class="action new-child">child (shift+enter)</a></li> \
+							<li><a href="#" class="action new-sibling">sibling (tab)</a></li> \
 						</ul> \
 						<ul class="alt"> \
-							<li><a href="#" class="warn action delete-node">delete</a></li> \
+							<li><a href="#" class="warn action delete-node">kill (shift+del)</a></li> \
 						</ul> \
 					</div> \
 				</form>');
@@ -48,7 +49,6 @@ SKOOKUM.SM.NodeEditorProto = {
 		
 		$(document).bind('resize drag', function (event) {
 			if (event.target == that.sitemap_instance) {
-				//that.hide();
 				that._position_over_gui();
 			}
 		});
@@ -91,6 +91,9 @@ SKOOKUM.SM.NodeEditorProto = {
 		var that = this;
 		
 		this.element.find("input").keydown(function(event) {
+			if (!that.active) {
+				return false;
+			}
 		
 			if (event.which === 13 && event.shiftKey) {			// Enter + Shift
 				that.node_gui.data.set_title($(this).val());
@@ -99,7 +102,6 @@ SKOOKUM.SM.NodeEditorProto = {
 			
 			else if (event.which === 13) {						// Enter by itself
 				that.node_gui.data.set_title($(this).val());
-				//that.hide();
 			}
 			
 			else if (event.which === 9) {						// Tab
@@ -111,7 +113,12 @@ SKOOKUM.SM.NodeEditorProto = {
 				that.hide();
 			}
 			
+			else if (event.which === 8 && event.shiftKey) {
+				that.node_gui.data.delete_self_recursive();
+			}
+			
 			else {
+				SKOOKUM.log("Keycode: " + event.which);
 				return true;
 			}
 			
@@ -119,10 +126,12 @@ SKOOKUM.SM.NodeEditorProto = {
 		});
 		
 		$(document).keydown(function (event) {
-			SKOOKUM.log("Key " + event.which + " pressed");
+			if (!that.active) {
+				return;
+			}
+
 			if (event.shiftKey) {
 				if (event.which === 38) {		// Up
-					SKOOKUM.log("UP!");
 					that.sitemap_instance.shift(that.node_gui, "up");
 				}
 				else if (event.which === 39) {	// Right
@@ -186,6 +195,7 @@ SKOOKUM.SM.NodeEditorProto = {
 		this.node_gui = node_gui;
 		
 		if (node_gui) {
+			this.active = true;
 			this.sitemap_instance = node_gui.ownerDocument;
 			
 			this._position_over_gui(node_gui);	
@@ -207,6 +217,7 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	
 	hide: function() {
+		this.active = false;
 		this.node_gui = null;
 		this.sitemap_instance = null;
 		this.element.stop().fadeOut(100);

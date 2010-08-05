@@ -26,23 +26,26 @@
 #node-editor .actions {
 	position: absolute;
 	left: 15px;
-	right: 15px;
+	right: 17px;
 	bottom: 32px;
+	/*border: solid 1px blue;*/
 }
 
 #node-editor ul {
 	color: #444;
-	margin: 2px 0 2px 0;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	/*border: solid 1px red;*/
 }
 
 #node-editor ul.alt {
-	float: right;
-	clear: right;
+	left: auto;
+	right: 0;
 }
 
 #node-editor ul li {
 	display: block;
-	margin: 0 2px 0 2px;
 }
 
 #node-editor ul li.label {
@@ -55,8 +58,9 @@
 	float: left;
 	clear: left;
 	text-decoration: none;
+	text-align: center;
 	padding: 1px 4px 1px 4px;
-	margin: 2px 0 1px 0;
+	margin: 0 0 3px 0;
 	background: rgba(255, 255, 255, 1.0);
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;

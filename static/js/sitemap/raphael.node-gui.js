@@ -14,7 +14,8 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.parent = null;
 	this.children = [];
 	this.ownerDocument = null;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
-	
+	this.layout = new SKOOKUM.SM.NodeLayout["DownTree"]();	// All nodes have a default layout and extra layouts add extra hashes
+		
 	this.x = x || 0;
 	this.y = y || 0;
 	this.width = 0;
@@ -87,8 +88,10 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		
 		$(this.data).bind('delete-node', function(event) {
 			that.clear();
+			//that.parent.delete_child(that);
 			that.parent.children.splice(that.parent.children.indexOf(that), 1);
 			$(that).trigger('delete-node-gui', [that]);
+			$(that).trigger('update-node-gui', [that]);
 		});
 	};
 	
@@ -151,6 +154,19 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		}
 		this.path = this.raph.path(str).toBack();
 	};
+	
+	proto.set_layout = function(layout_name) {
+		if (SKOOKUM.SM.NodeLayout[layout_name]) {
+			this.layout = new SKOOKUM.SM.NodeLayout[layout_name]();
+			$(this).trigger('update-node-gui');
+			return true;
+		}
+		return false;
+	}
+	
+	proto.get_layout = function() {
+		return this.layout.name;
+	}
 	
 	proto.is_root = function() {
 		return !this.parent;
@@ -227,8 +243,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	}
 	
 	proto.apply_layout = function () {
-		var active_layout = this.data.layout[this.ownerDocument.options.name] || this.data.layout[0];		// If no custom layout has been assigned to this node_gui for this view, use the node_gui's base layout
-		active_layout.apply_to(this);
+		this.layout.apply_to(this);
 	};
 	
 }) (SKOOKUM.SM.NodeGuiProto.prototype);

@@ -105,9 +105,11 @@ SKOOKUM.SM.SitemapProto = {
 		});
 		
 		$(this).bind('delete-node-gui', function(event, node_gui) {
+			var to_parent = node_gui.parent;
 			this._remove_gui(node_gui);
 			this._layout_guis_smart_deep();
 			$(this).trigger('deleted-node-gui', [node_gui]);
+			$(this).trigger('edit-node-gui', [to_parent]);
 		})
 		
 		$(this.raph_wrap).click(function(event) {

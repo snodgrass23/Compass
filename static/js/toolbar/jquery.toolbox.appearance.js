@@ -14,7 +14,7 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 					<li><a href="#" class="RightLadder" title="Chain, right"></a></li>\
 				</ul>');
 
-		this.data = null;
+		this.node_gui = null;
 		this.selection = this.element.find(".selection");
 		this.layouts = this.element.find(".layouts");
 		
@@ -23,14 +23,16 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 	},
 	
 	_create_listeners: function() {
+		//return;
+		
 		var that = this;
 		
 		$(document).bind('nodeeditoredit', function(event, ui) {
 			that._edit(ui.node_gui);
 		});
 		
-		$(document).bind('update', function(event) {
-			if (event.target == that.data) {
+		$(document).bind('update-node-gui', function(event) {
+			if (event.target == that.node_gui) {
 				that._update();
 			}
 		});
@@ -38,22 +40,22 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 		this.layouts.mousedown(function(event) {
 			var btn = $(event.target);
 			
-			that.data.set_layout(btn.attr('class'));
+			that.node_gui.set_layout(btn.attr('class'));
 			
 			return false;
 		});
 	},
 	
 	_edit: function(node_gui) {
-		this.data = (node_gui) ? node_gui.data : null;
+		this.node_gui = node_gui;
 		this._update();
 	},
 	
 	_update: function() {		
-		if (this.data) {
-			var active_layout = this.data.get_layout();
+		if (this.node_gui) {
+			var active_layout = this.node_gui.get_layout();
 			
-			this.selection.html('"' + this.data.title + '" child layout:');
+			this.selection.html('"' + this.node_gui.data.title + '" child layout:');
 			
 			this.layouts.find("a").each(function() {
 				if ($(this).hasClass(active_layout)) {
@@ -64,12 +66,14 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 				}
 			});	
 			
-			this.layouts.stop().fadeTo(300, 1);
+			//this.layouts.stop().fadeTo(300, 1);
+			this.layouts.show();
 		}
 		
 		else {
 			this.selection.html("No selection");
-			this.layouts.stop().fadeOut(300);
+			//this.layouts.stop().fadeOut(300);
+			this.layouts.hide();
 		}
 	}
 	
