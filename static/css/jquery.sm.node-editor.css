@@ -31,11 +31,14 @@
 	/*border: solid 1px blue;*/
 }
 
-#node-editor ul {
+
+
+.node-editor ul {
 	color: #444;
 	position: absolute;
 	left: 0;
 	bottom: 0;
+	right: 0;
 	/*border: solid 1px red;*/
 }
 
@@ -53,7 +56,7 @@
 	font-weight: bold;
 }
 
-#node-editor ul li a {
+.node-editor ul li a {
 	display: block;
 	float: left;
 	clear: left;
@@ -65,6 +68,16 @@
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;
 	color: #444;
+	font-weight: bold;
+}
+
+.node-editor ul li a em {
+	font-weight: normal;
+	font-style: italic;
+}
+
+.node-editor ul li a:hover em {
+	visibility: hidden;
 }
 
 #node-editor ul li a:hover {
@@ -90,4 +103,18 @@
 	right: -8px;
 	top: -8px;
 	background: transparent url('images/x_btn.png') top left no-repeat;
+}
+
+.node-editor .input-actions {
+	position: absolute;
+	left: 15px;
+	right: 17px;
+	top: 63px;
+	display: none;
+}
+
+.node-editor .input-actions ul li a {
+	float: left;
+	clear: none;
+	margin-right: 5px;
 }
