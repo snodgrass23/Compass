@@ -5,3 +5,10 @@ consider using ownerDocument = this.element; I think that will be a more natural
 and it will automatically enable bubbling since this.element will be on the DOM
 ref: http://api.jquery.com/triggerHandler/
 
+
+
+Free / Hobbyist / Pro / Enterprise - pay levels?
+Free = free, very limited
+Hobbyist = free stuff + pay-as-you-go ($ per map?)
+Pro = up to N sitemaps stored, multiple user accounts
+Enterprise = many accounts, unlimited sitemaps, extra features

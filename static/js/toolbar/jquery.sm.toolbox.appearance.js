@@ -7,9 +7,8 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 		this.layouts = $('<ul class="layouts">\
 					<li><a href="#" class="TreeDown" title="Tree, down"></a></li>\
 					<li><a href="#" class="LadderDown" title="Ladder, down"></a></li>\
-					<li><a href="#" class="LDown" title="L, down"></a></li>\
+					<li><a href="#" class="ListDown" title="List, down"></a></li>\
 					<li><a href="#" class="TreeRight" title="Tree, right"></a></li>\
-					<li><a href="#" class="DoubleRight" title="Double, right"></a></li>\
 					<li><a href="#" class="LadderRight" title="Chain, right"></a></li>\
 				</ul>');
 		
