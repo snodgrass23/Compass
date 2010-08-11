@@ -6,14 +6,19 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 
 // Constructor
 
-SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
+SKOOKUM.SM.NodeGuiProto = function (raph, data, parent, owner, x, y) {
 	var that = this;
 	
 	this.raph = raph;		// this.prototype = raph.el? That's how rect, circle, etc work...
 	this.data = data;
-	this.parent = null;
+	this.parent = parent;
+	
+	if (this.parent) {
+		this.parent.children.push(this);
+	}
+	
 	this.children = [];
-	this.ownerDocument = null;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
+	this.ownerDocument = owner;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
 	this.layout = SKOOKUM.SM.NodeLayout.instance("TreeDown");
 		
 	this.x = x || 0;
@@ -29,6 +34,8 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.render();
 	this.listen();
 };
+
+SKOOKUM.SM.NodeGuiProto.COLORS = ['#000000', '#186e6e', '#a83e04', '#2f2f2f', '#7e7e7e'];
 
 
 // Methods
@@ -56,8 +63,11 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		this.width = bbox.width + (h_padding * 2),
 		this.height = bbox.height + (v_padding * 2),
 		
-		this.rect = this.raph.rect(this.x - this.width * .5, this.y - this.height * .5, this.width, this.height, roundedness),
-		this.rect.attr({ fill:'#000', stroke:'none', 'stroke-width':2, cursor:'pointer' });
+		this.rect = this.raph.rect(this.x - this.width * .5, this.y - this.height * .5, this.width, this.height, roundedness);
+
+		var fill_index = Math.min(SKOOKUM.SM.NodeGuiProto.COLORS.length - 1, this.get_depth() - 1);
+		this.rect.attr({ fill:SKOOKUM.SM.NodeGuiProto.COLORS[fill_index], stroke:'none', 'stroke-width':2, cursor:'pointer' });
+
 		this.text.toFront();
 
 		var that = this;
@@ -101,7 +111,6 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	};
 	
 	proto.move = function (dx, dy) {
-		SKOOKUM.log("Moving " + this.data.title);
 		this.x += dx;
 		this.y += dy;
 		
@@ -170,6 +179,15 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	
 	proto.is_root = function() {
 		return !this.parent;
+	}
+	
+	proto.get_depth = function() {
+		if (this.parent) {
+			return this.parent.get_depth() + 1;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	proto.debug_box = function() {
@@ -251,6 +269,6 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 
 
 
-Raphael.fn.node_gui = function (data, x, y) {	
-	return new SKOOKUM.SM.NodeGuiProto(this, data, x, y);		// Raphael.fn.* is called with apply() so "this" = the Raphael instance
+Raphael.fn.node_gui = function (data, parent, owner, x, y) {	
+	return new SKOOKUM.SM.NodeGuiProto(this, data, parent, owner, x, y);		// Raphael.fn.* is called with apply() so "this" = the Raphael instance
 };

@@ -40,6 +40,7 @@ SKOOKUM.introspect = function(obj, name) {
 };
 		
 SKOOKUM.log = function(msg) {
+	return;
 	if (window.console) {
 		console.log("%o", msg);
 	}

@@ -32,20 +32,20 @@ SKOOKUM.SM.SitemapProto = {
 	
 	_add_gui: function(data, parent_gui) {
 		SKOOKUM.log("_add_gui()");
-		var gui = this.raph.node_gui(data);
-		gui.parent = parent_gui;
-		gui.ownerDocument = this;			// To enable jQuery event "bubbling" on non-DOM objects
+		var gui = this.raph.node_gui(data, parent_gui, this);
+//		gui.parent = parent_gui;
+//		gui.ownerDocument = this;			// To enable jQuery event "bubbling" on non-DOM objects
 
-		parent_gui.children.push(gui);
+//		parent_gui.children.push(gui);
 		this.node_guis.push(gui);
 
 		return gui;
 	},
 	
 	_add_gui_recursive: function (data, parent) {
-		var gui = this.raph.node_gui(data);
-		gui.parent = parent || null;
-		gui.ownerDocument = this;		// To enable jQuery event "bubbling" on non-DOM objects
+		var gui = this.raph.node_gui(data, parent, this);
+//		gui.parent = parent || null;
+//		gui.ownerDocument = this;		// To enable jQuery event "bubbling" on non-DOM objects
 		
 		if (!parent) {
 			gui.clear();
