@@ -19,7 +19,8 @@ SKOOKUM.SM.init = {
 
 		SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
 		
-		$("#appearance").toolboxAppearance	({ title: "Appearance" });
+		$("#selection").toolboxSelection	({ header: false });
+		$("#appearance").toolboxAppearance	({ title: "Children" });
 		$("#palette").toolbox				({ title: "Palette" });
 		$("#history").toolbox				({ title: "History" });
 		$("#navigator").toolbox				({ title: "Navigator" });

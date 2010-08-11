@@ -14,7 +14,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 	this.parent = null;
 	this.children = [];
 	this.ownerDocument = null;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
-	this.layout = new SKOOKUM.SM.NodeLayout["DownTree"]();	// All nodes have a default layout and extra layouts add extra hashes
+	this.layout = new SKOOKUM.SM.NodeLayout["TreeDown"]();	// All nodes have a default layout and extra layouts add extra hashes
 		
 	this.x = x || 0;
 	this.y = y || 0;
@@ -219,10 +219,11 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, x, y) {
 		}
 		box.width = box.right - box.left;
 		box.height = box.bottom - box.top;
-		box.p_top = this.top() - box.top;				// Padding, crucial for positioning
-		box.p_bottom = box.bottom - this.bottom();
-		box.p_left = this.left() - box.left;
-		box.p_right = box.right - this.right();
+		box.pad = {};
+		box.pad.top = this.top() - box.top;				// Padding, crucial for positioning
+		box.pad.bottom = box.bottom - this.bottom();
+		box.pad.left = this.left() - box.left;
+		box.pad.right = box.right - this.right();
 		return box;
 	};
 	

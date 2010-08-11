@@ -17,7 +17,8 @@
 		<link rel="stylesheet" type="text/css" href="css/jquery.sm.sitemap.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.sm.node-editor.css" />
 		<link rel="stylesheet" type="text/css" href="css/buttons.css" />
-		<link rel="stylesheet" type="text/css" href="css/toolbar.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.sm.toolbox.css" />		
+		<link rel="stylesheet" type="text/css" href="css/jquery.sm.toolbox.appearance.css" />
 		
     </head>
 
@@ -49,6 +50,7 @@
 			<div class="ui-layout-east">
 				<div id="toolbar">
 					<div id="toolbar-contents">
+						<div id="selection"></div>
 						<div id="appearance"></div>
 						<div id="palette"></div>
 						<div id="history"></div>
@@ -69,6 +71,7 @@
 		<script src="js/libs/raphael.js"></script>
 		<script src="js/libs/raphael.zoom.js"></script>
 		<script src="js/libs/skookum.js"></script>
+		
 		<script src="js/libs/ui/jquery-ui.js"></script>
 		<script src="js/libs/ui/jquery.effects.core.js"></script>
 		<script src="js/libs/ui/jquery.effects.fade.js"></script>
@@ -77,18 +80,23 @@
 		<script src="js/libs/ui/jquery.ui.position.js"></script>
 		<script src="js/libs/ui/jquery.ui.tooltip.js"></script>
 		<script src="js/libs/ui/jquery.ui.widget.js"></script>
-		<script src="js/sitemap/site.node.data.js"></script>
-		<script src="js/sitemap/layouts/site.node.layout.js"></script>
-		<script src="js/sitemap/layouts/site.node.layout.downtree.js"></script>
-		<script src="js/sitemap/layouts/site.node.layout.downladder.js"></script>
-		<script src="js/sitemap/layouts/site.node.layout.downL.js"></script>
-		<script src="js/sitemap/layouts/site.node.layout.righttree.js"></script>
+		
+		<script src="js/sitemap/sm.node.data.js"></script>
+		
+		<script src="js/sitemap/layouts/sm.node.layout.js"></script>
+		<script src="js/sitemap/layouts/sm.node.layout.tree.js"></script>
+		<script src="js/sitemap/layouts/sm.node.layout.ladder.js"></script>
+		<script src="js/sitemap/layouts/sm.node.layout.list.js"></script>
+		
 		<script src="js/sitemap/raphael.node-gui.js"></script>
 		<script src="js/sitemap/jquery.sm.sitemap.js"></script>
 		<script src="js/sitemap/jquery.sm.node-editor.js"></script>
-		<script src="js/toolbar/jquery.toolbox.js"></script>
-		<script src="js/toolbar/jquery.toolbox.appearance.js"></script>
-		<script src="js/site.sitemap.js"></script>
+		
+		<script src="js/toolbar/jquery.sm.toolbox.js"></script>
+		<script src="js/toolbar/jquery.sm.toolbox.selection.js"></script>		
+		<script src="js/toolbar/jquery.sm.toolbox.appearance.js"></script>
+		
+		<script src="js/sm.main.js"></script>
 
     </body>
 </html>

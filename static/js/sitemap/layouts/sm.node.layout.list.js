@@ -9,12 +9,12 @@
 	 o
 */
 
-SKOOKUM.SM.NodeLayout["DownLadder"] = function() {};
-SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base();
+SKOOKUM.SM.NodeLayout["ListDown"] = function() {};
+SKOOKUM.SM.NodeLayout["ListDown"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 
 (function (proto) {
 
-	proto.name = "DownLadder";
+	proto.name = "ListDown";
 	
 	proto.apply_to = function(node_gui) {
 		if (node_gui.children.length === 0) {
@@ -24,7 +24,7 @@ SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 		var total_width,
 			child_x, child_y,
 			last_y,
-			child_box = {},
+			child_box = {pad: {} },
 			x, y,
 			data,
 			i,
@@ -36,12 +36,12 @@ SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 				
 		child_x = x;
 		last_y = y + (node_gui.height * .5);
-		child_box.p_bottom = 0; 
+		child_box.pad.bottom = 0; 
 		for (var i = 0; i < node_gui.children.length; i++) {
 			var child = node_gui.children[i];
-			child_y = last_y + child_box.p_bottom + this.spacing;
+			child_y = last_y + child_box.pad.bottom + this.spacing;
 			child_box = child.get_box();			
-			child_y += child_box.p_top;
+			child_y += child_box.pad.top;
 			path += "M " + child_x + " " + last_y + " ";
 			path += "L " + child_x + " " + child_y + " ";
 			child.move_to_with_children(child_x, child_y + (child.height * .5));
@@ -53,4 +53,4 @@ SKOOKUM.SM.NodeLayout["DownLadder"].prototype = new SKOOKUM.SM.NodeLayout.Base()
 		}
 	};	
 	
-}) (SKOOKUM.SM.NodeLayout["DownLadder"].prototype);
+}) (SKOOKUM.SM.NodeLayout["ListDown"].prototype);
