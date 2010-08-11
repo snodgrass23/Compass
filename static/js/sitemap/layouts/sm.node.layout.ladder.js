@@ -36,5 +36,3 @@ SKOOKUM.SM.NodeLayout.create("LadderDown",
 		}
 	}
 );
-
-

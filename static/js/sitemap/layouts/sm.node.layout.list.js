@@ -1,22 +1,5 @@
-// 	Straight down:
-
-/*
-     |
-     o
-	 |
-     o
-	 |
-	 o
-*/
-
-SKOOKUM.SM.NodeLayout["ListDown"] = function() {};
-SKOOKUM.SM.NodeLayout["ListDown"].prototype = new SKOOKUM.SM.NodeLayout.Base();
-
-(function (proto) {
-
-	proto.name = "ListDown";
-	
-	proto.apply_to = function(node_gui) {
+SKOOKUM.SM.NodeLayout.create("ListDown",
+	function(node_gui) {
 		if (node_gui.children.length === 0) {
 			return;
 		}
@@ -51,6 +34,5 @@ SKOOKUM.SM.NodeLayout["ListDown"].prototype = new SKOOKUM.SM.NodeLayout.Base();
 		if(data.parent) {						// "Not Root"
 			node_gui.set_path_str(path);
 		}
-	};	
-	
-}) (SKOOKUM.SM.NodeLayout["ListDown"].prototype);
+	}
+);
