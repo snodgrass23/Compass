@@ -1413,6 +1413,7 @@ Raphael = (function () {
             }
             this.removed = true;
         };
+        // !HBL-GetBBox
         Element[proto].getBBox = function () {
             if (this.removed) {
                 return this;
