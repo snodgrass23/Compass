@@ -6,6 +6,16 @@
 	margin: 3px 0 0 0;
 }
 
+
+.toolbox .layouts {
+	float: left;
+}
+
+.toolbox .layouts li {
+	float: left;
+}
+
+
 .toolbox li a {
 	display: block;
 	float: left;
@@ -22,10 +32,6 @@
 
 .toolbox li a.active {
 	background-position: 0 -44px;
-}
-
-.toolbox .layouts {
-	display: none;
 }
 
 

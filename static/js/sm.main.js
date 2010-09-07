@@ -20,11 +20,13 @@ SKOOKUM.SM.init = {
 		SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
 		
 		$("#selection").toolboxSelection	({ header: false });
-		$("#appearance").toolboxAppearance	({ title: "Children" });
+		$("#appearance").toolboxAppearance	({ title: "Layout of Children" });
 		$("#palette").toolbox				({ title: "Palette" });
 		$("#history").toolbox				({ title: "History" });
 		$("#navigator").toolbox				({ title: "Navigator" });
-		
+
+		$("#toolbar").draggable({containment: "parent", handle: ".handle"});
+				
 		$('[title]').tooltip({
 			position: {
 				my: 'bottom center',

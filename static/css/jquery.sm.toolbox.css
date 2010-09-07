@@ -21,7 +21,7 @@
 
 .toolbox h1 {
 	padding: 3px 0 2px 15px;
-	background: #ddd;
+	background: #e9e9e9;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 	letter-spacing: .25px;
 	font-weight: bold;
@@ -29,6 +29,7 @@
 
 .toolbox-contents {
 	padding: 10px 0 10px 15px;
+	float: left;
 }
 
 .toolbox-contents br {
@@ -40,4 +41,6 @@
 
 .toolbox .selection {
 	font-size: 90%;
+	font-style: italic;
+	color: #555;
 }

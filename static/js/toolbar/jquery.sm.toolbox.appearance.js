@@ -60,13 +60,8 @@ SKOOKUM.SM.ToolboxAppearanceProto = {
 					$(this).removeClass('active');
 				}
 			});	
-			
-			this.layouts.show();
 		}
-		
-		else {
-			this.layouts.hide();
-		}
+
 	}
 	
 };

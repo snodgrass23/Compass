@@ -57,7 +57,7 @@ SKOOKUM.SM.NodeGuiProto.COLORS = ['#000000', '#186e6e', '#a83e04', '#2f2f2f', '#
 			
 		this.clear();
 		this.text = this.raph.text(this.x, this.y, this.data.title),
-		this.text.attr({ fill:'#fff', cursor:'pointer' });
+		this.text.attr({ fill:'#fff', cursor:'pointer', 'font-size':13 });
 				
 		bbox = this.text.getBBox(),
 		this.width = bbox.width + (h_padding * 2),

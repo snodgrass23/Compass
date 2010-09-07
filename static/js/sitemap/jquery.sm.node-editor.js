@@ -169,6 +169,10 @@ SKOOKUM.SM.NodeEditorProto = {
 				else if (event.which === 37) {	// Left
 					that.sitemap_instance.shift(that.node_gui, "left");
 				}
+				else {
+					return true;
+				}
+				return false;
 			}
 		});
 	},
@@ -190,9 +194,13 @@ SKOOKUM.SM.NodeEditorProto = {
 		
 		// Stay centered
 		
+		// This causes crashing, "too much recursion," look into it.
+		/*
 		if (target.left > $(this.sitemap_instance.raph_wrap).innerWidth() * .7) {
 			SKOOKUM.log("Far right!");
+			this.sitemap_instance.offset(-(target.left - $(this.sitemap_instance.raph_wrap).innerWidth() * .7), 0);
 		}
+		*/
 	},
 		
 	_register_listeners: function() {
@@ -236,6 +244,9 @@ SKOOKUM.SM.NodeEditorProto = {
 	},
 	
 	_check_value: function() {
+		if (!this.node_gui) {
+			return;
+		}
 		if (this.element.find("input").first().val() !== this.node_gui.data.title) {
 			SKOOKUM.log(this.element.find("input").first().val() + " !== " + this.node_gui.data.title)
 			this.input_actions.show();

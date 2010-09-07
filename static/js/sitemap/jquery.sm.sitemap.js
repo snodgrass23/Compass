@@ -120,12 +120,9 @@ SKOOKUM.SM.SitemapProto = {
 	_create_dragging: function() {
 		var that = this;
 		// Enable dragging around the artboard
-		// TODO: Make the artboard stretch to always be exactly as large as the contents of the SVG,
-		// rather than forcing the SVG to be huge when you're just scrolling around.
-		var drag_update = null,
-			drag_options = {
-				start: function(event, ui) {
-					if (event.target != that.raph_wrap.get(0)) {
+		var drag_options = {
+				start: function(event, ui) {				// Hack to make both gecko and webkit recognize the real "original target"
+					if (event.originalEvent.target !== that.raph_wrap[0] && event.originalEvent.target.parentNode !== that.raph_wrap[0]) {
 						return false;
 					}
 					$(that).trigger("drag");
@@ -140,7 +137,7 @@ SKOOKUM.SM.SitemapProto = {
 					that._update_size();
 				}
 			};
-		$(this.raph_wrap).draggable(drag_options);		// TODO: This seems to break the blur event for the node editor from background clicks. Fix that.
+		$(this.raph_wrap).draggable(drag_options);
 	},
 
 	// Build a sitemap from existing data

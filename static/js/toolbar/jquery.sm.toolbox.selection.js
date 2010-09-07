@@ -1,5 +1,8 @@
 SKOOKUM.SM.ToolboxSelectionProto = {
-
+	options: {
+		always_visible: true
+	},
+	
 	_create: function() {
 		$.sm.toolbox.prototype._create.call(this);
 
@@ -31,8 +34,8 @@ SKOOKUM.SM.ToolboxSelectionProto = {
 		if (node_gui !== undefined) {
 			this.node_gui = node_gui;
 		}
-		var html = (this.node_gui) ? this.node_gui.data.title : "No selection";
-			html = (html.length > 0) ? html : "(no title)";
+		var html = (this.node_gui) ? '"' + this.node_gui.data.title + '"' : "No selection";
+			html = (html.length > 2) ? html : "(no title)";
 
 		this.selection.html(html);
 	}
