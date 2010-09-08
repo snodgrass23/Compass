@@ -193,6 +193,7 @@ a:focus {
 		top: 50px;
 		left: 0;
 		background: rgba(230, 230, 230, 0.85);
+		background: rgba(145, 192, 183, 0.85);
 		min-width: 100%;
 		color: #000;
 		border-top: 1px solid #000;
