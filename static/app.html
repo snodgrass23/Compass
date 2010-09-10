@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>Compass sitemap designer, by Skookum</title>
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css" />
+
+		
+		<!--<link rel="stylesheet" type="text/css" href="css/compressed.css" />-->
+
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.2.custom.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.ui.tooltip.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.sm.sitemap.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.sm.node-editor.css" />
+		<link rel="stylesheet" type="text/css" href="css/buttons.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.sm.toolbox.css" />		
+		<link rel="stylesheet" type="text/css" href="css/jquery.sm.toolbox.appearance.css" />
+		
+    </head>
+
+    <body>
+      <div id="title" title="Build sitemaps">
+	    	<h1>Compass <em>// Beta</em></h1>
+	    </div>
+	    
+    	<div class="ui-layout-north">
+	    
+	    	<div id="menu">
+	    	  <ul>
+      			<li><h3>File</h3>
+      				<ul>
+      					<li><a href="#">new</a></li>
+      					<li><a href="#">open sample...</a></li>
+      				</ul>
+      			</li>
+      			<li><h3>Download</h3>
+      				<ul>
+      					<li><a href="#">image (.png)</a></li>
+      					<li><a href="#">vector (.svg)</a></li>
+      					<li><a href="#">google sitemap (.xml)</a></li>
+                <li><a href="#">all of the above (.zip)</a></li>		
+      				</ul>
+      			</li>
+      			<li class="last"><h3>Share</h3>
+      			   <ul>
+      			     <li><a href="#">link</a></li>
+      			     <li><a href="#">email...</a></li>
+      			   </ul>
+      			</li>
+      		</ul>
+	    	</div>
+ 		  
+ 		   <div id="account">
+ 		     <a class="user" href="#">Hunter Loftis</a>
+ 		     <a id="creator" href="http://www.skookum.com" title="Sexy programmers building sexy programs"><span>by Skookum</span></a>
+ 		   </div>
+ 		 
+    	</div>
+    	
+    	<div class="ui-layout-south">
+    	
+  			<div id="work-area">
+  	    	<div id="map-container"></div>
+  		    <div id="nav-buttons">
+  		    	<ul>
+  		    		<li><a id="fullscreen-btn" href="#" title="Toggle fullscreen"></a></li>
+  		    	</ul>
+  		    </div>
+  			</div>
+
+  			<div id="toolbar">
+          <h1 class="handle">Toolbar</h1>
+  				<div id="toolbar-contents">
+  					<div id="selection"></div>
+  					<div id="appearance"></div>
+  					<div id="palette"></div>
+  					<div id="history"></div>
+  					<div id="navigator"></div>
+  				</div>
+  			</div>		
+
+      </div> <!-- .ui-layout-south -->    	
+	
+  		<div id="overlay">
+  			<div id='node-editor'></div>
+  		</div>
+		
+		<!--<script src="js/compressed.js"></script>-->
+		
+		<script src="js/libs/jquery-1.4.2-patched.js"></script>
+		<script src="js/libs/jquery.download.js"></script>
+		<script src="js/libs/raphael.js"></script>
+		<script src="js/libs/raphael.zoom.js"></script>
+		<script src="js/libs/skookum.js"></script>
+		
+		<script src="js/libs/ui/jquery-ui.js"></script>
+		<script src="js/libs/ui/jquery.effects.core.js"></script>
+		<script src="js/libs/ui/jquery.effects.fade.js"></script>
+		<script src="js/libs/ui/jquery.ui.draggable.js"></script>
+		<script src="js/libs/ui/jquery.ui.mouse.js"></script>
+		<script src="js/libs/ui/jquery.ui.position.js"></script>
+		<script src="js/libs/ui/jquery.ui.tooltip.js"></script>
+		<script src="js/libs/ui/jquery.ui.widget.js"></script>
+		
+		<script src="js/sitemap/sm.node.data.js"></script>
+		
+		<script src="js/sitemap/layouts/sm.node.layout.js"></script>
+		<script src="js/sitemap/layouts/sm.node.layout.tree.js"></script>
+		<script src="js/sitemap/layouts/sm.node.layout.ladder.js"></script>
+		<script src="js/sitemap/layouts/sm.node.layout.list.js"></script>
+		
+		<script src="js/sitemap/raphael.node-gui.js"></script>
+		<script src="js/sitemap/jquery.sm.sitemap.js"></script>
+		<script src="js/sitemap/jquery.sm.node-editor.js"></script>
+		
+		<script src="js/toolbar/jquery.sm.toolbox.js"></script>
+		<script src="js/toolbar/jquery.sm.toolbox.selection.js"></script>		
+		<script src="js/toolbar/jquery.sm.toolbox.appearance.js"></script>
+		
+		<script src="js/sm.main.js"></script>
+
+    </body>
+</html>

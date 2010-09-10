@@ -1,122 +1,348 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset=utf-8 />
+        <meta charset="utf-8" />
         <title>Compass sitemap designer, by Skookum</title>
         <!--[if IE]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css" />
-
-		
-		<!--<link rel="stylesheet" type="text/css" href="css/compressed.css" />-->
-
-		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.2.custom.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.ui.tooltip.css" />
-		<link rel="stylesheet" type="text/css" href="css/app.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.sm.sitemap.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.sm.node-editor.css" />
-		<link rel="stylesheet" type="text/css" href="css/buttons.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.sm.toolbox.css" />		
-		<link rel="stylesheet" type="text/css" href="css/jquery.sm.toolbox.appearance.css" />
-		
-    </head>
-
-    <body>
-      <div id="title" title="Build sitemaps">
-	    	<h1>Compass <em>// prototype</em></h1>
-	    </div>
-	    
-    	<div class="ui-layout-north">
-	    
-	    	<div id="menu">
-	    	  <ul>
-      			<li><h3>File</h3>
-      				<ul>
-      					<li><a href="#">new</a></li>
-      					<li><a href="#">open sample</a></li>
-      				</ul>
-      			</li>
-      			<li><h3>Download</h3>
-      				<ul>
-      					<li><a href="#">image (png)</a></li>
-      					<li><a href="#">vector (svg)</a></li>
-      				</ul>
-      			</li>
-      			<li class="last"><h3>Share</h3>
-      			   <ul>
-      			     <li><a href="#">link</a></li>
-      			     <li><a href="#">email</a></li>
-      			   </ul>
-      			</li>
-      		</ul>
-	    	</div>
- 		  
- 		    <a id="creator" href="http://www.skookum.com" title="Sexy programmers building sexy programs"><span>by Skookum</span></a>
- 		    
-    	</div>
-    	
-    	<div class="ui-layout-south">
-    	
-  			<div id="work-area">
-  	    	<div id="map-container"></div>
-  		    <div id="nav-buttons">
-  		    	<ul>
-  		    		<li><a id="fullscreen-btn" href="#" title="Toggle fullscreen"></a></li>
-  		    	</ul>
-  		    </div>
-  			</div>
-
-  			<div id="toolbar">
-          <h1 class="handle">Toolbar</h1>
-  				<div id="toolbar-contents">
-  					<div id="selection"></div>
-  					<div id="appearance"></div>
-  					<div id="palette"></div>
-  					<div id="history"></div>
-  					<div id="navigator"></div>
-  				</div>
-  			</div>		
-
-      </div> <!-- .ui-layout-south -->    	
+        
+        <style type="text/css">
+        
+        	html {
+        		height: 100%;
+        	}
+        	
+        	body {
+        		background: #242222 url(css/landing/images/bg_sweep.gif) 0 0 repeat-x;
+        		min-height: 100%;  
+				font-family: Arial, sans-serif;
+				line-height: 1.25;       		      		
+        	}
+        	
+        	#wrap {
+        		width: 1020px;
+        		margin: 0 auto 0 auto;
+        		position: relative;
+        		padding-bottom: 30px;
+        	}
+        	
+        	.main.header {
+        		width: 960px;
+        		height: 140px;
+        		padding: 0 30px 0 30px;
+        		background: transparent url(css/landing/images/header.jpg) 0 0 no-repeat;
+        		position: relative;
+        	}
+        	
+        	#logo {
+        		width: 281px;
+        		height: 93px;
+        		background: transparent url(css/landing/images/compass_logo.png) 0 0 no-repeat;
+        		position: absolute;
+        		left: 63px;
+        		top: 37px;
+        	}
+        	
+        	#logo h1, #logo h2 {
+        		display: none;
+        	}
+        	
+        	.main.nav {
+        		position: absolute;
+        		top: 67px;
+        		right: 0;
+        		width: 360px;
+        		height: 50px;
+        	}
+        	
+        	#sidelinks {
+        		margin: 0 auto 0 auto;
+        	}
+        	
+        	.main.nav ul {
+        		margin: 0 auto 0 auto;
+        		text-align: center;
+        	}
+        	
+        	.main.nav li, .main.nav a {
+				display: inline-block;
+				margin: 0 0 0 0;
+        	}
+        	
+        	.main.nav a {
+        		font-size: 14px;
+        		padding: 0 10px 0 10px;
+        		border-right: solid 1px #000;
+        		border-left: solid 1px rgba(255, 255, 255, .2);
+        		text-decoration: none;
+        		color: #aaa;
+        	}
+        	
+        	.main.nav .last a {
+        		border-right: none;
+        	}
+        	
+        	.main.nav .first a {
+        		border-left: none;
+        	}
+        	
+        	.main.article #hero.section {
+        		width: 960px;
+        		height: 322px;
+        		padding: 0 30px 0 30px;
+        		background: transparent url(css/landing/images/hero.jpg) 0 0 no-repeat;
+        		position: relative;
+        	}
+        	
+        	.hero.header {
+        		padding: 88px 0 0 78px;
+        		color: rgba(255, 255, 255, .8);
+        		font-size: 250%;
+        		width: 490px;
+        	}
+        	
+        	.hero.header span {
+        		display: block;
+        		font-size: 95%;
+        	}
+        	
+        	.hero.header h1 {
+        		padding-bottom: 10px;
+        		border-bottom: solid 2px rgba(0, 0, 0, .15);
+        	}
+        	
+        	.hero.header h2 {
+        		font-size: 43%;
+        		line-height: 1.5;
+        		padding: 18px 0 0 4px;
+        		border-top: solid 1px rgba(255, 255, 255, .25);
+        	}
+        	
+        	.hero.header h2 span {
+        		width: 290px;
+        	}
+        	
+        	#signup {
+        		display: block;
+        		width: 188px;
+        		height: 44px;
+        		background: transparent url(css/landing/images/signup_btn.png) 0 0 no-repeat;
+        		position: absolute;
+        		top: 220px;
+        		left: 410px;
+        	}
+        	
+        	#signup h1 {
+        		display: none;
+        	}
+        	
+        	#examples {
+        		position: absolute;
+        		top: 40px;
+        		left: 675px;
+        		width: 349px;
+        		height: 274px;
+        		background: transparent url(css/landing/images/examples.png) 0 0 no-repeat;
+        	}
+        	
+        	#examples h1 {
+				display: none;
+        	}
+        	
+        	.main.article #body.section {
+        		width: 960px;
+        		min-height: 326px;
+        		padding: 0 30px 0 30px;
+        		background: transparent url(css/landing/images/body.jpg) 0 0 no-repeat;
+        		position: relative;
+        	}
+        	
+        	.main.article .body.article {
+        		padding: 27px 0 0 78px;
+        		color: rgba(255, 255, 255, .8);
+        		width: 490px;
+        	}
+        	
+        	.main.article .body.article h1 {
+        		font-size: 150%;
+        		font-weight: bold;
+        		padding: 15px 0 10px 10px;
+        		border-bottom: solid 2px rgba(0, 0, 0, .25);
+        	}
+        	
+        	.main.article .body.article ul.steps {
+        		border-top: solid 1px rgba(255, 255, 255, .1);
+        		padding-top: 15px;
+        	}
+        	
+        	.main.article .body.article ul.steps li {
+        		padding-left: 173px;
+        		margin-bottom: 30px;
+        	}
+        	
+        	.main.article .body.article h2, .body.aside h1 {
+        		color: #f2c002;
+        		font-size: 110%;
+        		font-weight: bold;
+        	}
+        	
+        	.main.article li p {
+        		font-size: 90%;
+        		color: #acacac;
+        		line-height: 1.7;
+        		margin-top: 8px;
+        	}
+        	
+        	li#step1 {
+        		background: transparent url(css/landing/images/step1.png) 10px 0 no-repeat;
+        		min-height: 104px;        		
+        	}
+        	
+        	li#step2 {
+        		background: transparent url(css/landing/images/step2.png) 10px 0 no-repeat;
+        		min-height: 70px;        		
+        	}
+        	
+        	li#step3 {
+        		background: transparent url(css/landing/images/step3.png) 10px 0 no-repeat;
+        		min-height: 121px;        		
+        	}     
+        	
+        	.body.aside {
+        		position: absolute;
+        		left: 680px;
+        		top: 0;
+        		padding: 47px 0 0 25px;
+        	}
+        	
+        	.body.aside li {
+        		border-top: solid 1px rgba(255, 255, 255, .1);        	
+        		border-bottom: solid 2px rgba(0, 0, 0, .25);
+        		padding: 10px 0 10px 0;
+        	}
+        	
+        	.body.aside li.first {
+        		border-top: none;
+        	}
+        	
+        	.body.aside li.last {
+        		border-bottom: none;
+        	}
+        	
+        	.main.footer {
+        		height: 100px;
+				background: #444;
+				background: -moz-linear-gradient(0 0 270deg, #222, #000 40%);
+			 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222), to(#000), color-stop(40%, #000));
+        	}
+        
+        </style>
+	</head>
+	<body>
 	
-  		<div id="overlay">
-  			<div id='node-editor'></div>
-  		</div>
-		
-		<!--<script src="js/compressed.js"></script>-->
-		
-		<script src="js/libs/jquery-1.4.2-patched.js"></script>
-		<script src="js/libs/jquery.download.js"></script>
-		<script src="js/libs/raphael.js"></script>
-		<script src="js/libs/raphael.zoom.js"></script>
-		<script src="js/libs/skookum.js"></script>
-		
-		<script src="js/libs/ui/jquery-ui.js"></script>
-		<script src="js/libs/ui/jquery.effects.core.js"></script>
-		<script src="js/libs/ui/jquery.effects.fade.js"></script>
-		<script src="js/libs/ui/jquery.ui.draggable.js"></script>
-		<script src="js/libs/ui/jquery.ui.mouse.js"></script>
-		<script src="js/libs/ui/jquery.ui.position.js"></script>
-		<script src="js/libs/ui/jquery.ui.tooltip.js"></script>
-		<script src="js/libs/ui/jquery.ui.widget.js"></script>
-		
-		<script src="js/sitemap/sm.node.data.js"></script>
-		
-		<script src="js/sitemap/layouts/sm.node.layout.js"></script>
-		<script src="js/sitemap/layouts/sm.node.layout.tree.js"></script>
-		<script src="js/sitemap/layouts/sm.node.layout.ladder.js"></script>
-		<script src="js/sitemap/layouts/sm.node.layout.list.js"></script>
-		
-		<script src="js/sitemap/raphael.node-gui.js"></script>
-		<script src="js/sitemap/jquery.sm.sitemap.js"></script>
-		<script src="js/sitemap/jquery.sm.node-editor.js"></script>
-		
-		<script src="js/toolbar/jquery.sm.toolbox.js"></script>
-		<script src="js/toolbar/jquery.sm.toolbox.selection.js"></script>		
-		<script src="js/toolbar/jquery.sm.toolbox.appearance.js"></script>
-		
-		<script src="js/sm.main.js"></script>
+		<div id="wrap">
 
-    </body>
+			<div class="main header">
+			
+				<a href="/">
+					<div id="logo" class="hgroup">
+						<h1>Compass</h1>
+						<h2>by Skookum</h2>
+					</div>
+				</a>
+			
+			</div>
+			
+			<div class="main nav">
+				<div id="sidelinks">
+					<ul>
+						<li class="first"><a href="#">Feedback</a></li><li><a href="mailto:hunter@skookum.com">email the devs</a></li><li class="last"><a href="#">Skookum.com</a></li>					
+					</ul>
+				</div>
+			</div>
+			
+			<div class="main article">
+			
+				<div id="hero" class="section">
+					
+					<div class="hero header">
+						<div class="hero hgroup">
+							<h1>Easy sitemaps <span>for civilized web architects.</span></h1>
+							<h2><span>Fast, high-level overviews without wasting energy on boxes and lines.</span></h2>
+						</div>
+					</div>
+					
+					<div class="hero article">
+						<a id="signup" href="#"><h1>Sign up for beta!</h1></a>
+					</div>
+					
+					<div class="hero aside">
+						<a id="examples" href="#"><h1>View examples</h1></a>
+					</div>
+					
+				</div>
+				
+				<div id="body" class="section">
+				
+					<div class="body article">
+						<h1>How it works</h1>
+						<ul class="steps">
+							<li id="step1">
+								<h2>1. Add pages to your site</h2>
+								<p>
+									Drag-and-drop your site into existence. The sitemap items will place themselves automatically.
+								</p>
+							</li>
+							<li id="step2">
+								<h2>2. Customize color and layout</h2>
+								<p>
+									By default, your map will look good. Select color and layout options to make it great.
+								</p>
+							</li>
+							<li id="step3">
+								<h2>3. Share your work</h2>
+								<p>
+									Share online with a link or image, or download Adobe Illustrator-compatible vector images (.svg) to easily integrate with your existing workflow!
+								</p>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="body aside">
+					
+						<ul>
+							<li class="first">
+								<h1>fast</h1>
+								<p>Why waste a good designer for hours on boxes and arrows?</p>
+							</li>
+							<li>
+								<h1>sexy</h1>
+								<p>Create clean, organized sitemaps that are easy to modify and maintain.</p>
+							</li>
+							<li>
+								<h1>reliable</h1>
+								<p>Automatic saves; work available online anytime, anywhere - did we mention unlimited undo/redo history?</p>
+							</li>
+							<li class="last">
+								<h1>free</h1>
+								<p>We'll let you know if we ever move from "free" to "dirt cheap."</p>
+							</li>
+								
+						</ul>
+					
+					</div>
+				
+				</div>
+			
+			</div>
+
+		</div> <!-- #wrap -->
+		
+		<div class="main footer">
+		
+		</div>
+	
+	</body>
 </html>
