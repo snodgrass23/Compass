@@ -2,12 +2,15 @@ SKOOKUM.SM = SKOOKUM.SM || {};
 
 
 SKOOKUM.SM.default_data = function() {
-	return new SKOOKUM.SM.NodeData(
+/*	return new SKOOKUM.SM.NodeData(
 		{
 			title: "Start Here"
+			, layout: "TreeDown"
 			, children: []
 		}
 	);
+*/
+  return new SKOOKUM.SM.NodeData({"title":"Ninja Turtles","layout":"TreeDown","children":[{"title":"A","layout":"TreeDown","children":[]},{"title":"B","layout":"TreeDown","children":[]},{"title":"C","layout":"TreeDown","children":[{"title":"D","layout":"TreeDown","children":[]},{"title":"E","layout":"TreeDown","children":[]},{"title":"F","layout":"TreeDown","children":[]}]}]});
 };
 
 //SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData().generate_random(5);
@@ -58,11 +61,18 @@ SKOOKUM.SM.init = {
 			}
 		);
 		
-		$('#download-btn').click(function(event) {
+		$('#download-list .svg').click(function(event) {
 			var svg = SKOOKUM.SM.map.sitemap('get_svg');
-			$.download('download', { 'svg':svg }, 'POST');
+			$.download('download.svg', { 'attachment':svg }, 'POST');
 			return false;
 		});	
+		
+		$('#download-list .json').click(function(event) {
+		  var json = SKOOKUM.SM.map.sitemap('get_json');
+		  $.download('download.json', { 'attachment':json }, 'POST');
+		  return false;
+		});
+		
 	}
 	
 };

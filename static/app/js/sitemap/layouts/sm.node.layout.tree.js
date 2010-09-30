@@ -55,9 +55,7 @@ SKOOKUM.SM.NodeLayout.create("TreeDown",
 			path += "M " + left_node.x + " " + line_y + " ";
 			path += "L " + right_node.x + " " + line_y + " ";
 		}			
-		//if(data.parent) {						// "Not Root"
-			node_gui.set_path_str(path);
-		//}
+		node_gui.set_path_str(path);
 	}
 );
 
@@ -118,8 +116,7 @@ SKOOKUM.SM.NodeLayout.create("TreeRight",
 			path += "M " + line_x + " " + top_node.y + " ";
 			path += "L " + line_x + " " + bottom_node.y + " ";
 		}			
-		if(data.parent) {						// "Not Root"
 			node_gui.set_path_str(path);
-		}
+
 	}	
 );

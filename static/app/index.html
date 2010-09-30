@@ -24,7 +24,7 @@
 
     <body>
       <div id="title" title="Build sitemaps">
-	    	<a href="/"><h1>Compass <em>// Beta</em></h1></a>
+	    	<a href="/"><h1>Compass <em>// Buggy Beta</em></h1></a>
 	    </div>
 	    
     	<div class="ui-layout-north">
@@ -38,10 +38,11 @@
       				</ul>
       			</li>
       			<li><h3>Download</h3>
-      				<ul>
+      				<ul id="download-list">
       					<li><a href="#">image (.png)</a></li>
-      					<li><a href="#">vector (.svg)</a></li>
+      					<li><a class="svg" href="#">vector (.svg)</a></li>
       					<li><a href="#">google sitemap (.xml)</a></li>
+      					<li><a class="json" href="#">data backup (.json)</a></li>
                 <li><a href="#">all of the above (.zip)</a></li>		
       				</ul>
       			</li>
@@ -107,6 +108,7 @@
 		<script src="../js/ui/jquery.ui.tooltip.js"></script>
 		<script src="../js/ui/jquery.ui.widget.js"></script>
 
+    <script src="js/libs/json.js"></script>
 		<script src="js/libs/jquery.download.js"></script>
 		<script src="js/libs/raphael.js"></script>
 		<script src="js/libs/raphael.zoom.js"></script>

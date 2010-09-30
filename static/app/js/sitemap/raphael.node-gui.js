@@ -19,7 +19,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, parent, owner, x, y) {
 	
 	this.children = [];
 	this.ownerDocument = owner;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
-	this.layout = SKOOKUM.SM.NodeLayout.instance("TreeDown");
+	this.layout = SKOOKUM.SM.NodeLayout.instance(data.layout);
 		
 	this.x = x || 0;
 	this.y = y || 0;
@@ -192,7 +192,19 @@ SKOOKUM.SM.NodeGuiProto.COLORS = ['#000000', '#186e6e', '#a83e04', '#2f2f2f', '#
 		else {
 			return 0;
 		}
-	}
+	};
+	
+	proto.get_json_recursive = function() {
+	 var children = [];
+	 for (var i in this.children) {
+	   children.push(this.children[i].get_json_recursive());
+	 }
+	 return {
+	   title: this.data.title
+	   , layout: this.layout.name
+	   , children: children
+	 };
+	};
 	
 	proto.debug_box = function() {
 		return;

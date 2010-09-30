@@ -31,14 +31,16 @@ app.get('/', function(req, res) {
 	res.redirect('/index.html');
 });
 
-app.post('/download', function(req, res) {
-	if (req.body.svg) {
-		res.header('Content-Type', 'image/svg');
-		res.header('Content-Disposition', 'attachment; filename=sitemap.svg');
-	    res.send(req.body.svg);
+app.post('/app/download.:format', function(req, res) {
+	if (req.body.attachment) {
+	 console.log("Format is " + req.params.format);
+    var formats = {'svg':'image/svg', 'json':'text/json'};
+		res.header('Content-Type', formats[req.params.format]);
+		res.header('Content-Disposition', 'attachment; filename=sitemap.' + req.params.format);
+	    res.send(req.body.attachment);
 	}
 	else {
-		res.redirect('/');
+		res.redirect('/app/');    // TODO: Better to do nothing here. How can I just say "stay at the same place?"
 	}
 });
 

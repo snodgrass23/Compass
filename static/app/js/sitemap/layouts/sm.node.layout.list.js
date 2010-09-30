@@ -34,8 +34,7 @@ SKOOKUM.SM.NodeLayout.create("ListDown",
 		path += "M " + x + " " + y + " ";
 		path += "L " + x + " " + child_y + " ";
 		
-		if(data.parent) {						// "Not Root"
 			node_gui.set_path_str(path);
-		}
+
 	}
 );

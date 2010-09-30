@@ -220,6 +220,10 @@ SKOOKUM.SM.SitemapProto = {
 		return this.raph_wrap.html();
 	},
 	
+	get_json: function() {
+	 return JSON.stringify(this.root_gui.get_json_recursive());
+	},
+	
 	_next_gui_at_angle: function(node_gui, target_angle) {
 		var filtered = [],
 			i,

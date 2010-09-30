@@ -31,9 +31,8 @@ SKOOKUM.SM.NodeLayout.create("LadderDown",
 			last_y = child_y + child.height;
 		}
 		
-		if(data.parent) {						// "Not Root"
 			node_gui.set_path_str(path);
-		}
+
 	}
 );
 
@@ -71,8 +70,7 @@ SKOOKUM.SM.NodeLayout.create("LadderRight",
 			last_x = child_x + child.width;
 		}
 		
-		if(data.parent) {						// "Not Root"
 			node_gui.set_path_str(path);
-		}
+
 	}
 );

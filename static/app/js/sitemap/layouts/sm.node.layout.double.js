@@ -64,8 +64,7 @@ SKOOKUM.SM.NodeLayout.create("DoubleRight",
 			path += "M " + line_x + " " + top_node.y + " ";
 			path += "L " + line_x + " " + bottom_node.y + " ";
 		}			
-		if(data.parent) {						// "Not Root"
 			node_gui.set_path_str(path);
-		}
+
 	}	
 );
