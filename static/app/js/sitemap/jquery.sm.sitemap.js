@@ -45,14 +45,10 @@ SKOOKUM.SM.SitemapProto = {
 		return gui;
 	},
 	
-	_add_gui_recursive: function (data, parent) {
+	_add_gui_recursive: function (data_node, parent) {
+	
+	   var data = data_node;
 		var gui = this.raph.node_gui(data, parent, this);
-//		gui.parent = parent || null;
-//		gui.ownerDocument = this;		// To enable jQuery event "bubbling" on non-DOM objects
-		
-		/*if (!parent) {
-			gui.clear();
-		}*/
 
 		if (data.children) {
 			for (var i in data.children) {
@@ -192,6 +188,14 @@ SKOOKUM.SM.SitemapProto = {
 		this.root_gui = this._add_gui_recursive(data);
 		//this.root_gui.move_to(this.element.innerWidth() * .5, this.element.innerHeight() * .5 - 50);
 		this._layout_guis_smart_deep();
+	},
+	
+	// Replacing the build() function above
+	load_view: function(project, view_index) {
+	   this.clear();
+	   this.project = project;
+	   this.view = project.data.views[view_index];
+	   this.root_gui = this._add_gui_recursive(this.view.root_node);
 	},
 	
 	// Reset to zero-state

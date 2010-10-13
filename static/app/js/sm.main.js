@@ -10,18 +10,21 @@ SKOOKUM.SM.default_data = function() {
 		}
 	);
 */
-  return new SKOOKUM.SM.NodeData({"title":"Ninja Turtles","layout":"TreeDown","children":[{"title":"A","layout":"TreeDown","children":[]},{"title":"B","layout":"TreeDown","children":[]},{"title":"C","layout":"TreeDown","children":[{"title":"D","layout":"TreeDown","children":[]},{"title":"E","layout":"TreeDown","children":[]},{"title":"F","layout":"TreeDown","children":[]}]}]});
+  return new SKOOKUM.SM.NodeData({"title":"Ninja Turtles","layout":"TreeDown","children":[{"title":"Leonardo","layout":"TreeDown","children":[]},{"title":"Donatello","layout":"TreeDown","children":[]},{"title":"Michaelangelo","layout":"TreeDown","children":[{"title":"Raphael","layout":"TreeDown","children":[]},{"title":"E","layout":"TreeDown","children":[]},{"title":"F","layout":"TreeDown","children":[]}]}]});
 };
+
 
 //SKOOKUM.SM.test_data = new SKOOKUM.SM.NodeData().generate_random(5);
 
 SKOOKUM.SM.init = {
 
 	create_widgets: function () {
+	
+    SKOOKUM.SM.active_project = new SKOOKUM.SM.Project();
 		SKOOKUM.SM.map = $("#map-container").sitemap();
-		SKOOKUM.SM.map.sitemap('build', SKOOKUM.SM.default_data() );
-
-		SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
+    SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
+		
+		SKOOKUM.SM.map.sitemap('load_view', SKOOKUM.SM.active_project, 0);
 		
 		$("#selection").toolboxSelection	({ header: false });
 		$("#appearance").toolboxAppearance	({ title: "Layout of Children", requires_selection: true });

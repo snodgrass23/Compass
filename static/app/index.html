@@ -11,8 +11,10 @@
 		
 		<!--<link rel="stylesheet" type="text/css" href="css/compressed.css" />-->
 
-		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.2.custom.css" />
+   	<link rel="stylesheet" type="text/css" href="css/compass-ui-theme/jquery-ui-1.8.4.custom.css" />		
 		<link rel="stylesheet" type="text/css" href="css/jquery.ui.tooltip.css" />
+		<link rel="stylesheet" type="text/css" href="../css/signup.css" />
+		   		 
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.sm.sitemap.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.sm.node-editor.css" />
@@ -24,7 +26,7 @@
 
     <body>
       <div id="title" title="Build sitemaps">
-	    	<a href="/"><h1>Compass <em>// Buggy Beta</em></h1></a>
+	    	<a href="/"><h1>Compass <em>// Buggy Alpha</em></h1></a>
 	    </div>
 	    
     	<div class="ui-layout-north">
@@ -56,7 +58,7 @@
 	    	</div>
  		  
  		   <div id="account">
- 		     <a class="user" href="#">Hunter Loftis</a>
+ 		     <a class="user signup" href="#">DemoUser &nbsp;<span>Sign up for beta!</span></a>
  		     <a id="creator" href="http://www.skookum.com" title="Sexy programmers building sexy programs"><span>by Skookum</span></a>
  		   </div>
  		 
@@ -99,7 +101,7 @@
 		
 		<script src="../js/jquery-1.4.2-patched.js"></script>
 		
-		<script src="../js/ui/jquery-ui.js"></script>
+		<script src="../js/ui/jquery-ui-1.8.4.custom.min.js"></script>
 		<script src="../js/ui/jquery.effects.core.js"></script>
 		<script src="../js/ui/jquery.effects.fade.js"></script>
 		<script src="../js/ui/jquery.ui.draggable.js"></script>
@@ -113,7 +115,10 @@
 		<script src="js/libs/raphael.js"></script>
 		<script src="js/libs/raphael.zoom.js"></script>
 		<script src="js/libs/skookum.js"></script>
-		
+    <script src="js/libs/skookum.jsref.js"></script>
+    
+		<script src="js/sm.js"></script>		
+		<script src="js/sm.project.js"></script>		
 		<script src="js/sitemap/sm.node.data.js"></script>
 		
 		<script src="js/sitemap/layouts/sm.node.layout.js"></script>
@@ -131,6 +136,12 @@
 		<script src="js/toolbar/jquery.sm.toolbox.document.js"></script>		
 				
 		<script src="js/sm.main.js"></script>
+
+		<!-- Signup Modal goes here -->
+		<div id="signup-modal-placeholder"></div>
+		<script>
+			$("#signup-modal-placeholder").load("../signup_modal.html");
+		</script>
 
     </body>
 </html>

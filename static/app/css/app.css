@@ -64,6 +64,25 @@ a:focus {
 	text-decoration: none;
 }
 
+#account .user {
+  display: block;
+  position: absolute;
+  bottom: 12px;
+  right: 150px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 90%;
+}
+
+#account .user span {
+  padding: 3px 7px 3px 7px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+  background: #000;
+  color: #f2c002;
+}
+
 #creator span {
 	display: none;
 }

@@ -14,6 +14,7 @@ SKOOKUM.SM.NodeLayout.create = function (name, apply_function) {
 };
 
 SKOOKUM.SM.NodeLayout.instance = function(name) {
+  name = "TreeDown";  // TODO: Remove this hack
 	return new SKOOKUM.SM.NodeLayout[name]();
 };
 
