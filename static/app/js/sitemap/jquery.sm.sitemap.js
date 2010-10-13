@@ -48,6 +48,7 @@ SKOOKUM.SM.SitemapProto = {
 	_add_gui_recursive: function (data_node, parent) {
 	
 	   var data = data_node;
+	   parent = parent || null;
 		var gui = this.raph.node_gui(data, parent, this);
 
 		if (data.children) {
@@ -194,8 +195,8 @@ SKOOKUM.SM.SitemapProto = {
 	load_view: function(project, view_index) {
 	   this.clear();
 	   this.project = project;
-	   this.view = project.data.views[view_index];
-	   this.root_gui = this._add_gui_recursive(this.view.root_node);
+	   this.view = project.views[view_index];
+	   this.root_gui = this._add_gui_recursive(this.project.data);
 	},
 	
 	// Reset to zero-state
