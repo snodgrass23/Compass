@@ -6,27 +6,29 @@ function Project() {
     name: "Unnamed Project",
     tree: {
       title: "Start Here",
+      layouts: ["TreeDown"],
+      colors: [null],
       children: []
     },
     views: [
       {
         name: "Main",
         root_node: null,
-        focus: {x: 0, y: 0},
-        node_guis: [{
-          data: null,
-          layout: "TreeDown"
-        }]
+        colors: null,
+        offset: {x: 0, y: 0}
       }
     ]
   };
-  default_structure.views[0].root_node = default_structure.views[0].node_guis[0].data = default_structure.tree;
   
-  this.data = new SKOOKUM.SM.NodeData(default_structure.tree);
-  this.views = default_structure.views;
+  this.build_model(default_structure);
 }
 
 Project.prototype = {
+
+  build_model: function(structure) {
+    this.data = new SKOOKUM.SM.NodeData(structure.tree);
+    this.views = structure.views;
+  },
 
   load_json: function(json) {    
     $(this).trigger('project-load', [this.json]);

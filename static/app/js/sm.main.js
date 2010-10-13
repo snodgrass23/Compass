@@ -24,7 +24,7 @@ SKOOKUM.SM.init = {
 		SKOOKUM.SM.map = $("#map-container").sitemap();
     SKOOKUM.SM.editor = $("#node-editor").nodeEditor();
 		
-		SKOOKUM.SM.map.sitemap('load_view', SKOOKUM.SM.active_project, 0);
+		SKOOKUM.SM.map.sitemap('reflect_view', SKOOKUM.SM.active_project, 0);
 		
 		$("#selection").toolboxSelection	({ header: false });
 		$("#appearance").toolboxAppearance	({ title: "Layout of Children", requires_selection: true });

@@ -19,7 +19,7 @@ SKOOKUM.SM.NodeGuiProto = function (raph, data, parent, owner, x, y) {
 	
 	this.children = [];
 	this.ownerDocument = owner;	// The SKOOKUM.SM.SiteMapProto instance this is attached to. Also for jQuery custom event bubbling
-	this.layout = SKOOKUM.SM.NodeLayout.instance(data.layout);
+	this.layout = SKOOKUM.SM.NodeLayout.instance(data.layouts[this.ownerDocument.view]);
 		
 	this.x = x || 0;
 	this.y = y || 0;

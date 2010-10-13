@@ -192,11 +192,16 @@ SKOOKUM.SM.SitemapProto = {
 	},
 	
 	// Replacing the build() function above
-	load_view: function(project, view_index) {
-	   this.clear();
+	reflect_view: function(project, view_index) {
+	   var that = this;
 	   this.project = project;
-	   this.view = project.views[view_index];
-	   this.root_gui = this._add_gui_recursive(this.project.data);
+	   this.view = view_index;
+	   function project_load() {
+  	   that.clear(); 
+  	   that.root_gui = that._add_gui_recursive(that.project.data);	   
+	   }
+	   $(this.project).bind('project-load', project_load);
+	   project_load();
 	},
 	
 	// Reset to zero-state

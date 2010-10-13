@@ -8,7 +8,8 @@ SKOOKUM.SM.NodeData = function (data, parent) {
 	
 	this.title = data.title || "";
 	this.parent = parent || null;
-	this.layout = data.layout || "TreeDown";
+	this.layouts = data.layouts || ["TreeDown"];
+	this.colors = data.colors || [null]
 	this.children = [];
 	this.ownerDocument = document;								// For event bubbling from non-DOM objects
 	
