@@ -1,1 +1,12 @@
-!= body
+!!! 5
+html
+  head
+    title Compass sitemap designer, by Skookum
+
+    - if (body_id == 'index')
+      link(rel='stylesheet', href='/styles/home.css' ) 
+    - else
+      link(rel='stylesheet', href='/styles/app.css' ) 
+
+  body(id=body_id)
+    != body

@@ -11,7 +11,7 @@ exports = module.exports = {
    *
    */
   index: function(req, res, next) {
-    res.render('home/index');
+    res.render('home/index', {body_id:'index'});
   },
   
   error: function(req, res, next) {

@@ -6,7 +6,7 @@
 exports = module.exports = {
 
   index: function(req, res, next) {
-    res.render('app/index');
+    res.render('app/index', {body_id:'app'});
   }
   
 };

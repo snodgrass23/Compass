@@ -1,91 +1,80 @@
-!!! 5
-html
-  head
-    title Compass sitemap designer, by Skookum
 
-    link(rel="stylesheet", type="text/css", href="/styles/app/compass-ui-theme/jquery-ui-1.8.4.custom.css")
-    
-    link(rel="stylesheet", type="text/css", href="/styles/reset.css")
-    link(rel="stylesheet", type="text/css", href="/styles/global.css")       
-    link(rel="stylesheet", type="text/css", href="/styles/signup.css")       
+#wrap
+  .main.header
+    a(href="/")
+      #logo.hgroup
+        h1 Compass
+        h2 by Skookum
+  
+  .main.nav
+    #sidelinks
+      ul
+        li.first
+          a.signup(href="#") Sign me up!
+        li
+          a(href="mailto:hunter@skookum.com") email the devs
+        li.last
+          a(href="http://labs.skookum.com") Skookum Labs
 
-  body#index
-    #wrap
-      .main.header
-        a(href="/")
-          #logo.hgroup
-            h1 Compass
-            h2 by Skookum
+  .main.article
+  
+    #hero.section
       
-      .main.nav
-        #sidelinks
-          ul
-            li.first
-              a.signup(href="#") Sign me up!
-            li
-              a(href="mailto:hunter@skookum.com") email the devs
-            li.last
-              a(href="http://labs.skookum.com") Skookum Labs
+      .hero.header
+        .hero.hgroup
+          h1 Easy sitemaps 
+            span for civilized web architects.
+          h2
+            span Fast, high-level overviews without wasting energy on boxes and lines.
 
-      .main.article
+      .hero.article
+        a#signup.signup(href="#")
+          h1 Sign up for beta!
       
-        #hero.section
-          
-          .hero.header
-            .hero.hgroup
-              h1 Easy sitemaps 
-                span for civilized web architects.
-              h2
-                span Fast, high-level overviews without wasting energy on boxes and lines.
+      .hero.aside
+        a#examples(href="/app")
+          h1 Try it now, free!
 
-          .hero.article
-            a#signup.signup(href="#")
-              h1 Sign up for beta!
+    #body.section
+      .body.article
+        h1 How it works
+        ul.steps
+          li#step1
+            h2 1. Add pages to your site
+            p Drag-and-drop your site into existence. The sitemap items will place themselves automatically.
           
-          .hero.aside
-            a#examples(href="/app")
-              h1 Try it now, free!
+          li#step2
+            h2 2. Customize color and layout
+            p By default, your map will look good. Select color and layout options to make it great.
+          
+          li#step3
+            h2 3. Share your work
+            p Share online with a link or image, or download Adobe Illustrator-compatible vector images (.svg) to easily integrate with your existing workflow!
+          
+      .body.aside
+        ul
+          li.first
+            h1 fast
+            p Why waste a good designer for hours on boxes and arrows?
+          
+          li
+            h1 sexy
+            p Create clean, organized sitemaps that are easy to modify and maintain.
+          
+          li
+            h1 reliable
+            p Automatic saves; work available online anytime, anywhere - did we mention unlimited undo/redo history?
+          
+          li.last
+            h1 free
+            p We'll let you know if we ever move from "free" to "dirt cheap."
 
-        #body.section
-          .body.article
-            h1 How it works
-            ul.steps
-              li#step1
-                h2 1. Add pages to your site
-                p Drag-and-drop your site into existence. The sitemap items will place themselves automatically.
-              
-              li#step2
-                h2 2. Customize color and layout
-                p By default, your map will look good. Select color and layout options to make it great.
-              
-              li#step3
-                h2 3. Share your work
-                p Share online with a link or image, or download Adobe Illustrator-compatible vector images (.svg) to easily integrate with your existing workflow!
-              
-          .body.aside
-            ul
-              li.first
-                h1 fast
-                p Why waste a good designer for hours on boxes and arrows?
-              
-              li
-                h1 sexy
-                p Create clean, organized sitemaps that are easy to modify and maintain.
-              
-              li
-                h1 reliable
-                p Automatic saves; work available online anytime, anywhere - did we mention unlimited undo/redo history?
-              
-              li.last
-                h1 free
-                p We'll let you know if we ever move from "free" to "dirt cheap."
+.main.footer
+
+script(src="js/jquery-1.4.2-patched.js")
+script(src="js/ui/jquery-ui-1.8.4.custom.min.js")
     
-    .main.footer
+#signup-modal-placeholder
 
-    script(src="js/jquery-1.4.2-patched.js")
-    script(src="js/ui/jquery-ui-1.8.4.custom.min.js")
-        
-    #signup-modal-placeholder
-
-    script
-      //$("#signup-modal-placeholder").load("signup_modal.html");
+script
+  //$("#signup-modal-placeholder").load("signup_modal.html");
