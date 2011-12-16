@@ -16,7 +16,7 @@ exports = module.exports = function() {
 
   // fallback for controller/action loading
 
-  server.all('/:controller/:action?/:id?', controllers.auth.is_user, findControllerAction);
+  //server.all('/:controller/:action?/:id?', controllers.auth.is_user, findControllerAction);
 
   // route not found, send to error page
 

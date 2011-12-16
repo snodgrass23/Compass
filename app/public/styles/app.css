@@ -1682,7 +1682,7 @@ a:focus {
 }
 #title {
   position: absolute;
-  background: transparent url("images/logo.png") 0 4px no-repeat;
+  background: transparent url("/images/logo.png") 0 4px no-repeat;
   width: 55px;
   height: 56px;
   overflow: visible;
@@ -1691,7 +1691,7 @@ a:focus {
   z-index: 1000;
 }
 .full #title {
-  background: transparent url("images/logo_full.png") 0 4px no-repeat;
+  background: transparent url("/images/logo_full.png") 0 4px no-repeat;
 }
 #title h1 {
   font-size: 22px;
@@ -1744,7 +1744,7 @@ a:focus {
   right: 17px;
   width: 100px;
   height: 19px;
-  background: transparent url("images/skookum.png") 0 0 no-repeat;
+  background: transparent url("/images/skookum.png") 0 0 no-repeat;
 }
 .ui-layout-north {
   background: #444;
@@ -1966,7 +1966,7 @@ a:focus {
   z-index: 1000;
   top: 0;
   left: 0;
-  background: transparent url("images/node_editor.png") top left no-repeat;
+  background: transparent url("/images/node_editor.png") top left no-repeat;
   width: 218px;
   height: 150px;
   display: none;
@@ -2046,7 +2046,7 @@ a:focus {
   position: absolute;
   right: -8px;
   top: -8px;
-  background: transparent url("images/x_btn.png") top left no-repeat;
+  background: transparent url("/images/x_btn.png") top left no-repeat;
 }
 .node-editor .input-actions {
   position: absolute;
@@ -2080,10 +2080,10 @@ a:focus {
   margin-left: 6px;
 }
 #fullscreen-btn {
-  background: transparent url("images/buttons/fullscreen_btn.png") top left no-repeat;
+  background: transparent url("/images/buttons/fullscreen_btn.png") top left no-repeat;
 }
 .full #fullscreen-btn {
-  background: transparent url("images/buttons/fullscreen_btn_full.png") top left no-repeat;
+  background: transparent url("/images/buttons/fullscreen_btn_full.png") top left no-repeat;
 }
 .toolbox {
   clear: both;
@@ -2148,7 +2148,7 @@ h2 {
   width: 22px;
   height: 22px;
   margin-right: 3px;
-  background: transparent url("images/buttons/layout_button_sprites.png") top left no-repeat;
+  background: transparent url("/images/buttons/layout_button_sprites.png") top left no-repeat;
   background-position: 0 0;
 }
 .toolbox li a:hover {
