@@ -1,0 +1,24 @@
+#signup-modal(title="Beta signup")
+	form#signup-form(name="signup-form", action="#")
+		label(for="email") Your email
+		input#email(type="text", name="email")
+		p We'll add you to our early beta release!
+
+script
+
+	$("#signup-modal").dialog({
+		modal: true,
+		draggable: false,
+		resizable: false,
+		autoOpen: false,
+		buttons: {
+			"Awesome!":function() {
+				$(this).dialog('close');
+			}
+		}
+	});
+	
+	$('.signup').click(function() {
+		$("#signup-modal").dialog('open');
+		return false;
+	});

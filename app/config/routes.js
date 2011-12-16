@@ -4,7 +4,8 @@
 
 exports = module.exports = function() {
   
-  server.get('/', controllers.auth.is_not_user, controllers.home.index);
+  server.get('/', controllers.home.index);
+  server.get('/app', controllers.app.index);
   server.get('/login', controllers.users.login);
   server.post('/login', controllers.auth.create_session);
   server.get('/register', controllers.users['new']);

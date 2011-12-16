@@ -1,0 +1,119 @@
+!!! 5
+html
+  head
+    title Compass sitemap designer, by Skookum
+
+    link(rel="stylesheet", type="text/css", href="/styles/compass-ui-theme/jquery-ui-1.8.4.custom.css")
+    link(rel="stylesheet", type="text/css", href="/styles/jquery.ui.tooltip.css")
+    link(rel="stylesheet", type="text/css", href="/styles/signup.css")
+    link(rel="stylesheet", type="text/css", href="/styles/app/app.css")
+    link(rel="stylesheet", type="text/css", href="/styles/app/jquery.sm.sitemap.css")
+    link(rel="stylesheet", type="text/css", href="/styles/app/jquery.sm.node-editor.css")
+    link(rel="stylesheet", type="text/css", href="/styles/app/buttons.css")
+    link(rel="stylesheet", type="text/css", href="/styles/app/jquery.sm.toolbox.css")
+    link(rel="stylesheet", type="text/css", href="/styles/app/jquery.sm.toolbox.appearance.css")
+    
+    body
+      #title(title="Build sitemaps")
+        a(href="/")
+          h1 Compass
+      
+      .ui-layout-north
+        #menu
+          ul
+            li
+              h3 File
+              ul
+                li
+                  a(href="#") new
+                li
+                  a(href="#") open sample...
+            li
+              h3Download
+              ul#download-list
+                li 
+                  a(href="#") image (.png)
+                li 
+                  a.svg(href="#") vector (.svg)
+                li 
+                  a(href="#") google sitemap (.xml)
+                li 
+                  a.json(href="#") data backup (.json)
+                li 
+                  a(href="#") all of the above (.zip)    
+            li.last
+              h3 Share
+               ul
+                li 
+                  a(href="#") link
+                li 
+                  a(href="#") email...
+      
+       #account
+         a.user.signup(href="#") DemoUser &nbsp;
+          spanSign up for beta!
+         a#creator(href="http://www.skookum.com", title="Sexy programmers building sexy programs")
+          span by Skookum
+
+      .ui-layout-south
+      
+        #work-area
+          #map-container
+          #nav-buttons
+            ul
+              li
+                a#fullscreen-btn(href="#", title="Toggle fullscreen")
+
+        #toolbar
+          h1.handle Toolbar
+          #toolbar-contents
+            .header
+              #selection
+            #appearance"
+            .header
+              #document
+            #palette
+            #history
+            // #navigator
+
+  
+      #overlay
+        #node-editor
+    
+    script(src="/js/jquery-1.4.2-patched.js")
+    
+    script(src="/js/ui/jquery-ui-1.8.4.custom.min.js")
+    script(src="/js/ui/jquery.effects.core.js")
+    script(src="/js/ui/jquery.effects.fade.js")
+    script(src="/js/ui/jquery.ui.draggable.js")
+    script(src="/js/ui/jquery.ui.mouse.js")
+    script(src="/js/ui/jquery.ui.position.js")
+    script(src="/js/ui/jquery.ui.tooltip.js")
+    script(src="/js/ui/jquery.ui.widget.js")
+
+    script(src="/js/app/libs/json.js")
+    script(src="/js/app/libs/jquery.download.js")
+    script(src="/js/app/libs/raphael.js")
+    script(src="/js/app/libs/raphael.zoom.js")
+    script(src="/js/app/libs/skookum.js")
+    script(src="/js/app/libs/skookum.jsref.js")
+    
+    script(src="/js/app/model/sm.js")   
+    script(src="/js/app/model/sm.node.data.js")   
+    script(src="/js/app/model/sm.project.js")   
+    
+    script(src="/js/app/sitemap/layouts/sm.node.layout.js")
+    script(src="/js/app/sitemap/layouts/sm.node.layout.tree.js")
+    script(src="/js/app/sitemap/layouts/sm.node.layout.ladder.js")
+    script(src="/js/app/sitemap/layouts/sm.node.layout.list.js")
+    
+    script(src="/js/app/sitemap/raphael.node-gui.js")
+    script(src="/js/app/sitemap/jquery.sm.sitemap.js")
+    script(src="/js/app/sitemap/jquery.sm.node-editor.js")
+    
+    script(src="/js/app/toolbar/jquery.sm.toolbox.js")
+    script(src="/js/app/toolbar/jquery.sm.toolbox.selection.js")    
+    script(src="/js/app/toolbar/jquery.sm.toolbox.appearance.js")
+    script(src="/js/app/toolbar/jquery.sm.toolbox.document.js")   
+        
+    script(src="/js/app/sm.main.js")
