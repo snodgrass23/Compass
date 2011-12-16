@@ -1,0 +1,25 @@
+{
+  "name":"newproject",
+  "version":"0.0.1",
+  "dependencies":{
+    "jade":"latest",
+    "express":"latest",
+    "stylus":"latest",
+    "connect":"latest",
+    "connect-redis":"latest",
+    "connect-timeout":"latest",
+    "connect-form":"latest",
+    "express-resource":"latest",
+    "express-messages":"latest",
+    "redis":"latest",
+    "mongodb":"latest",
+    "mongoose":"latest",
+    "async":"latest",
+    "underscore":"latest",
+    "passport":"latest",
+    "passport-local":"latest",
+    "password-hash":"latest",
+    "imagemagick":"git://github.com/Skookum/node-imagemagick.git"
+  },
+  "directories":{}
+}

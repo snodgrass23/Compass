@@ -1,0 +1,96 @@
+[Fri, 26 Aug 2011 23:45:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:45:28 GMT] INFO master started
+[Fri, 26 Aug 2011 23:45:29 GMT] DEBUG worker 0 connected
+[Fri, 26 Aug 2011 23:46:11 GMT] INFO restart requested
+[Fri, 26 Aug 2011 23:46:11 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:46:11 GMT] INFO master started
+[Fri, 26 Aug 2011 23:46:11 GMT] INFO restart complete
+[Fri, 26 Aug 2011 23:46:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:46:21 GMT] INFO master started
+[Fri, 26 Aug 2011 23:50:26 GMT] INFO restart requested
+[Fri, 26 Aug 2011 23:50:26 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:26 GMT] INFO master started
+[Fri, 26 Aug 2011 23:50:26 GMT] INFO restart complete
+[Fri, 26 Aug 2011 23:50:26 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:26 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:27 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:27 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:28 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:28 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:29 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:29 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:29 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:29 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:29 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:29 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:29 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:50:29 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:50:29 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:19 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:19 GMT] INFO master started
+[Fri, 26 Aug 2011 23:52:19 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:19 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:19 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:19 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:19 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:19 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:19 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:19 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:20 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:20 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:20 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:20 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:20 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:20 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:20 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:20 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:20 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:20 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:20 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:20 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:21 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:21 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:22 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:22 GMT] INFO spawned worker 0
+[Fri, 26 Aug 2011 23:52:22 GMT] ERROR worker 0 died
+[Fri, 26 Aug 2011 23:52:22 GMT] INFO spawned worker 0
+[Sat, 27 Aug 2011 00:03:21 GMT] INFO spawned worker 0
+[Sat, 27 Aug 2011 00:03:21 GMT] INFO spawned worker 1
+[Sat, 27 Aug 2011 00:03:21 GMT] INFO spawned worker 2
+[Sat, 27 Aug 2011 00:03:21 GMT] INFO spawned worker 3
+[Sat, 27 Aug 2011 00:03:21 GMT] INFO master started

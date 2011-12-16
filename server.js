@@ -1,47 +1,41 @@
-var express = require('express'),
-    connect = require('connect');
+// initialize app including globals (server, options, etc)
+require('./app/app');
 
+var start_options = {
+  watched_files: undefined,
+  default_start_type: 'simple'
+};
 
-// Create and export Express app
-var app = express.createServer();
+var start = {
+  normal: function() {
+    var cluster = require('cluster'),
+        numCPUs = require('os').cpus().length;
 
-app.set('development');
+    if (cluster.isMaster) {
+      // Fork workers.
+      for (var i = 0; i < numCPUs; i++) {
+        cluster.fork();
+      }
 
-// Configuration
-app.use(connect.bodyDecoder());
-app.use(connect.methodOverride());
-//app.use(connect.gzip());
-app.use(connect.compiler({ src: __dirname + '/static', enable: ['sass'] }));
-app.use(connect.staticProvider(__dirname + '/static'));
+      cluster.on('death', function(worker) {
+        console.log('worker ' + worker.pid + ' died');
+      });
+    } 
 
-app.configure('development', function(){
-    app.set('reload views', 1000);
-    app.use(connect.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
+    else {
+      server.listen(options.port);
+    }
+  },
+  single: function() {
+    server.listen(options.port);
+  },
+  simple: function() {
+    server.listen(options.port);
+  }
+};
 
-app.configure('production', function(){
-   app.use(connect.errorHandler()); 
-});
+var start_type = process.argv[2] || start_options.default_start_type;
+console.log("Starting in mode '" + start_type + "'...");
 
-
-
-// Routes
-
-app.get('/', function(req, res) {
-	res.redirect('/index.html');
-});
-
-app.post('/app/download.:format', function(req, res) {
-	if (req.body.attachment) {
-	 console.log("Format is " + req.params.format);
-    var formats = {'svg':'image/svg', 'json':'text/json'};
-		res.header('Content-Type', formats[req.params.format]);
-		res.header('Content-Disposition', 'attachment; filename=sitemap.' + req.params.format);
-	    res.send(req.body.attachment);
-	}
-	else {
-		res.redirect('/app/');    // TODO: Better to do nothing here. How can I just say "stay at the same place?"
-	}
-});
-
-app.listen(3000);
+console.log("************\n"+options.appname+" worker listening at: "  + options.host + ' on port ' + options.port + "\n************");
+start[start_type]();
