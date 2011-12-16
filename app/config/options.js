@@ -30,7 +30,9 @@ exports = module.exports = function(env) {
       this.errorToHtml = false;
     },
     production: function() {
-
+      this.port = 3500;
+      this.labs = "http://labs.skookum.com";
+      this.host = this.labs+':'+this.port;
     }
   };
   
