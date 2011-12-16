@@ -6,7 +6,7 @@ exports = module.exports = function(env) {
   
   var option_tables = {
     development: function() {
-      this.appname = 'boilerplate';
+      this.appname = 'compass';
       this.maxAge = TWO_WEEKS;
       this.shortSession = TWO_WEEKS;
       this.reqTimeout = 30000;
@@ -21,7 +21,7 @@ exports = module.exports = function(env) {
       this.mongo = { db: 'mongodb://localhost/'+this.appname};
     },
     test: function() {
-      this.mongo = { db: 'mongodb://localhost/boilerplate_test' };
+      this.mongo = { db: 'mongodb://localhost/'+this.appname+'_test' };
       this.redis = { host: 'localhost', port: 6379, db: this.appname +'_test' };
       this.port = 8000;
     },
